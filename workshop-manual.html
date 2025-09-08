@@ -1,582 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Liberation Sprint Interactive Playbook</title>
-		<style>
-			* {
-				margin: 0;
-				padding: 0;
-				box-sizing: border-box;
-			}
-
-			body {
-				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-					Helvetica, Arial, sans-serif;
-				background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-				color: #fff;
-				overflow-x: hidden;
-			}
-
-			.app-container {
-				display: flex;
-				height: 100vh;
-			}
-
-			.sidebar {
-				width: 300px;
-				background: rgba(17, 24, 39, 0.95);
-				backdrop-filter: blur(20px);
-				border-right: 1px solid rgba(255, 255, 255, 0.1);
-				overflow-y: auto;
-				transition: transform 0.3s ease;
-				z-index: 100;
-			}
-
-			.sidebar.mobile-hidden {
-				transform: translateX(-100%);
-			}
-
-			.sidebar-header {
-				padding: 1.5rem;
-				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-			}
-
-			.sidebar-header h1 {
-				font-size: 1.25rem;
-				font-weight: 600;
-				margin-bottom: 0.5rem;
-				background: linear-gradient(135deg, #fbbf24, #f59e0b);
-				-webkit-background-clip: text;
-				-webkit-text-fill-color: transparent;
-			}
-
-			.sidebar-header p {
-				font-size: 0.875rem;
-				color: #d1d5db;
-			}
-
-			.workshop-phases {
-				padding: 1rem;
-			}
-
-			.phase-item {
-				margin-bottom: 0.5rem;
-				border-radius: 0.5rem;
-				overflow: hidden;
-				border: 1px solid rgba(255, 255, 255, 0.1);
-			}
-
-			.phase-header {
-				padding: 1rem;
-				background: rgba(255, 255, 255, 0.05);
-				cursor: pointer;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				transition: background 0.2s;
-			}
-
-			.phase-header:hover {
-				background: rgba(255, 255, 255, 0.1);
-			}
-
-			.phase-header.active {
-				background: rgba(59, 130, 246, 0.3);
-			}
-
-			.phase-title {
-				font-weight: 500;
-				font-size: 0.875rem;
-			}
-
-			.phase-time {
-				font-size: 0.75rem;
-				color: #9ca3af;
-			}
-
-			.modules {
-				background: rgba(0, 0, 0, 0.2);
-				display: none;
-			}
-
-			.modules.active {
-				display: block;
-			}
-
-			.module-item {
-				padding: 0.75rem 1rem;
-				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-				cursor: pointer;
-				transition: background 0.2s;
-			}
-
-			.module-item:hover {
-				background: rgba(255, 255, 255, 0.05);
-			}
-
-			.module-item.active {
-				background: rgba(34, 197, 94, 0.2);
-				border-left: 3px solid #22c55e;
-			}
-
-			.main-content {
-				flex: 1;
-				display: flex;
-				flex-direction: column;
-				overflow: hidden;
-			}
-
-			.top-toolbar {
-				height: 60px;
-				background: rgba(17, 24, 39, 0.95);
-				backdrop-filter: blur(20px);
-				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-				display: flex;
-				align-items: center;
-				padding: 0 1.5rem;
-				gap: 1rem;
-				flex-wrap: wrap;
-			}
-
-			.timer-display {
-				background: rgba(59, 130, 246, 0.2);
-				padding: 0.5rem 1rem;
-				border-radius: 0.5rem;
-				font-family: "Courier New", monospace;
-				font-weight: bold;
-				min-width: 80px;
-				text-align: center;
-			}
-
-			.timer-controls {
-				display: flex;
-				gap: 0.5rem;
-			}
-
-			.btn {
-				background: rgba(255, 255, 255, 0.1);
-				border: 1px solid rgba(255, 255, 255, 0.2);
-				color: #fff;
-				padding: 0.5rem 1rem;
-				border-radius: 0.375rem;
-				cursor: pointer;
-				font-size: 0.875rem;
-				transition: background 0.2s;
-			}
-
-			.btn:hover {
-				background: rgba(255, 255, 255, 0.2);
-			}
-
-			.btn.primary {
-				background: rgba(59, 130, 246, 0.8);
-				border-color: rgba(59, 130, 246, 1);
-			}
-
-			.btn.danger {
-				background: rgba(239, 68, 68, 0.8);
-				border-color: rgba(239, 68, 68, 1);
-			}
-
-			.content-area {
-				flex: 1;
-				display: flex;
-				overflow: hidden;
-			}
-
-			.content-panel {
-				flex: 1;
-				padding: 2rem;
-				overflow-y: auto;
-				background: rgba(255, 255, 255, 0.05);
-			}
-
-			.content-section {
-				margin-bottom: 2rem;
-				animation: fadeIn 0.3s ease;
-			}
-
-			@keyframes fadeIn {
-				from {
-					opacity: 0;
-					transform: translateY(10px);
-				}
-				to {
-					opacity: 1;
-					transform: translateY(0);
-				}
-			}
-
-			.content-section h1 {
-				font-size: 2rem;
-				margin-bottom: 1rem;
-				color: #fbbf24;
-			}
-
-			.content-section h2 {
-				font-size: 1.5rem;
-				margin-bottom: 1rem;
-				color: #fbbf24;
-			}
-
-			.content-section h3 {
-				font-size: 1.25rem;
-				margin-bottom: 0.75rem;
-				color: #60a5fa;
-			}
-
-			.content-section h4 {
-				font-size: 1.1rem;
-				margin-bottom: 0.5rem;
-				color: #a78bfa;
-			}
-
-			.content-section p {
-				line-height: 1.6;
-				margin-bottom: 1rem;
-				color: #e5e7eb;
-			}
-
-			.content-section ul {
-				margin-left: 2rem;
-				margin-bottom: 1rem;
-				color: #e5e7eb;
-			}
-
-			.content-section li {
-				margin-bottom: 0.5rem;
-			}
-
-			.materials-checklist {
-				background: rgba(0, 0, 0, 0.2);
-				padding: 1rem;
-				border-radius: 0.5rem;
-				margin-bottom: 1rem;
-			}
-
-			.checklist-item {
-				display: flex;
-				align-items: center;
-				margin-bottom: 0.5rem;
-				cursor: pointer;
-			}
-
-			.checklist-item input[type="checkbox"] {
-				margin-right: 0.75rem;
-				transform: scale(1.2);
-				cursor: pointer;
-			}
-
-			.checklist-item label {
-				cursor: pointer;
-				flex: 1;
-			}
-
-			.energy-meter {
-				background: rgba(0, 0, 0, 0.2);
-				padding: 1rem;
-				border-radius: 0.5rem;
-				margin-bottom: 1rem;
-			}
-
-			.energy-bar {
-				width: 100%;
-				height: 8px;
-				background: rgba(255, 255, 255, 0.1);
-				border-radius: 4px;
-				overflow: hidden;
-			}
-
-			.energy-fill {
-				height: 100%;
-				background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
-				transition: width 0.3s ease;
-			}
-
-			.notes-section {
-				background: rgba(0, 0, 0, 0.2);
-				padding: 1rem;
-				border-radius: 0.5rem;
-				margin-top: 1rem;
-			}
-
-			.notes-textarea {
-				width: 100%;
-				height: 100px;
-				background: rgba(255, 255, 255, 0.05);
-				border: 1px solid rgba(255, 255, 255, 0.1);
-				border-radius: 0.375rem;
-				color: #fff;
-				padding: 0.75rem;
-				font-family: inherit;
-				resize: vertical;
-			}
-
-			.notes-textarea::placeholder {
-				color: rgba(255, 255, 255, 0.5);
-			}
-
-			.adaptive-alerts {
-				position: fixed;
-				top: 80px;
-				right: 20px;
-				width: 300px;
-				z-index: 1000;
-			}
-
-			.alert {
-				background: rgba(239, 68, 68, 0.9);
-				border: 1px solid #ef4444;
-				border-radius: 0.5rem;
-				padding: 1rem;
-				margin-bottom: 0.5rem;
-				backdrop-filter: blur(10px);
-				transform: translateX(400px);
-				animation: slideIn 0.3s ease forwards;
-			}
-
-			.alert.warning {
-				background: rgba(245, 158, 11, 0.9);
-				border-color: #f59e0b;
-			}
-
-			.alert.info {
-				background: rgba(59, 130, 246, 0.9);
-				border-color: #3b82f6;
-			}
-
-			.alert.success {
-				background: rgba(34, 197, 94, 0.9);
-				border-color: #22c55e;
-			}
-
-			@keyframes slideIn {
-				to {
-					transform: translateX(0);
-				}
-			}
-
-			.progress-indicator {
-				height: 4px;
-				background: rgba(255, 255, 255, 0.1);
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				z-index: 1001;
-			}
-
-			.progress-fill {
-				height: 100%;
-				background: linear-gradient(90deg, #6366f1, #8b5cf6);
-				transition: width 0.3s ease;
-				width: 0%;
-			}
-
-			.highlight-box {
-				background: rgba(245, 158, 11, 0.2);
-				padding: 1rem;
-				border-radius: 0.5rem;
-				border-left: 4px solid #f59e0b;
-				margin: 1rem 0;
-			}
-
-			.mobile-overlay {
-				display: none;
-				position: fixed;
-				top: 0;
-				left: 0;
-				right: 0;
-				bottom: 0;
-				background: rgba(0, 0, 0, 0.5);
-				z-index: 99;
-			}
-
-			.mobile-overlay.active {
-				display: block;
-			}
-
-			@media (max-width: 1024px) {
-				.sidebar {
-					position: fixed;
-					z-index: 101;
-					height: 100vh;
-				}
-
-				.top-toolbar {
-					padding: 0 1rem;
-				}
-
-				.content-panel {
-					padding: 1rem;
-				}
-			}
-
-			@media (max-width: 640px) {
-				.timer-controls {
-					flex-wrap: wrap;
-				}
-
-				.btn {
-					padding: 0.375rem 0.75rem;
-					font-size: 0.75rem;
-				}
-
-				.content-section h1 {
-					font-size: 1.5rem;
-				}
-
-				.content-section h2 {
-					font-size: 1.25rem;
-				}
-			}
-		</style>
-	</head>
-	<body>
-		<div class="progress-indicator">
-			<div class="progress-fill" id="progressFill"></div>
-		</div>
-
-		<div
-			class="mobile-overlay"
-			id="mobileOverlay"
-			onclick="closeMobileMenus()"
-		></div>
-
-		<div class="app-container">
-			<nav class="sidebar" id="sidebar">
-				<div class="sidebar-header">
-					<h1>Liberation Sprint</h1>
-					<p>Interactive Facilitator's Playbook</p>
-				</div>
-
-				<div class="workshop-phases">
-					<div class="phase-item">
-						<div
-							class="phase-header active"
-							onclick="togglePhase('preparation')"
-						>
-							<span class="phase-title">Pre-Workshop Setup</span>
-							<span class="phase-time">30min</span>
-						</div>
-						<div class="modules active" id="preparation">
-							<div
-								class="module-item active"
-								onclick="selectModule('room-setup')"
-							>
-								Room Configuration
-							</div>
-							<div class="module-item" onclick="selectModule('materials')">
-								Materials Check
-							</div>
-							<div class="module-item" onclick="selectModule('mindset')">
-								Facilitator Mindset
-							</div>
-						</div>
-					</div>
-
-					<div class="phase-item">
-						<div class="phase-header" onclick="togglePhase('core')">
-							<span class="phase-title">Core Workshop</span>
-							<span class="phase-time">150min</span>
-						</div>
-						<div class="modules" id="core">
-							<div class="module-item" onclick="selectModule('spectrum')">
-								Opening Spectrum (15min)
-							</div>
-							<div class="module-item" onclick="selectModule('marketplace')">
-								Problem Marketplace (20min)
-							</div>
-							<div class="module-item" onclick="selectModule('context')">
-								Context Revolution (45min)
-							</div>
-							<div class="module-item" onclick="selectModule('sprint')">
-								Solution Sprint (30min)
-							</div>
-							<div class="module-item" onclick="selectModule('ceremony')">
-								Commitment Ceremony (20min)
-							</div>
-						</div>
-					</div>
-
-					<div class="phase-item">
-						<div class="phase-header" onclick="togglePhase('adaptive')">
-							<span class="phase-title">Adaptive Responses</span>
-							<span class="phase-time">As Needed</span>
-						</div>
-						<div class="modules" id="adaptive">
-							<div class="module-item" onclick="selectModule('no-it')">
-								IT Absent
-							</div>
-							<div class="module-item" onclick="selectModule('skeptics')">
-								Heavy Skepticism
-							</div>
-							<div class="module-item" onclick="selectModule('energy-crash')">
-								Energy Management
-							</div>
-							<div class="module-item" onclick="selectModule('expert')">
-								Unexpected Expertise
-							</div>
-						</div>
-					</div>
-				</div>
-			</nav>
-
-			<main class="main-content">
-				<div class="top-toolbar">
-					<button class="btn" onclick="toggleSidebar()">☰ Menu</button>
-					<div class="timer-display" id="timerDisplay">00:00</div>
-					<div class="timer-controls">
-						<button
-							class="btn primary"
-							id="timerStartBtn"
-							onclick="startTimer()"
-						>
-							Start
-						</button>
-						<button class="btn" onclick="pauseTimer()">Pause</button>
-						<button class="btn danger" onclick="resetTimer()">Reset</button>
-					</div>
-					<div style="margin-left: auto; display: flex; gap: 0.5rem">
-						<button class="btn" onclick="openRoomLayout()">Room Layout</button>
-						<button class="btn" onclick="showEnergyAlert()">
-							Energy Check
-						</button>
-					</div>
-				</div>
-
-				<div class="content-area">
-					<div class="content-panel" id="contentPanel">
-						<!-- Content will be loaded here -->
-					</div>
-				</div>
-			</main>
-		</div>
-
-		<div class="adaptive-alerts" id="adaptiveAlerts"></div>
-
-		<script>
-			// Global variables - properly declared
-			let currentPhase = "preparation";
-			let currentModule = "room-setup";
-			let timer = {
-				minutes: 0,
-				seconds: 0,
-				totalSeconds: 0,
-				targetSeconds: 0,
-				isRunning: false,
-				interval: null,
-				countDown: true,
-			};
-			let workshopProgress = 0;
-
-			// Workshop content database - complete content for all modules
-			const workshopContent = {
-				"room-setup": {
-					title: "Room Configuration Strategy",
-					content: `
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Liberation Sprint Interactive Playbook</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .app-container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 300px;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            overflow-y: auto;
+            transition: transform 0.3s ease;
+            z-index: 100;
+        }
+
+        .sidebar.mobile-hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: #d1d5db;
+        }
+
+        .workshop-phases {
+            padding: 1rem;
+        }
+
+        .phase-item {
+            margin-bottom: 0.5rem;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .phase-header {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .phase-header:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .phase-header.active {
+            background: rgba(59, 130, 246, 0.3);
+        }
+
+        .phase-title {
+            font-weight: 500;
+            font-size: 0.875rem;
+        }
+
+        .phase-time {
+            font-size: 0.75rem;
+            color: #9ca3af;
+        }
+
+        .modules {
+            background: rgba(0, 0, 0, 0.2);
+            display: none;
+        }
+
+        .modules.active {
+            display: block;
+        }
+
+        .module-item {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .module-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .module-item.active {
+            background: rgba(34, 197, 94, 0.2);
+            border-left: 3px solid #22c55e;
+        }
+
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .top-toolbar {
+            height: 60px;
+            background: rgba(17, 24, 39, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .timer-display {
+            background: rgba(59, 130, 246, 0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .timer-controls {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: background 0.2s;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn.primary {
+            background: rgba(59, 130, 246, 0.8);
+            border-color: rgba(59, 130, 246, 1);
+        }
+
+        .btn.danger {
+            background: rgba(239, 68, 68, 0.8);
+            border-color: rgba(239, 68, 68, 1);
+        }
+
+        .content-area {
+            flex: 1;
+            display: flex;
+            overflow: hidden;
+        }
+
+        .content-panel {
+            flex: 1;
+            padding: 2rem;
+            overflow-y: auto;
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .content-section {
+            margin-bottom: 2rem;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .content-section h1 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #fbbf24;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #fbbf24;
+        }
+
+        .content-section h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: #60a5fa;
+        }
+
+        .content-section h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: #a78bfa;
+        }
+
+        .content-section p {
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            color: #e5e7eb;
+        }
+
+        .content-section ul {
+            margin-left: 2rem;
+            margin-bottom: 1rem;
+            color: #e5e7eb;
+        }
+
+        .content-section li {
+            margin-bottom: 0.5rem;
+        }
+
+        .materials-checklist {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+            cursor: pointer;
+        }
+
+        .checklist-item input[type="checkbox"] {
+            margin-right: 0.75rem;
+            transform: scale(1.2);
+            cursor: pointer;
+        }
+
+        .checklist-item label {
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .energy-meter {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .energy-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .energy-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+            transition: width 0.3s ease;
+        }
+
+        .notes-section {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .notes-textarea {
+            width: 100%;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 0.375rem;
+            color: #fff;
+            padding: 0.75rem;
+            font-family: inherit;
+            resize: vertical;
+        }
+
+        .notes-textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .adaptive-alerts {
+            position: fixed;
+            top: 80px;
+            right: 20px;
+            width: 300px;
+            z-index: 1000;
+        }
+
+        .alert {
+            background: rgba(239, 68, 68, 0.9);
+            border: 1px solid #ef4444;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            backdrop-filter: blur(10px);
+            transform: translateX(400px);
+            animation: slideIn 0.3s ease forwards;
+        }
+
+        .alert.warning {
+            background: rgba(245, 158, 11, 0.9);
+            border-color: #f59e0b;
+        }
+
+        .alert.info {
+            background: rgba(59, 130, 246, 0.9);
+            border-color: #3b82f6;
+        }
+
+        .alert.success {
+            background: rgba(34, 197, 94, 0.9);
+            border-color: #22c55e;
+        }
+
+        @keyframes slideIn {
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        .progress-indicator {
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1001;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #6366f1, #8b5cf6);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .highlight-box {
+            background: rgba(245, 158, 11, 0.2);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border-left: 4px solid #f59e0b;
+            margin: 1rem 0;
+        }
+
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 99;
+        }
+
+        .mobile-overlay.active {
+            display: block;
+        }
+
+        @media (max-width: 1024px) {
+            .sidebar {
+                position: fixed;
+                z-index: 101;
+                height: 100vh;
+            }
+
+            .top-toolbar {
+                padding: 0 1rem;
+            }
+
+            .content-panel {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .timer-controls {
+                flex-wrap: wrap;
+            }
+
+            .btn {
+                padding: 0.375rem 0.75rem;
+                font-size: 0.75rem;
+            }
+
+            .content-section h1 {
+                font-size: 1.5rem;
+            }
+
+            .content-section h2 {
+                font-size: 1.25rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-indicator">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="mobile-overlay" id="mobileOverlay" onclick="closeMobileMenus()"></div>
+
+    <div class="app-container">
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1>Liberation Sprint</h1>
+                <p>Interactive Facilitator's Playbook</p>
+            </div>
+
+            <div class="workshop-phases">
+                <div class="phase-item">
+                    <div class="phase-header active" onclick="togglePhase('preparation')">
+                        <span class="phase-title">Pre-Workshop Setup</span>
+                        <span class="phase-time">30min</span>
+                    </div>
+                    <div class="modules active" id="preparation">
+                        <div class="module-item active" onclick="selectModule('room-setup')">Room Configuration</div>
+                        <div class="module-item" onclick="selectModule('materials')">Materials Check</div>
+                        <div class="module-item" onclick="selectModule('mindset')">Facilitator Mindset</div>
+                    </div>
+                </div>
+
+                <div class="phase-item">
+                    <div class="phase-header" onclick="togglePhase('core')">
+                        <span class="phase-title">Core Workshop</span>
+                        <span class="phase-time">150min</span>
+                    </div>
+                    <div class="modules" id="core">
+                        <div class="module-item" onclick="selectModule('spectrum')">Opening Spectrum (15min)</div>
+                        <div class="module-item" onclick="selectModule('marketplace')">Problem Marketplace (20min)</div>
+                        <div class="module-item" onclick="selectModule('context')">Context Revolution (45min)</div>
+                        <div class="module-item" onclick="selectModule('sprint')">Solution Sprint (30min)</div>
+                        <div class="module-item" onclick="selectModule('ceremony')">Commitment Ceremony (20min)</div>
+                    </div>
+                </div>
+
+                <div class="phase-item">
+                    <div class="phase-header" onclick="togglePhase('adaptive')">
+                        <span class="phase-title">Adaptive Responses</span>
+                        <span class="phase-time">As Needed</span>
+                    </div>
+                    <div class="modules" id="adaptive">
+                        <div class="module-item" onclick="selectModule('no-it')">IT Absent</div>
+                        <div class="module-item" onclick="selectModule('skeptics')">Heavy Skepticism</div>
+                        <div class="module-item" onclick="selectModule('energy-crash')">Energy Management</div>
+                        <div class="module-item" onclick="selectModule('expert')">Unexpected Expertise</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="top-toolbar">
+                <button class="btn" onclick="toggleSidebar()">☰ Menu</button>
+                <div class="timer-display" id="timerDisplay">00:00</div>
+                <div class="timer-controls">
+                    <button class="btn primary" id="timerStartBtn" onclick="startTimer()">Start</button>
+                    <button class="btn" onclick="pauseTimer()">Pause</button>
+                    <button class="btn danger" onclick="resetTimer()">Reset</button>
+                </div>
+                <div style="margin-left: auto; display: flex; gap: 0.5rem;">
+                    <button class="btn" onclick="openRoomLayout()">Room Layout</button>
+                    <button class="btn" onclick="showEnergyAlert()">Energy Check</button>
+                </div>
+            </div>
+
+            <div class="content-area">
+                <div class="content-panel" id="contentPanel">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="adaptive-alerts" id="adaptiveAlerts"></div>
+
+    <script>
+        // Global variables - properly declared
+        let currentPhase = 'preparation';
+        let currentModule = 'room-setup';
+        let timer = { 
+            minutes: 0, 
+            seconds: 0, 
+            totalSeconds: 0,
+            targetSeconds: 0,
+            isRunning: false, 
+            interval: null,
+            countDown: true
+        };
+        let workshopProgress = 0;
+
+        // Workshop content database - complete content for all modules
+        const workshopContent = {
+            'room-setup': {
+                title: 'Room Configuration Strategy',
+                content: `
                     <div class="content-section">
                         <h1>Room Configuration Strategy</h1>
                         
@@ -631,11 +582,11 @@
                         </div>
                     </div>
                 `,
-					timer: 10,
-				},
-				materials: {
-					title: "Essential Materials Preparation",
-					content: `
+                timer: 10
+            },
+            'materials': {
+                title: 'Essential Materials Preparation',
+                content: `
                     <div class="content-section">
                         <h1>Essential Materials Preparation</h1>
                         
@@ -693,11 +644,11 @@
                         </div>
                     </div>
                 `,
-					timer: 10,
-				},
-				mindset: {
-					title: "Facilitator Mindset Preparation",
-					content: `
+                timer: 10
+            },
+            'mindset': {
+                title: 'Facilitator Mindset Preparation',
+                content: `
                     <div class="content-section">
                         <h1>Facilitator Mindset Preparation</h1>
                         
@@ -739,11 +690,11 @@
                         </div>
                     </div>
                 `,
-					timer: 10,
-				},
-				spectrum: {
-					title: "The Opening Spectrum (15 minutes)",
-					content: `
+                timer: 10
+            },
+            'spectrum': {
+                title: 'The Opening Spectrum (15 minutes)',
+                content: `
                     <div class="content-section">
                         <h1>The Opening Spectrum (15 minutes)</h1>
                         
@@ -776,12 +727,61 @@
 
                         <h3>Reading the Room</h3>
                         <p>The intersection creates four quadrants:</p>
-                        <ul>
-                            <li><strong>Technical Enthusiasts:</strong> Your pioneers</li>
-                            <li><strong>Non-technical Enthusiasts:</strong> Your evangelists</li>
-                            <li><strong>Technical Skeptics:</strong> Your quality controllers</li>
-                            <li><strong>Non-technical Skeptics:</strong> Your reality checkers</li>
-                        </ul>
+                        
+                        <div style="background: rgba(0, 0, 0, 0.3); border-radius: 0.5rem; padding: 1.5rem; margin: 1rem 0;">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 2px; height: 300px; position: relative;">
+                                <!-- Axis labels -->
+                                <div style="position: absolute; top: -25px; left: 50%; transform: translateX(-50%); text-align: center; color: #fbbf24; font-weight: bold;">
+                                    WANT TO BE HERE ↑
+                                </div>
+                                <div style="position: absolute; bottom: -25px; left: 50%; transform: translateX(-50%); text-align: center; color: #fbbf24; font-weight: bold;">
+                                    ↓ TOLD TO BE HERE
+                                </div>
+                                <div style="position: absolute; left: -25px; top: 50%; transform: translateY(-50%) rotate(-90deg); white-space: nowrap; color: #60a5fa; font-weight: bold;">
+                                    NON-TECHNICAL ←
+                                </div>
+                                <div style="position: absolute; right: -25px; top: 50%; transform: translateY(-50%) rotate(90deg); white-space: nowrap; color: #60a5fa; font-weight: bold;">
+                                    → TECHNICAL
+                                </div>
+                                
+                                <!-- Quadrant 1: Non-technical Enthusiasts (Top Left) -->
+                                <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(251, 191, 36, 0.1)); border: 2px solid #fbbf24; border-radius: 0.375rem; padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                                    <strong style="color: #fbbf24; margin-bottom: 0.25rem;">Non-Technical Enthusiasts</strong>
+                                    <span style="font-size: 0.875rem; color: #e5e7eb;">Your Evangelists</span>
+                                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #d1d5db;">Will spread the word and inspire others</p>
+                                </div>
+                                
+                                <!-- Quadrant 2: Technical Enthusiasts (Top Right) -->
+                                <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.1)); border: 2px solid #22c55e; border-radius: 0.375rem; padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                                    <strong style="color: #22c55e; margin-bottom: 0.25rem;">Technical Enthusiasts</strong>
+                                    <span style="font-size: 0.875rem; color: #e5e7eb;">Your Pioneers</span>
+                                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #d1d5db;">Will build and experiment first</p>
+                                </div>
+                                
+                                <!-- Quadrant 3: Non-technical Skeptics (Bottom Left) -->
+                                <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.1)); border: 2px solid #ef4444; border-radius: 0.375rem; padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔍</div>
+                                    <strong style="color: #ef4444; margin-bottom: 0.25rem;">Non-Technical Skeptics</strong>
+                                    <span style="font-size: 0.875rem; color: #e5e7eb;">Your Reality Checkers</span>
+                                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #d1d5db;">Keep solutions practical and grounded</p>
+                                </div>
+                                
+                                <!-- Quadrant 4: Technical Skeptics (Bottom Right) -->
+                                <div style="background: linear-gradient(135deg, rgba(168, 139, 250, 0.3), rgba(168, 139, 250, 0.1)); border: 2px solid #a78bfa; border-radius: 0.375rem; padding: 1rem; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+                                    <strong style="color: #a78bfa; margin-bottom: 0.25rem;">Technical Skeptics</strong>
+                                    <span style="font-size: 0.875rem; color: #e5e7eb;">Your Quality Controllers</span>
+                                    <p style="font-size: 0.75rem; margin-top: 0.5rem; color: #d1d5db;">Ensure technical rigor and security</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box" style="margin-top: 1rem;">
+                            <h4>Using the Quadrants</h4>
+                            <p>Each quadrant brings unique value. Form balanced teams with members from different quadrants for optimal results. Acknowledge each group's contribution explicitly throughout the workshop.</p>
+                        </div>
 
                         <div class="energy-meter">
                             <h4>Expected Energy Level</h4>
@@ -797,11 +797,11 @@
                         </div>
                     </div>
                 `,
-					timer: 15,
-				},
-				marketplace: {
-					title: "Problem Marketplace (20 minutes)",
-					content: `
+                timer: 15
+            },
+            'marketplace': {
+                title: 'Problem Marketplace (20 minutes)',
+                content: `
                     <div class="content-section">
                         <h1>Problem Marketplace (20 minutes)</h1>
                         
@@ -856,11 +856,11 @@
                         </div>
                     </div>
                 `,
-					timer: 20,
-				},
-				context: {
-					title: "Context Revolution (45 minutes)",
-					content: `
+                timer: 20
+            },
+            'context': {
+                title: 'Context Revolution (45 minutes)',
+                content: `
                     <div class="content-section">
                         <h1>Context Revolution (45 minutes)</h1>
                         
@@ -916,11 +916,11 @@
                         </div>
                     </div>
                 `,
-					timer: 45,
-				},
-				sprint: {
-					title: "Solution Sprint (30 minutes)",
-					content: `
+                timer: 45
+            },
+            'sprint': {
+                title: 'Solution Sprint (30 minutes)',
+                content: `
                     <div class="content-section">
                         <h1>Solution Sprint (30 minutes)</h1>
                         
@@ -967,11 +967,11 @@
                         </div>
                     </div>
                 `,
-					timer: 30,
-				},
-				ceremony: {
-					title: "Commitment Ceremony (20 minutes)",
-					content: `
+                timer: 30
+            },
+            'ceremony': {
+                title: 'Commitment Ceremony (20 minutes)',
+                content: `
                     <div class="content-section">
                         <h1>Commitment Ceremony (20 minutes)</h1>
                         
@@ -1021,11 +1021,11 @@
                         </div>
                     </div>
                 `,
-					timer: 20,
-				},
-				"no-it": {
-					title: "Adaptive Response: IT Absence",
-					content: `
+                timer: 20
+            },
+            'no-it': {
+                title: 'Adaptive Response: IT Absence',
+                content: `
                     <div class="content-section">
                         <h1>When IT Doesn't Show Up</h1>
                         
@@ -1074,11 +1074,11 @@
                             <textarea class="notes-textarea" placeholder="Who will be the IT liaisons? What message should we craft?"></textarea>
                         </div>
                     </div>
-                `,
-				},
-				skeptics: {
-					title: "Adaptive Response: Heavy Skepticism",
-					content: `
+                `
+            },
+            'skeptics': {
+                title: 'Adaptive Response: Heavy Skepticism',
+                content: `
                     <div class="content-section">
                         <h1>Managing Heavy Skepticism</h1>
                         
@@ -1124,11 +1124,11 @@
                         </div>
                     </div>
                 `,
-					timer: 0,
-				},
-				"energy-crash": {
-					title: "Adaptive Response: Energy Management",
-					content: `
+                timer: 0
+            },
+            'energy-crash': {
+                title: 'Adaptive Response: Energy Management',
+                content: `
                     <div class="content-section">
                         <h1>Energy Crisis Management</h1>
                         
@@ -1181,11 +1181,11 @@
                         </div>
                     </div>
                 `,
-					timer: 0,
-				},
-				expert: {
-					title: "Adaptive Response: Unexpected Expertise",
-					content: `
+                timer: 0
+            },
+            'expert': {
+                title: 'Adaptive Response: Unexpected Expertise',
+                content: `
                     <div class="content-section">
                         <h1>When Experts Emerge</h1>
                         
@@ -1229,316 +1229,300 @@
                         </div>
                     </div>
                 `,
-					timer: 0,
-				},
-			};
+                timer: 0
+            }
+        };
 
-			// Storage wrapper with error handling
-			const storage = {
-				get: function (key) {
-					try {
-						return localStorage.getItem(key);
-					} catch (e) {
-						console.warn("localStorage not available:", e);
-						return null;
-					}
-				},
-				set: function (key, value) {
-					try {
-						localStorage.setItem(key, value);
-						return true;
-					} catch (e) {
-						console.warn("localStorage not available:", e);
-						return false;
-					}
-				},
-			};
+        // Storage wrapper with error handling
+        const storage = {
+            get: function(key) {
+                try {
+                    return localStorage.getItem(key);
+                } catch(e) {
+                    console.warn('localStorage not available:', e);
+                    return null;
+                }
+            },
+            set: function(key, value) {
+                try {
+                    localStorage.setItem(key, value);
+                    return true;
+                } catch(e) {
+                    console.warn('localStorage not available:', e);
+                    return false;
+                }
+            }
+        };
 
-			// Global function definitions
-			function toggleSidebar() {
-				const sidebar = document.getElementById("sidebar");
-				const overlay = document.getElementById("mobileOverlay");
-				sidebar.classList.toggle("mobile-hidden");
+        // Global function definitions
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            sidebar.classList.toggle('mobile-hidden');
+            
+            // Toggle overlay for mobile
+            if (window.innerWidth <= 1024) {
+                overlay.classList.toggle('active', !sidebar.classList.contains('mobile-hidden'));
+            }
+        }
 
-				// Toggle overlay for mobile
-				if (window.innerWidth <= 1024) {
-					overlay.classList.toggle(
-						"active",
-						!sidebar.classList.contains("mobile-hidden")
-					);
-				}
-			}
+        function openRoomLayout() {
+            window.open('room-layout.html', '_blank');
+        }
 
-			function openRoomLayout() {
-				window.open("room-layout.html", "_blank");
-			}
+        function closeMobileMenus() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('mobileOverlay');
+            
+            sidebar.classList.add('mobile-hidden');
+            overlay.classList.remove('active');
+        }
 
-			function closeMobileMenus() {
-				const sidebar = document.getElementById("sidebar");
-				const overlay = document.getElementById("mobileOverlay");
+        function togglePhase(phase) {
+            document.querySelectorAll('.phase-header').forEach(h => h.classList.remove('active'));
+            document.querySelectorAll('.modules').forEach(m => m.classList.remove('active'));
+            
+            const header = event.currentTarget;
+            const modules = document.getElementById(phase);
+            
+            header.classList.add('active');
+            modules.classList.add('active');
+            
+            currentPhase = phase;
+            
+            // Close mobile menu after selection
+            if (window.innerWidth <= 1024) {
+                setTimeout(() => closeMobileMenus(), 300);
+            }
+        }
 
-				sidebar.classList.add("mobile-hidden");
-				overlay.classList.remove("active");
-			}
+        function selectModule(module) {
+            document.querySelectorAll('.module-item').forEach(item => item.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            
+            currentModule = module;
+            loadContent(module);
+            updateProgress();
+            
+            // Set timer for module
+            if (workshopContent[module] && workshopContent[module].timer > 0) {
+                resetTimer();
+                timer.targetSeconds = workshopContent[module].timer * 60;
+                timer.minutes = workshopContent[module].timer;
+                timer.seconds = 0;
+                updateTimerDisplay();
+            }
+            
+            // Close mobile menu after selection
+            if (window.innerWidth <= 1024) {
+                setTimeout(() => closeMobileMenus(), 300);
+            }
+        }
 
-			function togglePhase(phase) {
-				document
-					.querySelectorAll(".phase-header")
-					.forEach((h) => h.classList.remove("active"));
-				document
-					.querySelectorAll(".modules")
-					.forEach((m) => m.classList.remove("active"));
+        function loadContent(module) {
+            const content = workshopContent[module];
+            if (content) {
+                document.getElementById('contentPanel').innerHTML = content.content;
+                loadNotes();
+                
+                // Re-attach checkbox listeners
+                attachCheckboxListeners();
+            }
+        }
 
-				const header = event.currentTarget;
-				const modules = document.getElementById(phase);
+        function loadNotes() {
+            const textarea = document.querySelector('.notes-textarea');
+            if (textarea) {
+                const savedNotes = storage.get(`notes-${currentModule}`);
+                if (savedNotes) {
+                    textarea.value = savedNotes;
+                }
+                
+                // Add auto-save listener with debouncing
+                let saveTimeout;
+                textarea.addEventListener('input', function() {
+                    clearTimeout(saveTimeout);
+                    saveTimeout = setTimeout(() => {
+                        storage.set(`notes-${currentModule}`, this.value);
+                    }, 500);
+                });
+            }
+        }
 
-				header.classList.add("active");
-				modules.classList.add("active");
+        function attachCheckboxListeners() {
+            document.querySelectorAll('.checklist-item input[type="checkbox"]').forEach(checkbox => {
+                // Load saved state
+                const saved = storage.get(`check-${checkbox.id}`);
+                if (saved === 'true') {
+                    checkbox.checked = true;
+                }
+                
+                // Save state on change
+                checkbox.addEventListener('change', function() {
+                    storage.set(`check-${this.id}`, this.checked);
+                });
+            });
+        }
 
-				currentPhase = phase;
+        // Timer functions - now counting down
+        function startTimer() {
+            if (!timer.isRunning) {
+                timer.isRunning = true;
+                document.getElementById('timerStartBtn').textContent = 'Pause';
+                timer.interval = setInterval(updateTimer, 1000);
+            } else {
+                pauseTimer();
+            }
+        }
 
-				// Close mobile menu after selection
-				if (window.innerWidth <= 1024) {
-					setTimeout(() => closeMobileMenus(), 300);
-				}
-			}
+        function pauseTimer() {
+            timer.isRunning = false;
+            document.getElementById('timerStartBtn').textContent = 'Resume';
+            if (timer.interval) {
+                clearInterval(timer.interval);
+            }
+        }
 
-			function selectModule(module) {
-				document
-					.querySelectorAll(".module-item")
-					.forEach((item) => item.classList.remove("active"));
-				event.currentTarget.classList.add("active");
+        function resetTimer() {
+            pauseTimer();
+            document.getElementById('timerStartBtn').textContent = 'Start';
+            const moduleTime = workshopContent[currentModule]?.timer || 0;
+            timer.targetSeconds = moduleTime * 60;
+            timer.minutes = moduleTime;
+            timer.seconds = 0;
+            timer.totalSeconds = 0;
+            updateTimerDisplay();
+        }
 
-				currentModule = module;
-				loadContent(module);
-				updateProgress();
+        function updateTimer() {
+            if (timer.countDown && timer.targetSeconds > 0) {
+                // Count down mode
+                timer.totalSeconds++;
+                const remaining = timer.targetSeconds - timer.totalSeconds;
+                timer.minutes = Math.floor(remaining / 60);
+                timer.seconds = remaining % 60;
+                
+                if (remaining <= 0) {
+                    timer.minutes = 0;
+                    timer.seconds = 0;
+                    pauseTimer();
+                    showAlert('Time\'s up! Module time complete.', 'info');
+                } else if (remaining === Math.floor(timer.targetSeconds * 0.25)) {
+                    showAlert('75% of time used - 25% remaining', 'warning');
+                } else if (remaining === Math.floor(timer.targetSeconds * 0.5)) {
+                    showAlert('50% of time remaining', 'info');
+                } else if (remaining === 60) {
+                    showAlert('1 minute remaining!', 'warning');
+                }
+            } else {
+                // Count up mode (fallback)
+                timer.seconds++;
+                if (timer.seconds >= 60) {
+                    timer.minutes++;
+                    timer.seconds = 0;
+                }
+            }
+            updateTimerDisplay();
+        }
 
-				// Set timer for module
-				if (workshopContent[module] && workshopContent[module].timer > 0) {
-					resetTimer();
-					timer.targetSeconds = workshopContent[module].timer * 60;
-					timer.minutes = workshopContent[module].timer;
-					timer.seconds = 0;
-					updateTimerDisplay();
-				}
+        function updateTimerDisplay() {
+            const display = document.getElementById('timerDisplay');
+            const mins = String(Math.abs(timer.minutes)).padStart(2, '0');
+            const secs = String(Math.abs(timer.seconds)).padStart(2, '0');
+            display.textContent = `${mins}:${secs}`;
+            
+            // Color coding based on time remaining
+            if (timer.countDown && timer.targetSeconds > 0) {
+                const remaining = timer.targetSeconds - timer.totalSeconds;
+                const percentage = remaining / timer.targetSeconds;
+                
+                if (percentage <= 0.1) {
+                    display.style.background = 'rgba(239, 68, 68, 0.3)';
+                } else if (percentage <= 0.25) {
+                    display.style.background = 'rgba(245, 158, 11, 0.3)';
+                } else {
+                    display.style.background = 'rgba(59, 130, 246, 0.2)';
+                }
+            }
+        }
 
-				// Close mobile menu after selection
-				if (window.innerWidth <= 1024) {
-					setTimeout(() => closeMobileMenus(), 300);
-				}
-			}
-
-			function loadContent(module) {
-				const content = workshopContent[module];
-				if (content) {
-					document.getElementById("contentPanel").innerHTML = content.content;
-					loadNotes();
-
-					// Re-attach checkbox listeners
-					attachCheckboxListeners();
-				}
-			}
-
-			function loadNotes() {
-				const textarea = document.querySelector(".notes-textarea");
-				if (textarea) {
-					const savedNotes = storage.get(`notes-${currentModule}`);
-					if (savedNotes) {
-						textarea.value = savedNotes;
-					}
-
-					// Add auto-save listener with debouncing
-					let saveTimeout;
-					textarea.addEventListener("input", function () {
-						clearTimeout(saveTimeout);
-						saveTimeout = setTimeout(() => {
-							storage.set(`notes-${currentModule}`, this.value);
-						}, 500);
-					});
-				}
-			}
-
-			function attachCheckboxListeners() {
-				document
-					.querySelectorAll('.checklist-item input[type="checkbox"]')
-					.forEach((checkbox) => {
-						// Load saved state
-						const saved = storage.get(`check-${checkbox.id}`);
-						if (saved === "true") {
-							checkbox.checked = true;
-						}
-
-						// Save state on change
-						checkbox.addEventListener("change", function () {
-							storage.set(`check-${this.id}`, this.checked);
-						});
-					});
-			}
-
-			// Timer functions - now counting down
-			function startTimer() {
-				if (!timer.isRunning) {
-					timer.isRunning = true;
-					document.getElementById("timerStartBtn").textContent = "Pause";
-					timer.interval = setInterval(updateTimer, 1000);
-				} else {
-					pauseTimer();
-				}
-			}
-
-			function pauseTimer() {
-				timer.isRunning = false;
-				document.getElementById("timerStartBtn").textContent = "Resume";
-				if (timer.interval) {
-					clearInterval(timer.interval);
-				}
-			}
-
-			function resetTimer() {
-				pauseTimer();
-				document.getElementById("timerStartBtn").textContent = "Start";
-				const moduleTime = workshopContent[currentModule]?.timer || 0;
-				timer.targetSeconds = moduleTime * 60;
-				timer.minutes = moduleTime;
-				timer.seconds = 0;
-				timer.totalSeconds = 0;
-				updateTimerDisplay();
-			}
-
-			function updateTimer() {
-				if (timer.countDown && timer.targetSeconds > 0) {
-					// Count down mode
-					timer.totalSeconds++;
-					const remaining = timer.targetSeconds - timer.totalSeconds;
-					timer.minutes = Math.floor(remaining / 60);
-					timer.seconds = remaining % 60;
-
-					if (remaining <= 0) {
-						timer.minutes = 0;
-						timer.seconds = 0;
-						pauseTimer();
-						showAlert("Time's up! Module time complete.", "info");
-					} else if (remaining === Math.floor(timer.targetSeconds * 0.25)) {
-						showAlert("75% of time used - 25% remaining", "warning");
-					} else if (remaining === Math.floor(timer.targetSeconds * 0.5)) {
-						showAlert("50% of time remaining", "info");
-					} else if (remaining === 60) {
-						showAlert("1 minute remaining!", "warning");
-					}
-				} else {
-					// Count up mode (fallback)
-					timer.seconds++;
-					if (timer.seconds >= 60) {
-						timer.minutes++;
-						timer.seconds = 0;
-					}
-				}
-				updateTimerDisplay();
-			}
-
-			function updateTimerDisplay() {
-				const display = document.getElementById("timerDisplay");
-				const mins = String(Math.abs(timer.minutes)).padStart(2, "0");
-				const secs = String(Math.abs(timer.seconds)).padStart(2, "0");
-				display.textContent = `${mins}:${secs}`;
-
-				// Color coding based on time remaining
-				if (timer.countDown && timer.targetSeconds > 0) {
-					const remaining = timer.targetSeconds - timer.totalSeconds;
-					const percentage = remaining / timer.targetSeconds;
-
-					if (percentage <= 0.1) {
-						display.style.background = "rgba(239, 68, 68, 0.3)";
-					} else if (percentage <= 0.25) {
-						display.style.background = "rgba(245, 158, 11, 0.3)";
-					} else {
-						display.style.background = "rgba(59, 130, 246, 0.2)";
-					}
-				}
-			}
-
-			function showAlert(message, type = "info") {
-				const alertsContainer = document.getElementById("adaptiveAlerts");
-				const alert = document.createElement("div");
-				alert.className = `alert ${type}`;
-
-				const icon =
-					type === "warning"
-						? "⚠️"
-						: type === "info"
-						? "ℹ️"
-						: type === "success"
-						? "✅"
-						: "🚨";
-
-				alert.innerHTML = `
+        function showAlert(message, type = 'info') {
+            const alertsContainer = document.getElementById('adaptiveAlerts');
+            const alert = document.createElement('div');
+            alert.className = `alert ${type}`;
+            
+            const icon = type === 'warning' ? '⚠️' : 
+                        type === 'info' ? 'ℹ️' : 
+                        type === 'success' ? '✅' : '🚨';
+            
+            alert.innerHTML = `
                 <strong>${icon} Alert:</strong> ${message}
                 <button style="float: right; background: none; border: none; color: white; cursor: pointer; font-size: 1.2rem;" onclick="this.parentElement.remove()">×</button>
             `;
-				alertsContainer.appendChild(alert);
+            alertsContainer.appendChild(alert);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                if (alert.parentElement) {
+                    alert.remove();
+                }
+            }, 5000);
+        }
 
-				// Auto-remove after 5 seconds
-				setTimeout(() => {
-					if (alert.parentElement) {
-						alert.remove();
-					}
-				}, 5000);
-			}
+        function showEnergyAlert() {
+            const alerts = [
+                'Energy check: How is the room feeling?',
+                'Watch for: side conversations, phone checking, glazed eyes',
+                'Interventions: state change, competition injection, success celebration',
+                'Remember: your energy sets the ceiling',
+                'Quick wins create momentum - celebrate small victories',
+                'If energy is low, try physical movement or pair sharing'
+            ];
+            showAlert(alerts[Math.floor(Math.random() * alerts.length)], 'info');
+        }
 
-			function showEnergyAlert() {
-				const alerts = [
-					"Energy check: How is the room feeling?",
-					"Watch for: side conversations, phone checking, glazed eyes",
-					"Interventions: state change, competition injection, success celebration",
-					"Remember: your energy sets the ceiling",
-					"Quick wins create momentum - celebrate small victories",
-					"If energy is low, try physical movement or pair sharing",
-				];
-				showAlert(alerts[Math.floor(Math.random() * alerts.length)], "info");
-			}
+        function updateProgress() {
+            const modules = Object.keys(workshopContent);
+            const currentIndex = modules.indexOf(currentModule);
+            const progress = ((currentIndex + 1) / modules.length) * 100;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
 
-			function updateProgress() {
-				const modules = Object.keys(workshopContent);
-				const currentIndex = modules.indexOf(currentModule);
-				const progress = ((currentIndex + 1) / modules.length) * 100;
-				document.getElementById("progressFill").style.width = `${progress}%`;
-			}
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            loadContent(currentModule);
+            updateProgress();
+            attachCheckboxListeners();
+            
+            // Set initial timer
+            const moduleTime = workshopContent[currentModule]?.timer || 0;
+            if (moduleTime > 0) {
+                timer.targetSeconds = moduleTime * 60;
+                timer.minutes = moduleTime;
+                timer.seconds = 0;
+                updateTimerDisplay();
+            }
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeMobileMenus();
+                }
+                if (e.ctrlKey || e.metaKey) {
+                    if (e.key === 's') {
+                        e.preventDefault();
+                        showAlert('Content auto-saves as you type!', 'success');
+                    }
+                }
+            });
+        });
 
-			// Initialize when page loads
-			document.addEventListener("DOMContentLoaded", function () {
-				loadContent(currentModule);
-				updateProgress();
-				attachCheckboxListeners();
-
-				// Set initial timer
-				const moduleTime = workshopContent[currentModule]?.timer || 0;
-				if (moduleTime > 0) {
-					timer.targetSeconds = moduleTime * 60;
-					timer.minutes = moduleTime;
-					timer.seconds = 0;
-					updateTimerDisplay();
-				}
-
-				// Add keyboard shortcuts
-				document.addEventListener("keydown", function (e) {
-					if (e.key === "Escape") {
-						closeMobileMenus();
-					}
-					if (e.ctrlKey || e.metaKey) {
-						if (e.key === "s") {
-							e.preventDefault();
-							showAlert("Content auto-saves as you type!", "success");
-						}
-					}
-				});
-			});
-
-			// Handle window resize
-			window.addEventListener("resize", function () {
-				if (window.innerWidth > 1024) {
-					document.getElementById("mobileOverlay").classList.remove("active");
-				}
-			});
-		</script>
-	</body>
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 1024) {
+                document.getElementById('mobileOverlay').classList.remove('active');
+            }
+        });
+    </script>
+</body>
 </html>
