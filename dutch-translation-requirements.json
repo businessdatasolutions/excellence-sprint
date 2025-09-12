@@ -1,0 +1,873 @@
+{
+  "metadata": {
+    "file": "workshop-manual-v1-dutch-complete.html",
+    "analysis_date": "2025-09-12",
+    "total_items": 200,
+    "priority_levels": ["P1-Critical", "P2-Important", "P3-Enhancement"],
+    "target_audience": "Nederlandse zorgorganisaties (Carinova, Amarant, Inovum)",
+    "translation_strategy": "Professional Dutch business language, not literal translations"
+  },
+  
+  "priority_1_critical": {
+    "description": "Core workshop functionality that must be Dutch for professional use",
+    
+    "tracker_elements": {
+      "live_solution_tracker": {
+        "english": "Live Solution Tracker",
+        "context": "Solution building module header",
+        "suggested_dutch": "Live Oplossing Tracker"
+      },
+      "solutions_built": {
+        "english": "Solutions Built",
+        "context": "Tracker metric label",
+        "suggested_dutch": "Oplossingen Gebouwd"
+      },
+      "time_remaining": {
+        "english": "Time Remaining",
+        "context": "Tracker metric label", 
+        "suggested_dutch": "Tijd Resterend"
+      },
+      "teams_active": {
+        "english": "Teams Active",
+        "context": "Tracker metric label",
+        "suggested_dutch": "Teams Actief"
+      }
+    },
+    
+    "default_content_headers": {
+      "excellence_space_design": {
+        "english": "Excellence Space Design",
+        "context": "Default page header, line 734",
+        "suggested_dutch": "Excellence Ruimte Ontwerp"
+      },
+      "excellence_principle": {
+        "english": "Excellence Principle", 
+        "context": "Inspiration box headers throughout",
+        "suggested_dutch": "Excellence Principe"
+      }
+    }
+  },
+
+  "priority_2_important": {
+    "description": "Module content that significantly impacts user experience",
+    
+    "potential_revelation_module": {
+      "module_title": {
+        "english": "Potential Revelation",
+        "suggested_dutch": "Potentieel Onthulling"
+      },
+      "subtitle": {
+        "english": "Discovering What We Can Achieve Together", 
+        "suggested_dutch": "Ontdekken Wat We Samen Kunnen Bereiken"
+      },
+      "excellence_goal": {
+        "english": "In the first 15 minutes, demonstrate that extraordinary solutions are within our collective reach. Create excitement about the possibilities we can unlock together.",
+        "suggested_dutch": "In de eerste 15 minuten, demonstreer dat buitengewone oplossingen binnen ons collectief bereik liggen. Creëer opwinding over de mogelijkheden die we samen kunnen ontgrendelen."
+      },
+      "capability_celebration": {
+        "english": "The Capability Celebration",
+        "suggested_dutch": "De Bekwaamheid Viering"
+      },
+      "capability_celebration_text": {
+        "english": "Live demonstration showing how context-engineered AI transforms from generic responses to organization-specific excellence. Watch capability multiply before our eyes.",
+        "suggested_dutch": "Live demonstratie die laat zien hoe context-geëngineered AI transformeert van generieke antwoorden naar organisatie-specifieke excellentie. Zie bekwaamheid vermenigvuldigen voor onze ogen."
+      },
+      "empowerment_moment": {
+        "english": "The Empowerment Moment",
+        "suggested_dutch": "Het Empowerment Moment"
+      },
+      "empowerment_text": {
+        "english": "Show the dramatic difference between generic AI and expertly-contextualized solutions. The gap between these two represents the untapped potential in this room.",
+        "suggested_dutch": "Toon het dramatische verschil tussen generieke AI en vakkundig gecontextualiseerde oplossingen. De kloof tussen deze twee vertegenwoordigt het onbenutte potentieel in deze ruimte."
+      },
+      "sector_examples_header": {
+        "english": "Live demonstration examples by sector:",
+        "suggested_dutch": "Live demonstratie voorbeelden per sector:"
+      },
+      "sector_examples": {
+        "healthcare": {
+          "english": "Healthcare: Transform error codes into clear, actionable guidance",
+          "suggested_dutch": "Zorgverlening: Transformeer foutcodes in duidelijke, uitvoerbare begeleiding"
+        },
+        "finance": {
+          "english": "Finance: Convert transaction data into strategic insights", 
+          "suggested_dutch": "Finance: Converteer transactiedata naar strategische inzichten"
+        },
+        "operations": {
+          "english": "Operations: Turn process documentation into intelligent automation",
+          "suggested_dutch": "Operations: Zet procesdocumentatie om in intelligente automatisering"
+        },
+        "hr": {
+          "english": "HR: Create personalized employee support systems",
+          "suggested_dutch": "HR: Creëer gepersonaliseerde medewerker ondersteuningssystemen"
+        }
+      },
+      "certificate_card": {
+        "title": {
+          "english": "Capability Certificate",
+          "suggested_dutch": "Bekwaamheid Certificaat"
+        },
+        "certifies_text": {
+          "english": "This certifies that",
+          "suggested_dutch": "Dit certificeert dat"
+        },
+        "participant_placeholder": {
+          "english": "[PARTICIPANT NAME]", 
+          "suggested_dutch": "[DEELNEMER NAAM]"
+        },
+        "achievement_text": {
+          "english": "has unlocked the power to build AI-enhanced solutions that transform organizational capability",
+          "suggested_dutch": "de kracht heeft ontgrendeld om AI-versterkte oplossingen te bouwen die organisatorische bekwaamheid transformeren"
+        },
+        "tagline": {
+          "english": "From consumer to creator in 3.5 hours",
+          "suggested_dutch": "Van consument naar creator in 3,5 uur"
+        }
+      },
+      "notes_placeholder": {
+        "english": "Document the energy shift when participants see the transformation, note questions and excitement levels...",
+        "suggested_dutch": "Documenteer de energieverschuiving wanneer deelnemers de transformatie zien, noteer vragen en opwindingsniveaus..."
+      }
+    },
+
+    "collaboration_mapping_module": {
+      "collaboration_philosophy": {
+        "english": "Every department brings unique perspectives that, when combined thoughtfully, create solutions no single group could achieve alone. This exercise reveals collaboration opportunities and builds mutual understanding.",
+        "suggested_dutch": "Elke afdeling brengt unieke perspectieven die, wanneer doordacht gecombineerd, oplossingen creëren die geen enkele groep alleen zou kunnen bereiken. Deze oefening onthult samenwerkingsmogelijkheden en bouwt wederzijds begrip op."
+      },
+      "partnership_discovery": {
+        "english": "The Partnership Discovery Process (20 minutes)",
+        "suggested_dutch": "Het Partnership Ontdekkingsproces (20 minuten)"
+      },
+      "expertise_mapping": {
+        "english": "Phase 1: Expertise Mapping (8 minutes)",
+        "suggested_dutch": "Fase 1: Expertise Mapping (8 minuten)"
+      },
+      "physical_positioning": {
+        "english": "Participants physically position themselves along two spectrums to reveal the diversity of experience and motivation in the room.",
+        "suggested_dutch": "Deelnemers positioneren zich fysiek langs twee spectrums om de diversiteit van ervaring en motivatie in de ruimte te onthullen."
+      },
+      "technical_spectrum": {
+        "title": {
+          "english": "First Spectrum - Technical Relationship:",
+          "suggested_dutch": "Eerste Spectrum - Technische Relatie:"
+        },
+        "daily_builder": {
+          "english": "I build and configure technology daily",
+          "suggested_dutch": "Ik bouw en configureer dagelijks technologie"
+        },
+        "seamless_user": {
+          "english": "I prefer technology that works seamlessly without my attention",
+          "suggested_dutch": "Ik verkies technologie die naadloos werkt zonder mijn aandacht"
+        },
+        "position_finding": {
+          "english": "Everyone else finds their authentic position between these endpoints",
+          "suggested_dutch": "Iedereen vindt zijn authentieke positie tussen deze eindpunten"
+        }
+      },
+      "motivation_spectrum": {
+        "title": {
+          "english": "Second Spectrum - Workshop Motivation:",
+          "suggested_dutch": "Tweede Spectrum - Workshop Motivatie:"
+        },
+        "capability_expansion": {
+          "english": "I'm here because I want to expand my capabilities",
+          "suggested_dutch": "Ik ben hier omdat ik mijn capaciteiten wil uitbreiden"
+        },
+        "role_recommendation": {
+          "english": "I'm here because it was recommended for my role",
+          "suggested_dutch": "Ik ben hier omdat het aanbevolen werd voor mijn rol"
+        }
+      },
+      "collaboration_quadrants": {
+        "phase_header": {
+          "english": "Phase 2: Collaboration Quadrants (7 minutes)",
+          "suggested_dutch": "Fase 2: Samenwerkingskwadranten (7 minuten)"
+        },
+        "intersection_description": {
+          "english": "The intersection of these two spectrums creates four distinct collaboration styles, each contributing essential perspectives to excellence-driven solution development.",
+          "suggested_dutch": "De kruising van deze twee spectrums creëert vier verschillende samenwerkingsstijlen, elk draagt essentiële perspectieven bij aan excellence-gedreven oplossing ontwikkeling."
+        },
+        "axis_labels": {
+          "want_capabilities": {
+            "english": "WANT TO EXPAND CAPABILITIES",
+            "suggested_dutch": "WIL MOGELIJKHEDEN UITBREIDEN"
+          },
+          "seamless_tech": {
+            "english": "PREFER SEAMLESS TECH", 
+            "suggested_dutch": "VERKIEST GEBRUIKSKLARE TECHNOLOGIE"
+          },
+          "daily_build": {
+            "english": "BUILD/CONFIGURE DAILY",
+            "suggested_dutch": "BOUWT EN CONFIGUREERT DAGELIJKS"
+          },
+          "recommended_role": {
+            "english": "RECOMMENDED FOR ROLE",
+            "suggested_dutch": "PAST BIJ HUIDIGE ROL"
+          }
+        },
+        "quadrant_types": {
+          "business_enthusiasts": {
+            "title": {
+              "english": "Business Enthusiasts",
+              "suggested_dutch": "Bedrijfsinnovators"
+            },
+            "subtitle": {
+              "english": "The Practical Innovators",
+              "suggested_dutch": "De Praktische Vernieuwers"
+            },
+            "characteristics": [
+              {
+                "english": "Ensure user adoption",
+                "suggested_dutch": "Zorgen voor gebruikersacceptatie"
+              },
+              {
+                "english": "Focus on practical impact",
+                "suggested_dutch": "Focussen op praktische impact"
+              },
+              {
+                "english": "Bridge technology and workflow",
+                "suggested_dutch": "Verbinden technologie met werkprocessen"
+              },
+              {
+                "english": "Champion change management",
+                "suggested_dutch": "Leiden veranderingsmanagement"
+              }
+            ]
+          },
+          "technical_enthusiasts": {
+            "title": {
+              "english": "Technical Enthusiasts",
+              "suggested_dutch": "Technologie-pioniers"
+            },
+            "subtitle": {
+              "english": "The Innovation Drivers",
+              "suggested_dutch": "De Innovatiekatalysatoren"
+            },
+            "characteristics": [
+              {
+                "english": "Drive rapid prototyping",
+                "suggested_dutch": "Drijven snelle prototyping"
+              },
+              {
+                "english": "Explore cutting-edge possibilities",
+                "suggested_dutch": "Verkennen geavanceerde mogelijkheden"
+              },
+              {
+                "english": "Create technical foundations",
+                "suggested_dutch": "Creëren technische fundamenten"
+              },
+              {
+                "english": "Push capability boundaries",
+                "suggested_dutch": "Verleggen mogelijkheidsgrenzen"
+              }
+            ]
+          },
+          "business_realists": {
+            "title": {
+              "english": "Business Realists",
+              "suggested_dutch": "Operationele Stabilisators"
+            },
+            "subtitle": {
+              "english": "The Operational Anchors", 
+              "suggested_dutch": "De Operationele Ankers"
+            },
+            "characteristics": [
+              {
+                "english": "Ground in operational reality",
+                "suggested_dutch": "Verankeren in operationele realiteit"
+              },
+              {
+                "english": "Identify implementation barriers",
+                "suggested_dutch": "Identificeren implementatie-obstakels"
+              },
+              {
+                "english": "Ensure resource feasibility",
+                "suggested_dutch": "Waarborgen resource-haalbaarheid"
+              },
+              {
+                "english": "Maintain service continuity",
+                "suggested_dutch": "Handhaven service-continuïteit"
+              }
+            ]
+          },
+          "technical_realists": {
+            "title": {
+              "english": "Technical Realists",
+              "suggested_dutch": "Kwaliteitsbewakers"
+            },
+            "subtitle": {
+              "english": "The Quality Guardians",
+              "suggested_dutch": "De Kwaliteitsborgers"
+            },
+            "characteristics": [
+              {
+                "english": "Provide quality control",
+                "suggested_dutch": "Leveren kwaliteitscontrole"
+              },
+              {
+                "english": "Ensure security compliance",
+                "suggested_dutch": "Waarborgen beveiligingsnaleving"
+              },
+              {
+                "english": "Assess technical risks",
+                "suggested_dutch": "Beoordelen technische risico's"
+              },
+              {
+                "english": "Validate system integration",
+                "suggested_dutch": "Valideren systeemintegratie"
+              }
+            ]
+          }
+        },
+        "synergy_principle": {
+          "english": "Excellence emerges when these four perspectives work in harmony rather than opposition. Technical Enthusiasts provide innovation velocity while Technical Realists ensure sustainable quality. Business Enthusiasts drive practical adoption while Business Realists maintain operational stability. The most robust solutions incorporate insights from all four collaboration styles.",
+          "suggested_dutch": "Excellence ontstaat wanneer deze vier perspectieven in harmonie werken in plaats van tegenwerking. Technologie-pioniers bieden innovatiesnelheid terwijl Kwaliteitsbewakers duurzame kwaliteit waarborgen. Bedrijfsinnovators drijven praktische adoptie terwijl Operationele Stabilisators operationele stabiliteit handhaven. De meest robuuste oplossingen bevatten inzichten van alle vier samenwerkingsstijlen."
+        }
+      }
+    }
+  },
+
+  "priority_2_module_content": {
+    "excellence_commitment_module": {
+      "title": {
+        "english": "Excellence Commitment",
+        "suggested_dutch": "Excellence Commitment"
+      },
+      "subtitle": {
+        "english": "From Possibility to Action",
+        "suggested_dutch": "Van Mogelijkheid naar Actie"
+      },
+      "commitment_power": {
+        "english": "Public commitments transform individual intentions into collective accountability. When we declare our goals in the presence of colleagues, we create supportive pressure that drives follow-through.",
+        "suggested_dutch": "Publieke commitments transformeren individuele intenties in collectieve verantwoordelijkheid. Wanneer we onze doelen verklaren in aanwezigheid van collega's, creëren we ondersteunende druk die follow-through drijft."
+      },
+      "collective_process": {
+        "english": "The Collective Commitment Process (25 minutes)",
+        "suggested_dutch": "Het Collectieve Commitment Proces (25 minuten)"
+      },
+      "excellence_principles_agreement": {
+        "english": "Phase 1: Excellence Principles Agreement (10 minutes)",
+        "suggested_dutch": "Fase 1: Excellence Principes Overeenkomst (10 minuten)"
+      },
+      "collaborative_creation": {
+        "english": "Collaborative creation of the group's shared excellence standards. This isn't about perfection, but about the quality of effort and mutual support we commit to maintaining.",
+        "suggested_dutch": "Collaboratieve creatie van de gedeelde excellence standaarden van de groep. Dit gaat niet over perfectie, maar over de kwaliteit van inspanning en wederzijdse ondersteuning die we ons committeren te handhaven."
+      },
+      "our_excellence_principles": {
+        "english": "Our Excellence Principles",
+        "suggested_dutch": "Onze Excellence Principes"
+      },
+      "we_commit_to": {
+        "english": "We commit to:",
+        "suggested_dutch": "Wij committeren ons aan:"
+      },
+      "commitment_list": [
+        {
+          "english": "Approaching challenges with curiosity rather than frustration",
+          "suggested_dutch": "Uitdagingen benaderen met nieuwsgierigheid in plaats van frustratie"
+        },
+        {
+          "english": "Sharing discoveries and learnings openly with colleagues",
+          "suggested_dutch": "Ontdekkingen en lessen open delen met collega's"
+        },
+        {
+          "english": "Supporting each other through learning curves and setbacks",
+          "suggested_dutch": "Elkaar ondersteunen door leercurves en tegenslagen heen"
+        },
+        {
+          "english": "Building solutions that benefit the broader organization", 
+          "suggested_dutch": "Oplossingen bouwen die de bredere organisatie ten goede komen"
+        },
+        {
+          "english": "Maintaining high standards while embracing iterative improvement",
+          "suggested_dutch": "Hoge standaarden handhaven terwijl we iteratieve verbetering omarmen"
+        }
+      ]
+    },
+
+    "success_showcase_module": {
+      "title": {
+        "english": "Success Showcase",
+        "suggested_dutch": "Succes Showcase"
+      },
+      "subtitle": {
+        "english": "Celebrating Collective Achievement",
+        "suggested_dutch": "Collectieve Prestatie Vieren"
+      },
+      "showcase_purpose": {
+        "english": "Public demonstration of achievements serves multiple purposes: validates effort, spreads successful approaches, builds confidence, and creates positive momentum for continued excellence.",
+        "suggested_dutch": "Publieke demonstratie van prestaties dient meerdere doelen: valideert inspanning, verspreidt succesvolle benaderingen, bouwt vertrouwen op, en creëert positief momentum voor voortdurende excellentie."
+      },
+      "victory_lap_competition": {
+        "english": "Excellence Games: Victory Lap Competition",
+        "suggested_dutch": "Excellence Games: Ereronde Competitie"
+      },
+      "victory_lap_format": {
+        "english": "The Victory Lap Format",
+        "suggested_dutch": "Het Ereronde Format"
+      },
+      "team_spotlight": {
+        "english": "Each team gets their moment in the spotlight!",
+        "suggested_dutch": "Elk team krijgt zijn moment in de schijnwerpers!"
+      },
+      "scoring_categories": {
+        "creativity": {
+          "english": "Creativity Points",
+          "description": "Most innovative approach",
+          "suggested_dutch": "Creativiteit Punten",
+          "description_dutch": "Meest innovatieve aanpak"
+        },
+        "impact": {
+          "english": "Impact Points", 
+          "description": "Biggest time/cost savings",
+          "suggested_dutch": "Impact Punten",
+          "description_dutch": "Grootste tijd/kosten besparing"
+        },
+        "scalability": {
+          "english": "Scalability Points",
+          "description": "Easy to replicate across org",
+          "suggested_dutch": "Schaalbaarheid Punten", 
+          "description_dutch": "Gemakkelijk te repliceren"
+        }
+      },
+      "presentation_format": {
+        "title": {
+          "english": "Presentation Format (3 minutes per partnership)",
+          "suggested_dutch": "Presentatie Format (3 minuten per partnership)"
+        },
+        "description": {
+          "english": "Each partnership demonstrates their solution using a structured format that maximizes learning and celebration.",
+          "suggested_dutch": "Elk partnership demonstreert hun oplossing met een gestructureerd format dat leren en viering maximaliseert."
+        }
+      },
+      "success_showcase_structure": {
+        "english": "Success showcase structure:",
+        "suggested_dutch": "Succes showcase structuur:",
+        "items": [
+          {
+            "english": "60 seconds: The challenge we chose to address and why it matters",
+            "suggested_dutch": "60 seconden: De uitdaging die we kozen om aan te pakken en waarom het belangrijk is"
+          },
+          {
+            "english": "90 seconds: Live demonstration of our working solution",
+            "suggested_dutch": "90 seconden: Live demonstratie van onze werkende oplossing"
+          },
+          {
+            "english": "30 seconds: The impact this solution can have and what we learned",
+            "suggested_dutch": "30 seconden: De impact die deze oplossing kan hebben en wat we leerden"
+          }
+        ]
+      },
+      "try_to_break_it": {
+        "title": {
+          "english": "\"Try to Break It\" Challenge Round",
+          "suggested_dutch": "\"Probeer Het Kapot te Maken\" Uitdaging Ronde"
+        },
+        "testing_protocol": {
+          "english": "Constructive Testing Protocol",
+          "suggested_dutch": "Constructief Test Protocol"
+        },
+        "protocol_description": {
+          "english": "After each demo, other teams get 2 minutes to test the solution with edge cases:",
+          "suggested_dutch": "Na elke demo krijgen andere teams 2 minuten om de oplossing te testen met edge cases:"
+        },
+        "test_questions": [
+          {
+            "english": "What happens if I ask it in English instead of Dutch?",
+            "suggested_dutch": "Wat gebeurt er als ik het in het Engels vraag in plaats van Nederlands?"
+          },
+          {
+            "english": "Can it handle this unusual scenario?",
+            "suggested_dutch": "Kan het dit ongewone scenario aan?"
+          },
+          {
+            "english": "How does it respond to incomplete information?",
+            "suggested_dutch": "Hoe reageert het op onvolledige informatie?"
+          }
+        ],
+        "goal_description": {
+          "english": "Goal: Not to break, but to strengthen! Each successful test = resilience points.",
+          "suggested_dutch": "Doel: Niet om kapot te maken, maar om te versterken! Elke succesvolle test = veerkracht punten."
+        }
+      }
+    },
+
+    "solution_building_enhancements": {
+      "coaching_questions": [
+        {
+          "english": "What's the simplest version that would add value?",
+          "context": "Excellence coaching point",
+          "suggested_dutch": "Wat is de eenvoudigste versie die waarde zou toevoegen?"
+        },
+        {
+          "english": "How can we test this assumption quickly?",
+          "context": "Excellence coaching point", 
+          "suggested_dutch": "Hoe kunnen we deze aanname snel testen?"
+        },
+        {
+          "english": "What would success look like for the people who will use this?",
+          "context": "Excellence coaching point",
+          "suggested_dutch": "Hoe zou succes eruit zien voor de mensen die dit gaan gebruiken?"
+        }
+      ],
+      "knowledge_exchange": {
+        "english": "This cross-pollination of expertise is what creates breakthrough solutions!",
+        "suggested_dutch": "Deze kruisbestuiving van expertise is wat doorbraak oplossingen creëert!"
+      },
+      "documentation_elements": [
+        {
+          "english": "Refined context template",
+          "suggested_dutch": "Verfijnde context template"
+        },
+        {
+          "english": "Effective prompt patterns discovered",
+          "suggested_dutch": "Effectieve prompt patronen ontdekt"
+        },
+        {
+          "english": "Example inputs and outputs",
+          "suggested_dutch": "Voorbeeld inputs en outputs"
+        },
+        {
+          "english": "Success metrics and evaluation criteria",
+          "suggested_dutch": "Succes metrieken en evaluatie criteria"
+        },
+        {
+          "english": "Opportunities for solution expansion",
+          "suggested_dutch": "Mogelijkheden voor oplossing uitbreiding"
+        }
+      ]
+    }
+  },
+
+  "priority_3_enhancement": {
+    "description": "Nice-to-have translations for complete professional experience",
+    
+    "excellence_challenge_module": {
+      "30_day_challenge": {
+        "title": {
+          "english": "30-Day Excellence Challenge",
+          "suggested_dutch": "30-Dagen Excellence Uitdaging"
+        },
+        "subtitle": {
+          "english": "Sustaining Growth Beyond the Workshop",
+          "suggested_dutch": "Groei Behouden Voorbij de Workshop"
+        },
+        "philosophy": {
+          "english": "Workshop inspiration fades without systematic practice. The 30-day challenge transforms today's enthusiasm into sustainable habits through structured accountability and mutual support.",
+          "suggested_dutch": "Workshop inspiratie vervaagt zonder systematische praktijk. De 30-dagen uitdaging transformeert het enthousiasme van vandaag in duurzame gewoonten door gestructureerde verantwoordelijkheid en wederzijdse ondersteuning."
+        }
+      },
+      "individual_commitment": {
+        "title": {
+          "english": "Individual Excellence Commitment Development (15 minutes)",
+          "suggested_dutch": "Individuele Excellence Commitment Ontwikkeling (15 minuten)"
+        },
+        "mission_design": {
+          "english": "Personal Excellence Mission Design",
+          "suggested_dutch": "Persoonlijke Excellence Missie Ontwerp"
+        },
+        "mission_template": {
+          "english": "By [specific date within 30 days], I will enhance [specific work process] by implementing [learned methodology] to achieve [measurable improvement] that benefits [specific stakeholders].",
+          "suggested_dutch": "Voor [specifieke datum binnen 30 dagen], zal ik [specifiek werkproces] verbeteren door [geleerde methodologie] te implementeren om [meetbare verbetering] te bereiken die [specifieke stakeholders] ten goede komt."
+        }
+      },
+      "calendar_elements": {
+        "30_day_journey": {
+          "english": "30-Day Excellence Journey",
+          "suggested_dutch": "30-Dagen Excellence Reis"
+        },
+        "week_titles": [
+          {
+            "english": "Week 1: First Victory",
+            "suggested_dutch": "Week 1: Eerste Overwinning"
+          },
+          {
+            "english": "Week 2: Momentum Building", 
+            "suggested_dutch": "Week 2: Momentum Opbouwen"
+          },
+          {
+            "english": "Week 3: Scaling Success",
+            "suggested_dutch": "Week 3: Succes Schalen"
+          },
+          {
+            "english": "Week 4: Excellence Celebration",
+            "suggested_dutch": "Week 4: Excellence Viering"
+          }
+        ],
+        "daily_activities": [
+          {
+            "english": "Deploy first solution",
+            "suggested_dutch": "Eerste oplossing uitrollen"
+          },
+          {
+            "english": "Wednesday Check-in",
+            "suggested_dutch": "Woensdag Check-in"
+          },
+          {
+            "english": "Share learnings",
+            "suggested_dutch": "Lessen delen"
+          },
+          {
+            "english": "Second solution live",
+            "suggested_dutch": "Tweede oplossing live"
+          },
+          {
+            "english": "Cross-team demo",
+            "suggested_dutch": "Cross-team demo"
+          },
+          {
+            "english": "Department rollout",
+            "suggested_dutch": "Afdeling uitrol"
+          },
+          {
+            "english": "Success metrics",
+            "suggested_dutch": "Succes metrieken"
+          },
+          {
+            "english": "Final solutions",
+            "suggested_dutch": "Finale oplossingen"
+          },
+          {
+            "english": "🎉 Excellence Lunch!",
+            "suggested_dutch": "🎉 Excellence Lunch!"
+          }
+        ]
+      }
+    },
+
+    "context_mastery_module": {
+      "title": {
+        "english": "Context Mastery Method",
+        "suggested_dutch": "Context Beheersingsmethode"
+      },
+      "excellence_multiplier": {
+        "english": "The Excellence Multiplier",
+        "suggested_dutch": "De Excellence Vermenigvuldiger"
+      },
+      "context_engineering_description": {
+        "english": "Context engineering is how we teach AI to think like domain experts. When we master this method, we unlock the ability to build sophisticated solutions that understand our specific challenges and opportunities.",
+        "suggested_dutch": "Context engineering is hoe we AI leren denken als domein experts. Wanneer we deze methode beheersen, ontgrendelen we de mogelijkheid om geavanceerde oplossingen te bouwen die onze specifieke uitdagingen en kansen begrijpen."
+      },
+      "empowerment_secret": {
+        "english": "The Empowerment Secret Revealed",
+        "suggested_dutch": "Het Empowerment Geheim Onthuld"
+      },
+      "transformation_moment": {
+        "english": "The Transformation Moment",
+        "suggested_dutch": "Het Transformatie Moment"
+      },
+      "context_template": {
+        "organization_placeholder": {
+          "english": "[ORGANIZATION]",
+          "suggested_dutch": "[ORGANISATIE]"
+        },
+        "empowerment_context": {
+          "english": "Empowerment Context:",
+          "suggested_dutch": "Empowerment Context:"
+        },
+        "excellence_principles": {
+          "english": "Excellence Principles:",
+          "suggested_dutch": "Excellence Principes:"
+        }
+      }
+    },
+
+    "commitment_ceremony_module": {
+      "title": {
+        "english": "Excellence Commitment Ceremony",
+        "suggested_dutch": "Excellence Commitment Ceremonie"
+      },
+      "ceremony_purpose": {
+        "english": "From Individual Learning to Collective Excellence",
+        "suggested_dutch": "Van Individueel Leren naar Collectieve Excellence"
+      },
+      "ceremony_description": {
+        "english": "This ceremony transforms workshop participants into committed practitioners of excellence. Together we pledge to build on what we've learned and support each other's continued growth.",
+        "suggested_dutch": "Deze ceremonie transformeert workshop deelnemers in toegewijde excellence beoefenaars. Samen beloven we voort te bouwen op wat we hebben geleerd en elkaars voortdurende groei te ondersteunen."
+      },
+      "manifesto_moment": {
+        "english": "The Manifesto Moment (20 minutes)",
+        "suggested_dutch": "Het Manifest Moment (20 minuten)"
+      },
+      "collaborative_manifesto": {
+        "english": "Collaborative Manifesto Creation",
+        "suggested_dutch": "Collaboratieve Manifest Creatie"
+      },
+      "manifesto_elements": [
+        {
+          "english": "What we discovered today: Each person adds one capability they didn't know they had",
+          "suggested_dutch": "Wat we vandaag ontdekten: Elke persoon voegt één bekwaamheid toe die ze niet wisten te hebben"
+        },
+        {
+          "english": "What we're building together: Our collective vision for the organization",
+          "suggested_dutch": "Wat we samen bouwen: Onze collectieve visie voor de organisatie"
+        },
+        {
+          "english": "How we support each other: Specific commitments to collaboration",
+          "suggested_dutch": "Hoe we elkaar ondersteunen: Specifieke commitments aan samenwerking"
+        },
+        {
+          "english": "When we celebrate: Milestones and check-in moments",
+          "suggested_dutch": "Wanneer we vieren: Mijlpalen en check-in momenten"
+        }
+      ],
+      "blueprint_quote": {
+        "english": "This isn't just words on paper - it's our blueprint for excellence",
+        "suggested_dutch": "Dit zijn niet alleen woorden op papier - het is onze blauwdruk voor excellence"
+      }
+    }
+  },
+
+  "placeholder_texts": {
+    "description": "Textarea placeholder texts that guide user input",
+    "items": [
+      {
+        "english": "Document the energy shift when participants see the transformation, note questions and excitement levels...",
+        "context": "potential-revelation notes",
+        "suggested_dutch": "Documenteer de energieverschuiving wanneer deelnemers de transformatie zien, noteer vragen en opwindingsniveaus..."
+      },
+      {
+        "english": "Document the collaboration styles present, partnerships formed, and opportunities for enhanced cooperation...",
+        "context": "collaboration-mapping notes",
+        "suggested_dutch": "Documenteer de aanwezige samenwerkingsstijlen, gevormde partnerships, en mogelijkheden voor verbeterde samenwerking..."
+      },
+      {
+        "english": "Record the excellence challenges chosen, partnership dynamics observed, and commitment energy levels...",
+        "context": "excellence-commitment notes", 
+        "suggested_dutch": "Registreer de gekozen excellence uitdagingen, geobserveerde partnership dynamiek, en commitment energie niveaus..."
+      },
+      {
+        "english": "Document successful solution patterns, collaboration dynamics, breakthrough moments, and scaling opportunities...",
+        "context": "solution-building notes",
+        "suggested_dutch": "Documenteer succesvolle oplossing patronen, samenwerkingsdynamiek, doorbraak momenten, en schaal mogelijkheden..."
+      },
+      {
+        "english": "Document demonstrated solutions, audience engagement, scaling opportunities identified, and momentum created...",
+        "context": "success-showcase notes",
+        "suggested_dutch": "Documenteer gedemonstreerde oplossingen, publiek betrokkenheid, geïdentificeerde schaal mogelijkheden, en gecreëerd momentum..."
+      },
+      {
+        "english": "Document individual commitments made, support partnerships formed, and organizational infrastructure planned...",
+        "context": "excellence-challenge notes",
+        "suggested_dutch": "Documenteer gemaakte individuele commitments, gevormde ondersteuning partnerships, en geplande organisatorische infrastructuur..."
+      }
+    ]
+  },
+
+  "infrastructure_elements": {
+    "description": "Organizational support structure terminology",
+    "items": [
+      {
+        "english": "Progress Communication: Weekly \"Excellence Spotlight\" in company newsletter",
+        "suggested_dutch": "Voortgang Communicatie: Wekelijkse \"Excellence Spotlight\" in bedrijfsnieuwsbrief"
+      },
+      {
+        "english": "Knowledge Repository: Shared Teams/SharePoint with all solutions and templates",
+        "suggested_dutch": "Kennis Repository: Gedeelde Teams/SharePoint met alle oplossingen en templates"
+      },
+      {
+        "english": "Mentorship Network: Experienced practitioners supporting newcomers", 
+        "suggested_dutch": "Mentorship Netwerk: Ervaren beoefenaars die nieuwkomers ondersteunen"
+      },
+      {
+        "english": "Celebration Events: Monthly Excellence Lunch for all who delivered",
+        "suggested_dutch": "Viering Evenementen: Maandelijkse Excellence Lunch voor allen die leverden"
+      },
+      {
+        "english": "Leadership Updates: Bi-weekly progress reports to management",
+        "suggested_dutch": "Leiderschap Updates: Tweewekelijkse voortgang rapporten aan management"
+      }
+    ]
+  },
+
+  "engagement_questions": {
+    "description": "Questions for audience participation during showcases",
+    "items": [
+      {
+        "english": "Where else in our organization could this approach be valuable?",
+        "suggested_dutch": "Waar anders in onze organisatie zou deze aanpak waardevol kunnen zijn?"
+      },
+      {
+        "english": "What enhancement would make this solution even more powerful?",
+        "suggested_dutch": "Welke verbetering zou deze oplossing nog krachtiger maken?"
+      },
+      {
+        "english": "How might we adapt this methodology for different challenges?",
+        "suggested_dutch": "Hoe zouden we deze methodologie kunnen aanpassen voor verschillende uitdagingen?"
+      }
+    ]
+  },
+
+  "ceremony_elements": {
+    "signing_protocol": [
+      {
+        "english": "Print manifesto on high-quality A1 poster",
+        "suggested_dutch": "Print manifest op hoogwaardig A1 poster"
+      },
+      {
+        "english": "Each person signs with permanent marker",
+        "suggested_dutch": "Elke persoon tekent met permanente marker"
+      },
+      {
+        "english": "Add personal excellence commitment next to signature",
+        "suggested_dutch": "Voeg persoonlijke excellence commitment toe naast handtekening"
+      },
+      {
+        "english": "Group photo with signed manifesto",
+        "suggested_dutch": "Groepsfoto met getekend manifest"
+      },
+      {
+        "english": "Post immediately in company-wide channel",
+        "suggested_dutch": "Post onmiddellijk in bedrijfsbrede kanaal"
+      },
+      {
+        "english": "Frame and hang in office as daily reminder",
+        "suggested_dutch": "Lijst in en hang in kantoor als dagelijkse herinnering"
+      }
+    ],
+    "photo_caption": {
+      "english": "This photo marks Day 1 of our Excellence Era",
+      "suggested_dutch": "Deze foto markeert Dag 1 van ons Excellence Tijdperk"
+    },
+    "final_commitment": {
+      "english": "The Final Commitment (10 minutes)",
+      "suggested_dutch": "Het Finale Commitment (10 minuten)"
+    },
+    "excellence_future": {
+      "english": "You arrived as workshop participants. You leave as Excellence Practitioners. Together, we transform our organization.",
+      "suggested_dutch": "Jullie kwamen aan als workshop deelnemers. Jullie vertrekken als Excellence Beoefenaars. Samen transformeren we onze organisatie."
+    }
+  },
+
+  "technical_elements": {
+    "description": "Technical strings and development-related text",
+    "items": [
+      {
+        "english": "// Excellence Sprint uses countdown like working version",
+        "context": "JavaScript comment",
+        "suggested_dutch": "// Excellence Sprint gebruikt countdown zoals werkende versie"
+      },
+      {
+        "english": "// 10 minutes",
+        "context": "JavaScript comment",
+        "suggested_dutch": "// 10 minuten"
+      }
+    ]
+  },
+
+  "implementation_notes": {
+    "total_estimated_translations": 200,
+    "high_priority_items": 45,
+    "medium_priority_items": 95,
+    "low_priority_items": 60,
+    "translation_complexity": "Medium-High due to workshop psychology and Dutch business culture",
+    "technical_considerations": [
+      "Some content uses mixed Dutch/English intentionally (AAG challenges)",
+      "Timer and JavaScript functionality must remain intact",
+      "Mobile responsiveness must be preserved",
+      "Professional tone must match existing Dutch content"
+    ],
+    "recommended_approach": "Systematic module-by-module translation using existing translation strategy and terminology database"
+  }
+}

@@ -1,0 +1,2307 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Excellence Sprint Empowerment Playbook - Enhanced Edition</title>
+		<style>
+			* {
+				margin: 0;
+				padding: 0;
+				box-sizing: border-box;
+			}
+
+			body {
+				font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+					Helvetica, Arial, sans-serif;
+				background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+				color: #fff;
+				overflow-x: hidden;
+			}
+
+			.app-container {
+				display: flex;
+				height: 100vh;
+			}
+
+			.sidebar {
+				width: 320px;
+				background: rgba(17, 24, 39, 0.95);
+				backdrop-filter: blur(20px);
+				border-right: 1px solid rgba(255, 255, 255, 0.1);
+				overflow-y: auto;
+				z-index: 100;
+			}
+
+			.sidebar-header {
+				padding: 1.5rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				background: linear-gradient(
+					135deg,
+					rgba(59, 130, 246, 0.3),
+					rgba(30, 64, 175, 0.3)
+				);
+			}
+
+			.sidebar-header h1 {
+				font-size: 1.4rem;
+				font-weight: 700;
+				margin-bottom: 0.5rem;
+				background: linear-gradient(135deg, #fbbf24, #f59e0b);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+			}
+
+			.sidebar-header p {
+				font-size: 0.875rem;
+				color: #d1d5db;
+				font-style: italic;
+			}
+
+			.empowerment-motto {
+				background: rgba(59, 130, 246, 0.2);
+				padding: 1rem;
+				margin: 1rem;
+				border-radius: 0.5rem;
+				border-left: 4px solid #3b82f6;
+				font-size: 0.875rem;
+				font-weight: 600;
+				text-align: center;
+			}
+
+			.workshop-phases {
+				padding: 1rem;
+			}
+
+			.phase-item {
+				margin-bottom: 0.5rem;
+				border-radius: 0.5rem;
+				overflow: hidden;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			.phase-header {
+				padding: 1rem;
+				background: rgba(255, 255, 255, 0.05);
+				cursor: pointer;
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				transition: background 0.2s;
+			}
+
+			.phase-header:hover {
+				background: rgba(255, 255, 255, 0.1);
+			}
+
+			.phase-header.active {
+				background: rgba(59, 130, 246, 0.3);
+			}
+
+			.phase-title {
+				font-weight: 600;
+				font-size: 0.875rem;
+			}
+
+			.phase-time {
+				font-size: 0.75rem;
+				color: #fbbf24;
+				font-weight: 600;
+			}
+
+			.modules {
+				background: rgba(0, 0, 0, 0.2);
+				display: none;
+			}
+
+			.modules.active {
+				display: block;
+			}
+
+			.module-item {
+				padding: 0.75rem 1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+				cursor: pointer;
+				transition: background 0.2s;
+			}
+
+			.module-item:hover {
+				background: rgba(255, 255, 255, 0.05);
+			}
+
+			.module-item.active {
+				background: rgba(59, 130, 246, 0.2);
+				border-left: 3px solid #3b82f6;
+			}
+
+			.main-content {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				overflow: hidden;
+			}
+
+			.top-toolbar {
+				height: 70px;
+				background: rgba(17, 24, 39, 0.95);
+				backdrop-filter: blur(20px);
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+				display: flex;
+				align-items: center;
+				padding: 0 1.5rem;
+				gap: 1rem;
+				flex-wrap: wrap;
+			}
+
+			.timer-display {
+				background: rgba(59, 130, 246, 0.3);
+				padding: 0.5rem 1rem;
+				border-radius: 0.5rem;
+				font-family: "Courier New", monospace;
+				font-weight: bold;
+				font-size: 1.1rem;
+				min-width: 90px;
+				text-align: center;
+				border: 2px solid rgba(59, 130, 246, 0.5);
+			}
+
+			.btn {
+				background: rgba(255, 255, 255, 0.1);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				color: #fff;
+				padding: 0.5rem 1rem;
+				border-radius: 0.375rem;
+				cursor: pointer;
+				font-size: 0.875rem;
+				font-weight: 600;
+				transition: all 0.2s;
+			}
+
+			.btn:hover {
+				background: rgba(255, 255, 255, 0.2);
+				transform: translateY(-1px);
+			}
+
+			.btn.primary {
+				background: rgba(59, 130, 246, 0.8);
+				border-color: rgba(59, 130, 246, 1);
+			}
+
+			.btn.excellence {
+				background: linear-gradient(135deg, #fbbf24, #f59e0b);
+				color: #000;
+				border: none;
+				font-weight: 700;
+			}
+
+			.content-area {
+				flex: 1;
+				display: flex;
+				overflow: hidden;
+			}
+
+			.content-panel {
+				flex: 1;
+				padding: 2rem;
+				overflow-y: auto;
+				background: rgba(255, 255, 255, 0.05);
+			}
+
+			.content-section {
+				margin-bottom: 2rem;
+				animation: fadeIn 0.3s ease;
+			}
+
+			@keyframes fadeIn {
+				from {
+					opacity: 0;
+					transform: translateY(10px);
+				}
+				to {
+					opacity: 1;
+					transform: translateY(0);
+				}
+			}
+
+			.content-section h1 {
+				font-size: 2.25rem;
+				margin-bottom: 1rem;
+				background: linear-gradient(135deg, #fbbf24, #f59e0b);
+				-webkit-background-clip: text;
+				-webkit-text-fill-color: transparent;
+				font-weight: 800;
+			}
+
+			.content-section h2 {
+				font-size: 1.75rem;
+				margin-bottom: 1rem;
+				color: #60a5fa;
+				font-weight: 700;
+			}
+
+			.content-section h3 {
+				font-size: 1.4rem;
+				margin-bottom: 0.75rem;
+				color: #fbbf24;
+				font-weight: 600;
+			}
+
+			.content-section h4 {
+				font-size: 1.2rem;
+				margin-bottom: 0.5rem;
+				color: #a78bfa;
+				font-weight: 600;
+			}
+
+			.content-section p {
+				line-height: 1.7;
+				margin-bottom: 1rem;
+				color: #e5e7eb;
+				font-size: 1.05rem;
+			}
+
+			.content-section ul {
+				margin-left: 2rem;
+				margin-bottom: 1rem;
+				color: #e5e7eb;
+			}
+
+			.content-section li {
+				margin-bottom: 0.75rem;
+				line-height: 1.6;
+			}
+
+			.inspiration-box {
+				background: linear-gradient(
+					135deg,
+					rgba(59, 130, 246, 0.3),
+					rgba(30, 64, 175, 0.3)
+				);
+				padding: 1.5rem;
+				border-radius: 0.75rem;
+				border: 2px solid rgba(59, 130, 246, 0.5);
+				margin: 1.5rem 0;
+				position: relative;
+			}
+
+			.inspiration-box::before {
+				content: "💡";
+				position: absolute;
+				top: -10px;
+				left: 20px;
+				background: #111827;
+				padding: 0.25rem 0.5rem;
+				border-radius: 0.25rem;
+				font-size: 1.2rem;
+			}
+
+			.materials-checklist {
+				background: rgba(0, 0, 0, 0.3);
+				padding: 1.5rem;
+				border-radius: 0.5rem;
+				margin-bottom: 1rem;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			.checklist-item {
+				display: flex;
+				align-items: center;
+				margin-bottom: 0.75rem;
+				cursor: pointer;
+			}
+
+			.checklist-item input[type="checkbox"] {
+				margin-right: 1rem;
+				transform: scale(1.3);
+				cursor: pointer;
+			}
+
+			.checklist-item label {
+				cursor: pointer;
+				flex: 1;
+				font-size: 1.05rem;
+			}
+
+			.highlight-box {
+				background: rgba(245, 158, 11, 0.2);
+				padding: 1.5rem;
+				border-radius: 0.75rem;
+				border-left: 6px solid #f59e0b;
+				margin: 1.5rem 0;
+			}
+
+			.manifesto-scroll {
+				background: linear-gradient(135deg, #dbeafe, #93c5fd);
+				color: #000;
+				padding: 2rem;
+				border-radius: 1rem;
+				margin: 2rem 0;
+				font-family: "Times New Roman", serif;
+				border: 3px solid #3b82f6;
+				box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+			}
+
+			.capability-celebration {
+				background: linear-gradient(
+					135deg,
+					rgba(34, 197, 94, 0.3),
+					rgba(22, 163, 74, 0.3)
+				);
+				padding: 2rem;
+				border-radius: 1rem;
+				border: 2px solid #22c55e;
+				text-align: center;
+				margin: 2rem 0;
+				position: relative;
+			}
+
+			.capability-celebration::before {
+				content: "🏆";
+				font-size: 3rem;
+				position: absolute;
+				top: -20px;
+				left: 50%;
+				transform: translateX(-50%);
+				background: #111827;
+				padding: 0.5rem;
+				border-radius: 50%;
+			}
+
+			.notes-section {
+				background: rgba(0, 0, 0, 0.3);
+				padding: 1.5rem;
+				border-radius: 0.5rem;
+				margin-top: 1rem;
+			}
+
+			.notes-textarea {
+				width: 100%;
+				height: 120px;
+				background: rgba(255, 255, 255, 0.05);
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 0.375rem;
+				color: #fff;
+				padding: 1rem;
+				font-family: inherit;
+				resize: vertical;
+				font-size: 1rem;
+			}
+
+			.notes-textarea::placeholder {
+				color: rgba(255, 255, 255, 0.5);
+			}
+
+			.adaptive-alerts {
+				position: fixed;
+				top: 90px;
+				right: 20px;
+				width: 320px;
+				z-index: 1000;
+			}
+
+			.alert {
+				background: rgba(59, 130, 246, 0.95);
+				border: 2px solid #3b82f6;
+				border-radius: 0.75rem;
+				padding: 1.25rem;
+				margin-bottom: 0.75rem;
+				backdrop-filter: blur(15px);
+				transform: translateX(400px);
+				animation: slideIn 0.4s ease forwards;
+				font-weight: 600;
+			}
+
+			.alert.excellence {
+				background: linear-gradient(
+					135deg,
+					rgba(251, 191, 36, 0.95),
+					rgba(245, 158, 11, 0.95)
+				);
+				border-color: #fbbf24;
+				color: #000;
+			}
+
+			@keyframes slideIn {
+				to {
+					transform: translateX(0);
+				}
+			}
+
+			/* New styles for enhanced elements */
+			.transformation-demo {
+				background: rgba(0, 0, 0, 0.4);
+				border-radius: 1rem;
+				padding: 2rem;
+				margin: 2rem 0;
+				border: 2px solid rgba(59, 130, 246, 0.5);
+			}
+
+			.demo-comparison {
+				display: grid;
+				grid-template-columns: 1fr 1fr;
+				gap: 2rem;
+				margin-top: 1.5rem;
+			}
+
+			.demo-column {
+				background: rgba(255, 255, 255, 0.05);
+				padding: 1.5rem;
+				border-radius: 0.5rem;
+			}
+
+			.demo-column.generic {
+				border: 2px solid rgba(239, 68, 68, 0.5);
+			}
+
+			.demo-column.excellence {
+				border: 2px solid rgba(34, 197, 94, 0.5);
+			}
+
+			.mission-card {
+				background: linear-gradient(
+					135deg,
+					rgba(59, 130, 246, 0.3),
+					rgba(30, 64, 175, 0.3)
+				);
+				border: 2px solid rgba(59, 130, 246, 0.5);
+				border-radius: 1rem;
+				padding: 1.5rem;
+				margin: 1rem 0;
+				position: relative;
+				cursor: pointer;
+				transition: transform 0.3s, box-shadow 0.3s;
+			}
+
+			.mission-card:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+			}
+
+			.mission-card-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 1rem;
+			}
+
+			.mission-title {
+				font-size: 1.3rem;
+				font-weight: 700;
+				color: #fbbf24;
+			}
+
+			.mission-icon {
+				font-size: 2rem;
+			}
+
+			.excellence-tracker {
+				background: rgba(0, 0, 0, 0.3);
+				border-radius: 0.75rem;
+				padding: 1.5rem;
+				margin: 2rem 0;
+			}
+
+			.tracker-item {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				padding: 0.75rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			.tracker-metric {
+				font-size: 1.5rem;
+				font-weight: 700;
+				color: #22c55e;
+			}
+
+			.victory-lap {
+				background: linear-gradient(
+					135deg,
+					rgba(251, 191, 36, 0.3),
+					rgba(245, 158, 11, 0.3)
+				);
+				border: 2px solid #fbbf24;
+				border-radius: 1rem;
+				padding: 1.5rem;
+				margin: 2rem 0;
+				text-align: center;
+			}
+
+			.certificate-card {
+				background: linear-gradient(135deg, #fff, #f0f0f0);
+				color: #000;
+				padding: 2rem;
+				border-radius: 1rem;
+				margin: 2rem 0;
+				border: 5px solid #fbbf24;
+				box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+				text-align: center;
+			}
+
+			.certificate-title {
+				font-size: 2rem;
+				font-weight: 800;
+				color: #1e40af;
+				margin-bottom: 1rem;
+			}
+
+			.commitment-tracker {
+				background: rgba(0, 0, 0, 0.4);
+				border-radius: 1rem;
+				padding: 2rem;
+				margin: 2rem 0;
+			}
+
+			.commitment-grid {
+				display: grid;
+				grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+				gap: 1rem;
+				margin-top: 1rem;
+			}
+
+			.commitment-card {
+				background: rgba(255, 255, 255, 0.1);
+				padding: 1rem;
+				border-radius: 0.5rem;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				text-align: center;
+			}
+
+			.momentum-calendar {
+				background: rgba(0, 0, 0, 0.3);
+				border-radius: 1rem;
+				padding: 2rem;
+				margin: 2rem 0;
+			}
+
+			.calendar-week {
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
+				gap: 0.5rem;
+				margin: 1rem 0;
+			}
+
+			.calendar-day {
+				background: rgba(255, 255, 255, 0.1);
+				padding: 1rem;
+				border-radius: 0.5rem;
+				text-align: center;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+			}
+
+			.calendar-day.highlight {
+				background: rgba(59, 130, 246, 0.3);
+				border-color: #3b82f6;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="app-container">
+			<nav class="sidebar">
+				<div class="sidebar-header">
+					<h1>Excellence Sprint</h1>
+					<p>Empowerment Facilitator's Playbook</p>
+				</div>
+
+				<div class="empowerment-motto">
+					"Yes, we can build amazing solutions.<br />
+					Yes, we can master new technologies.<br />
+					Yes, we can transform our work together."
+				</div>
+
+				<div class="workshop-phases">
+					<div class="phase-item">
+						<div
+							class="phase-header active"
+							onclick="togglePhase('preparation')"
+						>
+							<span class="phase-title">Excellence Preparation</span>
+							<span class="phase-time">30min</span>
+						</div>
+						<div class="modules active" id="preparation">
+							<div
+								class="module-item active"
+								onclick="selectModule('room-setup')"
+							>
+								Excellence Space Design
+							</div>
+							<div class="module-item" onclick="selectModule('materials')">
+								Empowerment Toolkit
+							</div>
+							<div class="module-item" onclick="selectModule('mindset')">
+								Excellence Mindset
+							</div>
+						</div>
+					</div>
+
+					<div class="phase-item">
+						<div class="phase-header" onclick="togglePhase('hour1')">
+							<span class="phase-title">Hour 1: Discovering Our Potential</span>
+							<span class="phase-time">60min</span>
+						</div>
+						<div class="modules" id="hour1">
+							<div
+								class="module-item"
+								onclick="selectModule('potential-revelation')"
+							>
+								Potential Revelation (15min)
+							</div>
+							<div
+								class="module-item"
+								onclick="selectModule('collaboration-mapping')"
+							>
+								Collaboration Mapping (20min)
+							</div>
+							<div
+								class="module-item"
+								onclick="selectModule('excellence-commitment')"
+							>
+								Excellence Commitment (25min)
+							</div>
+						</div>
+					</div>
+
+					<div class="phase-item">
+						<div class="phase-header" onclick="togglePhase('hour2')">
+							<span class="phase-title">Hour 2: Building Excellence</span>
+							<span class="phase-time">75min</span>
+						</div>
+						<div class="modules" id="hour2">
+							<div
+								class="module-item"
+								onclick="selectModule('context-mastery')"
+							>
+								Context Mastery Method (10min)
+							</div>
+							<div
+								class="module-item"
+								onclick="selectModule('solution-building')"
+							>
+								Excellence Solution Building (40min)
+							</div>
+							<div
+								class="module-item"
+								onclick="selectModule('success-showcase')"
+							>
+								Success Showcase (25min)
+							</div>
+						</div>
+					</div>
+
+					<div class="phase-item">
+						<div class="phase-header" onclick="togglePhase('hour3')">
+							<span class="phase-title">Hour 3: Sustaining Excellence</span>
+							<span class="phase-time">75min</span>
+						</div>
+						<div class="modules" id="hour3">
+							<div
+								class="module-item"
+								onclick="selectModule('excellence-challenge')"
+							>
+								30-Day Excellence Challenge (35min)
+							</div>
+							<div
+								class="module-item"
+								onclick="selectModule('commitment-ceremony')"
+							>
+								Commitment Ceremony (40min)
+							</div>
+						</div>
+					</div>
+				</div>
+			</nav>
+
+			<main class="main-content">
+				<div class="top-toolbar">
+					<div class="timer-display" id="timerDisplay">00:00</div>
+					<button class="btn primary" onclick="startTimer(event)">
+						Begin Excellence
+					</button>
+					<div style="margin-left: auto; display: flex; gap: 0.5rem;">
+						<button class="btn" onclick="openRoomLayout()">
+							Room Layout
+						</button>
+						<button class="btn excellence" onclick="showExcellenceAlert()">
+							Excellence Check
+						</button>
+					</div>
+				</div>
+
+				<div class="content-area">
+					<div class="content-panel" id="contentPanel">
+						<div class="content-section">
+							<h1>Excellence Space Design</h1>
+
+							<div class="inspiration-box">
+								<h4>Excellence Principle</h4>
+								<p>
+									"The physical environment shapes the mental environment. When
+									we design spaces that inspire collaboration and celebration,
+									we create the conditions for extraordinary achievement."
+								</p>
+							</div>
+
+							<h2>The Three Empowerment Zones</h2>
+
+							<h3>1. The Excellence Wall (Center of Inspiration)</h3>
+							<p>
+								Create a dedicated space where progress becomes visible and
+								achievements are celebrated. This wall transforms individual
+								efforts into collective success, making every breakthrough a
+								source of shared inspiration.
+							</p>
+
+							<div class="materials-checklist">
+								<h4>Excellence Space Checklist</h4>
+								<div class="checklist-item">
+									<input type="checkbox" id="excellence-wall-ready" />
+									<label for="excellence-wall-ready"
+										>Excellence Wall prepared for progress tracking (3m+
+										wide)</label
+									>
+								</div>
+								<div class="checklist-item">
+									<input type="checkbox" id="commitment-corner-set" />
+									<label for="commitment-corner-set"
+										>Commitment Corner designated for ceremony</label
+									>
+								</div>
+								<div class="checklist-item">
+									<input type="checkbox" id="collaboration-space-clear" />
+									<label for="collaboration-space-clear"
+										>Collaboration space clear for movement and
+										interaction</label
+									>
+								</div>
+							</div>
+
+							<div class="highlight-box">
+								<h4>Psychology of Empowerment Spaces</h4>
+								<p>
+									Every design choice reinforces our belief in collective
+									capability. Open spaces encourage collaboration. Visible
+									progress walls celebrate achievement. Ceremony corners honor
+									commitment. The environment becomes a silent partner in
+									transformation.
+								</p>
+							</div>
+
+							<div class="notes-section">
+								<h4>Excellence Space Planning</h4>
+								<textarea
+									class="notes-textarea"
+									placeholder="Document space adaptations, opportunities for inspiration, ways to maximize collaborative energy..."
+								></textarea>
+							</div>
+						</div>
+					</div>
+				</div>
+			</main>
+		</div>
+
+		<div class="adaptive-alerts" id="adaptiveAlerts"></div>
+
+		<script>
+			// Timer object architecture (based on working implementation)
+			let timer = { 
+				minutes: 0, 
+				seconds: 0, 
+				totalSeconds: 0,
+				targetSeconds: 0,
+				isRunning: false, 
+				interval: null,
+				countDown: true  // Excellence Sprint uses countdown like working version
+			};
+			
+			// Track current module for timer integration
+			let currentModule = 'room-setup';
+
+			// Module timing definitions (like working implementation)
+			const moduleTimings = {
+				"room-setup": 10,           // 10 minutes
+				"excellence-space-design": 15,
+				"empowerment-toolkit": 10,
+				"excellence-mindset": 5,
+				"potential-revelation": 15,
+				"collaboration-mapping": 20,
+				"excellence-commitment": 25,
+				"context-mastery": 10,
+				"solution-building": 40,
+				"success-showcase": 25,
+				"excellence-challenge": 35,
+				"commitment-ceremony": 40
+			};
+
+			// Core functions for excellence navigation
+			function selectModule(module) {
+				console.log("Selecting excellence module:", module);
+
+				// Update current module tracking
+				currentModule = module;
+
+				// Update navigation
+				document
+					.querySelectorAll(".module-item")
+					.forEach((item) => item.classList.remove("active"));
+				event.currentTarget.classList.add("active");
+
+				// Load content based on module
+				loadModuleContent(module);
+
+				// Reset timer for new module (stop any running timer)
+				if (timer.isRunning) {
+					if (timer.interval) {
+						clearInterval(timer.interval);
+						timer.interval = null;
+					}
+					timer.isRunning = false;
+				}
+				
+				// Set timer for module (like working implementation)
+				const moduleTime = moduleTimings[module];
+				if (moduleTime && moduleTime > 0) {
+					timer.targetSeconds = moduleTime * 60;
+					timer.minutes = moduleTime;
+					timer.seconds = 0;
+					timer.totalSeconds = 0;
+					
+					// Reset button state
+					const button = document.querySelector('[onclick*="startTimer"]');
+					if (button) {
+						button.textContent = "Begin Excellence";
+						button.classList.remove('active');
+					}
+					
+					updateTimerDisplay();
+					console.log(`Timer reset and set for ${moduleTime} minutes for module: ${module}`);
+				}
+			}
+
+			function togglePhase(phase) {
+				document
+					.querySelectorAll(".phase-header")
+					.forEach((h) => h.classList.remove("active"));
+				document
+					.querySelectorAll(".modules")
+					.forEach((m) => m.classList.remove("active"));
+
+				const header = event.currentTarget;
+				const modules = document.getElementById(phase);
+
+				header.classList.add("active");
+				modules.classList.add("active");
+			}
+
+			function startTimer() {
+				// Safety: Clear any existing intervals (prevent multiple timers)
+				if (timer.interval) {
+					clearInterval(timer.interval);
+					timer.interval = null;
+				}
+				
+				// DOM validation (frontend-engineer recommendation)
+				if (!initializeTimerDOM()) {
+					return;
+				}
+				
+				if (!timer.isRunning) {
+					// Start timer
+					timer.startTime = Date.now() - (timer.totalSeconds * 1000);
+					timer.isRunning = true;
+					timer.interval = setInterval(updateTimer, 100); // More frequent for accuracy
+					
+					// Update button state
+					const button = event?.target || document.querySelector('[onclick*="startTimer"]');
+					if (button) {
+						button.textContent = "Pause";
+						button.classList.add('active');
+					}
+				} else {
+					// Stop timer (toggle functionality)
+					pauseTimer();
+				}
+			}
+
+			function openRoomLayout() {
+				window.open('excellence-room-layout.html', '_blank');
+			}
+
+			function showExcellenceAlert() {
+				const messages = [
+					"Excellence Check: Are we building on strengths and celebrating progress?",
+					"Energy Assessment: How can we support each other in achieving more?",
+					"Progress Pulse: What amazing capabilities are we developing together?",
+					"Collaboration Focus: How are we leveraging our collective intelligence?",
+					"Success Amplification: What achievements deserve celebration right now?",
+				];
+				showAlert(
+					messages[Math.floor(Math.random() * messages.length)],
+					"excellence"
+				);
+			}
+
+			function showAlert(message, type = "info") {
+				const alertsContainer = document.getElementById("adaptiveAlerts");
+				const alert = document.createElement("div");
+				alert.className = `alert ${type}`;
+
+				const icon = type === "excellence" ? "⭐" : "ℹ️";
+				const title = type === "excellence" ? "Excellence Alert" : "Alert";
+
+				alert.innerHTML = `
+                <strong>${icon} ${title}:</strong> ${message}
+                <button style="float: right; background: none; border: none; color: ${
+									type === "excellence" ? "#000" : "#fff"
+								}; cursor: pointer; font-size: 1.2rem;" onclick="this.parentElement.remove()">×</button>
+            `;
+				alertsContainer.appendChild(alert);
+
+				setTimeout(() => {
+					if (alert.parentElement) {
+						alert.remove();
+					}
+				}, 5000);
+			}
+
+			// Timer helper functions (based on working implementation)
+			function initializeTimerDOM() {
+				const timerDisplay = document.getElementById('timerDisplay');
+				const timerButton = document.querySelector('[onclick*="startTimer"]');
+				
+				if (!timerDisplay || !timerButton) {
+					console.error('Timer DOM elements not found');
+					showAlert('Timer initialization failed - missing elements', 'error');
+					return false;
+				}
+				
+				return true;
+			}
+
+			function updateTimerDisplay() {
+				const display = document.getElementById('timerDisplay');
+				if (!display) {
+					console.error('Timer display element not found');
+					return;
+				}
+				
+				const mins = String(Math.abs(timer.minutes)).padStart(2, '0');
+				const secs = String(Math.abs(timer.seconds)).padStart(2, '0');
+				display.textContent = `${mins}:${secs}`;
+				
+				// Color coding based on time remaining (countdown visual feedback)
+				if (timer.countDown && timer.targetSeconds > 0) {
+					const remaining = timer.targetSeconds - timer.totalSeconds;
+					const percentage = remaining / timer.targetSeconds;
+					
+					if (percentage <= 0.1) {
+						display.style.background = 'rgba(239, 68, 68, 0.3)'; // Red - urgent
+					} else if (percentage <= 0.25) {
+						display.style.background = 'rgba(245, 158, 11, 0.3)'; // Gold - attention needed
+					} else {
+						display.style.background = 'rgba(59, 130, 246, 0.2)'; // Blue - plenty of time
+					}
+				}
+			}
+
+			function updateTimer() {
+				if (!timer.isRunning) return;
+				
+				if (timer.countDown && timer.targetSeconds > 0) {
+					// Count down mode (like working implementation)
+					timer.totalSeconds++;
+					const remaining = timer.targetSeconds - timer.totalSeconds;
+					timer.minutes = Math.floor(remaining / 60);
+					timer.seconds = remaining % 60;
+					
+					if (remaining <= 0) {
+						timer.minutes = 0;
+						timer.seconds = 0;
+						pauseTimer();
+						showAlert('Time\'s up! Module time complete.', 'info');
+					} else if (remaining === Math.floor(timer.targetSeconds * 0.25)) {
+						showAlert('75% of time used - 25% remaining', 'warning');
+					} else if (remaining === Math.floor(timer.targetSeconds * 0.5)) {
+						showAlert('50% of time remaining', 'info');
+					} else if (remaining === 60) {
+						showAlert('1 minute remaining!', 'warning');
+					}
+				} else {
+					// Count up mode (fallback for modules without timer)
+					timer.totalSeconds++;
+					timer.minutes = Math.floor(timer.totalSeconds / 60);
+					timer.seconds = timer.totalSeconds % 60;
+				}
+				updateTimerDisplay();
+			}
+
+			function pauseTimer() {
+				timer.isRunning = false;
+				if (timer.interval) {
+					clearInterval(timer.interval);
+					timer.interval = null;
+				}
+				
+				const button = document.querySelector('[onclick*="startTimer"]');
+				if (button) {
+					button.textContent = "Resume";
+					button.classList.remove('active');
+				}
+			}
+
+			function resetTimer() {
+				// Stop timer if running
+				if (timer.isRunning) {
+					if (timer.interval) {
+						clearInterval(timer.interval);
+						timer.interval = null;
+					}
+					timer.isRunning = false;
+				}
+				
+				// Reset all values
+				timer.totalSeconds = 0;
+				timer.minutes = timer.targetSeconds ? Math.floor(timer.targetSeconds / 60) : 0;
+				timer.seconds = timer.targetSeconds ? timer.targetSeconds % 60 : 0;
+				updateTimerDisplay();
+				
+				// Reset button text
+				const button = document.querySelector('[onclick*="startTimer"]');
+				if (button) {
+					button.textContent = "Begin Excellence";
+					button.classList.remove('active');
+				}
+			}
+
+			function cleanup() {
+				if (timer.interval) {
+					clearInterval(timer.interval);
+					timer.interval = null;
+				}
+				timer.isRunning = false;
+				console.log('Timer cleanup completed');
+			}
+
+			function loadModuleContent(module) {
+				const contentPanel = document.getElementById("contentPanel");
+				const moduleContent = getModuleContent(module);
+				contentPanel.innerHTML = moduleContent;
+			}
+
+			function getModuleContent(module) {
+				const content = {
+					"room-setup": `
+                    <div class="content-section">
+                        <h1>Excellence Space Design</h1>
+                        <div class="inspiration-box">
+                            <h4>Excellence Principle</h4>
+                            <p>"The physical environment shapes the mental environment. When we design spaces that inspire collaboration and celebration, we create the conditions for extraordinary achievement."</p>
+                        </div>
+                        <h2>The Three Empowerment Zones</h2>
+                        <h3>1. The Excellence Wall</h3>
+                        <p>Create a dedicated space where progress becomes visible and achievements are celebrated. This wall transforms individual efforts into collective success.</p>
+                        <h3>2. Collaboration Central</h3>
+                        <p>Design open space that encourages natural interaction, knowledge sharing, and collective problem-solving.</p>
+                        <h3>3. Commitment Corner</h3>
+                        <p>Establish a ceremonial space where individuals make public commitments to excellence and collective growth.</p>
+                    </div>
+                `,
+					materials: `
+                    <div class="content-section">
+                        <h1>Empowerment Toolkit Preparation</h1>
+                        <div class="inspiration-box">
+                            <h4>Excellence Principle</h4>
+                            <p>"Simple tools enable complex thinking. When we prepare thoughtfully, we remove barriers to creativity and focus energy on building solutions together."</p>
+                        </div>
+                        <h2>Tools for Collective Excellence</h2>
+                        <p>Every material choice supports collaboration and celebrates capability. We prepare both digital and physical tools because excellence adapts to any situation.</p>
+                        <div class="materials-checklist">
+                            <h4>Excellence Toolkit Checklist</h4>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="problem-identification-tools">
+                                <label for="problem-identification-tools">Problem identification materials (sticky notes, markers)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="solution-building-tools">
+                                <label for="solution-building-tools">Solution building tools (laptops, context templates)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="celebration-materials">
+                                <label for="celebration-materials">Achievement celebration materials</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="capability-certificates">
+                                <label for="capability-certificates">Capability Certificates (10+ prints)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="mission-cards">
+                                <label for="mission-cards">Mission Possible Cards (3 sets)</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="excellence-trophy">
+                                <label for="excellence-trophy">Excellence Trophy for Victory Lap</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="manifesto-materials">
+                                <label for="manifesto-materials">Manifesto poster (A1) + permanent markers</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="photo-setup">
+                                <label for="photo-setup">Photo backdrop and props for ceremony</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="qr-generator">
+                                <label for="qr-generator">QR code generator ready for solution access</label>
+                            </div>
+                            <div class="checklist-item">
+                                <input type="checkbox" id="teams-channel">
+                                <label for="teams-channel">Teams/Slack channel pre-configured</label>
+                            </div>
+                        </div>
+                    </div>
+                `,
+					mindset: `
+                    <div class="content-section">
+                        <h1>Excellence Mindset Preparation</h1>
+                        
+                        <div class="inspiration-box">
+                            <h4>Facilitator Excellence Mindset</h4>
+                            <p>"You're not just teaching tools - you're cultivating belief in collective capability. Your confidence in their potential becomes their confidence in themselves. Excellence is contagious when modeled authentically."</p>
+                        </div>
+                        
+                        <h2>The Excellence Leader Transformation</h2>
+                        <p>Before you can inspire others to achieve excellence, you must embody absolute belief in human potential and collective capability. This workshop is not about information transfer - it's about awakening dormant strengths and building bridges between individual talents.</p>
+
+                        <h3>Core Excellence Beliefs</h3>
+                        <ul>
+                            <li><strong>Capability Multiplier:</strong> Every person brings unique strengths that, when combined, create extraordinary results</li>
+                            <li><strong>Growth Catalyst:</strong> Challenges are opportunities for developing new capabilities together</li>
+                            <li><strong>Collaboration Champion:</strong> The best solutions emerge from diverse perspectives working in harmony</li>
+                            <li><strong>Progress Celebrant:</strong> Small wins build momentum toward significant transformation</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <h4>Pre-Workshop Excellence Calibration</h4>
+                            <p>Check your belief in their potential. You must genuinely see possibility where others might see obstacles. Your authentic enthusiasm for what they can achieve together becomes the foundation for their own confidence and commitment to excellence.</p>
+                        </div>
+
+                        <h3>The Four Pillars of Excellence Leadership</h3>
+                        
+                        <h4>1. Unwavering Faith in Human Potential</h4>
+                        <p>You approach every participant as someone capable of extraordinary contribution. This isn't naive optimism - it's strategic investment in what people can become when given the right environment and encouragement.</p>
+
+                        <h4>2. Infectious Enthusiasm for Collective Achievement</h4>
+                        <p>Your excitement about what groups can accomplish together becomes the energy that sustains momentum through challenges. You model the collaborative spirit you want to see flourish.</p>
+
+                        <h4>3. Patient Persistence Through Learning Curves</h4>
+                        <p>Excellence takes time to develop. You maintain supportive energy through confusion, frustration, and breakthrough moments alike, helping people see temporary struggles as natural parts of growth.</p>
+
+                        <h4>4. Celebration-Focused Recognition</h4>
+                        <p>You actively look for progress to acknowledge and achievements to celebrate. Your recognition of their efforts reinforces the positive patterns that lead to sustained excellence.</p>
+
+                        <h3>Excellence Mindset Mantras for Challenging Moments</h3>
+                        <ul>
+                            <li><em>"Every person here has something valuable to contribute to our collective success"</em></li>
+                            <li><em>"Confusion is the beginning of understanding - we're exactly where we need to be"</em></li>
+                            <li><em>"The best solutions will emerge from our combined wisdom and experience"</em></li>
+                            <li><em>"Progress, not perfection, is our measure of success today"</em></li>
+                            <li><em>"What we build together will be stronger than what any of us could create alone"</em></li>
+                        </ul>
+
+                        <div class="notes-section">
+                            <h4>Personal Excellence Preparation</h4>
+                            <textarea class="notes-textarea" placeholder="What specific capabilities do you want to help unlock in this group? How will you model collaborative excellence throughout the workshop?"></textarea>
+                        </div>
+                    </div>
+                `,
+					"potential-revelation": `
+                    <div class="content-section">
+                        <h1>Potential Revelation</h1>
+                        <h2>Discovering What We Can Achieve Together</h2>
+                        <div class="inspiration-box">
+                            <h4>Excellence Goal</h4>
+                            <p>"In the first 15 minutes, demonstrate that extraordinary solutions are within our collective reach. Create excitement about the possibilities we can unlock together."</p>
+                        </div>
+                        
+                        <div class="capability-celebration">
+                            <h3>The Capability Celebration</h3>
+                            <p>Live demonstration showing how context-engineered AI transforms from generic responses to organization-specific excellence. Watch capability multiply before our eyes.</p>
+                        </div>
+                        
+                        <h3>🚀 The Possibility Onthulling (4-Minute Transformation)</h3>
+                        
+                        <div class="transformation-demo">
+                            <h4>Live Demonstratie: Van Generiek naar Geniaal</h4>
+                            
+                            <p><strong>Stap 1:</strong> "Kijk wat er gebeurt met dezelfde vraag..."</p>
+                            
+                            <div class="demo-comparison">
+                                <div class="demo-column generic">
+                                    <h5 style="color: #ef4444;">❌ Zonder Context</h5>
+                                    <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                    Prompt: "Maak een declaratie fout analyzer"<br><br>
+                                    Resultaat: Generieke lijst met mogelijke fouten...<br>
+                                    Geen begrip van Nederlandse zorgsysteem<br>
+                                    Geen kennis van specifieke codes<br>
+                                    Niet bruikbaar voor echte situaties
+                                    </p>
+                                </div>
+                                
+                                <div class="demo-column excellence">
+                                    <h5 style="color: #22c55e;">✅ Met Excellence Context</h5>
+                                    <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                    Zelfde prompt + onze context<br><br>
+                                    Resultaat: "Fout IZA-4B7-XX betekent:<br>
+                                    Patiënt verhuisd van WLZ naar ZVW<br>
+                                    Actie: Update AGB-code provider<br>
+                                    Contact: Zilveren Kruis declaratie team"
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <p style="text-align: center; font-size: 1.2rem; margin-top: 1.5rem; color: #fbbf24;">
+                                <strong>"Dit verschil? Dat kunnen jullie over 45 minuten ook!"</strong>
+                            </p>
+                        </div>
+                        
+                        <h3>💰 De Investering Vergelijking</h3>
+                        
+                        <div class="highlight-box">
+                            <h4>Twee Paden Naar Excellence</h4>
+                            <p><strong>Optie A:</strong> €50.000 voor externe consultants + 6 weken wachten + afhankelijkheid</p>
+                            <p><strong>Optie B:</strong> 3,5 uur vandaag + eigen expertise ontwikkelen + onbeperkt schalen</p>
+                            <p style="font-size: 1.3rem; margin-top: 1rem;">
+                                <strong>Jullie keuze vandaag: Optie B! 🎯</strong>
+                            </p>
+                        </div>
+                        
+                        <h3>The Empowerment Moment</h3>
+                        <p>Show the dramatic difference between generic AI and expertly-contextualized solutions. The gap between these two represents the untapped potential in this room.</p>
+                        
+                        <p><strong>Live demonstration examples by sector:</strong></p>
+                        <ul>
+                            <li><strong>Healthcare:</strong> Transform error codes into clear, actionable guidance</li>
+                            <li><strong>Finance:</strong> Convert transaction data into strategic insights</li>
+                            <li><strong>Operations:</strong> Turn process documentation into intelligent automation</li>
+                            <li><strong>HR:</strong> Create personalized employee support systems</li>
+                        </ul>
+                        
+                        <div class="certificate-card">
+                            <div class="certificate-title">🏅 Capability Certificate</div>
+                            <p style="font-size: 1.2rem; margin: 1rem 0;">This certifies that</p>
+                            <p style="font-size: 1.5rem; font-weight: bold; margin: 0.5rem 0;">[PARTICIPANT NAME]</p>
+                            <p style="font-size: 1.1rem; margin: 1rem 0;">
+                                has unlocked the power to build AI-enhanced solutions<br>
+                                that transform organizational capability
+                            </p>
+                            <p style="font-style: italic; margin-top: 1.5rem;">
+                                "From consumer to creator in 3.5 hours"
+                            </p>
+                        </div>
+                        
+                        <div class="notes-section">
+                            <h4>Opening Impact Notes</h4>
+                            <textarea class="notes-textarea" placeholder="Document the energy shift when participants see the transformation, note questions and excitement levels..."></textarea>
+                        </div>
+                    </div>
+                `,
+					"collaboration-mapping": `
+                    <div class="content-section">
+                        <h1>Collaboration Mapping</h1>
+                        <h2>Building Bridges Across Expertise</h2>
+                        
+                        <div class="inspiration-box">
+                            <h4>Collaboration Philosophy</h4>
+                            <p>"Every department brings unique perspectives that, when combined thoughtfully, create solutions no single group could achieve alone. This exercise reveals collaboration opportunities and builds mutual understanding."</p>
+                        </div>
+                        
+                        <h3>The Partnership Discovery Process (20 minutes)</h3>
+                        
+                        <h4>Phase 1: Expertise Mapping (8 minutes)</h4>
+                        <p>Participants physically position themselves along two spectrums to reveal the diversity of experience and motivation in the room.</p>
+                        
+                        <p><strong>First Spectrum - Technical Relationship:</strong></p>
+                        <ul>
+                            <li>"I build and configure technology daily" → One wall</li>
+                            <li>"I prefer technology that works seamlessly without my attention" → Opposite wall</li>
+                            <li>Everyone else finds their authentic position between these endpoints</li>
+                        </ul>
+
+                        <p><strong>Second Spectrum - Workshop Motivation:</strong></p>
+                        <ul>
+                            <li>"I'm here because I want to expand my capabilities" → One wall</li>
+                            <li>"I'm here because it was recommended for my role" → Opposite wall</li>
+                        </ul>
+
+                        <h4>Phase 2: Collaboration Quadrants (7 minutes)</h4>
+                        <p>The intersection of these two spectrums creates four distinct collaboration styles, each contributing essential perspectives to excellence-driven solution development.</p>
+                        
+                        <div style="background: rgba(0, 0, 0, 0.4); border-radius: 0.75rem; padding: 2rem; margin: 2rem 0;">
+                            <div style="text-align: center; margin-bottom: 1rem;">
+                                <div style="color: #fbbf24; font-weight: bold; margin-bottom: 0.5rem;">WANT TO EXPAND CAPABILITIES →</div>
+                            </div>
+                            
+                            <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
+                                <div style="writing-mode: vertical-lr; text-orientation: mixed; color: #60a5fa; font-weight: bold; margin-right: 1rem; transform: rotate(180deg);">
+                                    PREFER SEAMLESS TECH
+                                </div>
+                                
+                                <table style="border-collapse: separate; border-spacing: 4px; width: 600px;">
+                                    <tr>
+                                        <!-- Business Enthusiasts (Top Left) -->
+                                        <td style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(251, 191, 36, 0.1)); border: 2px solid #fbbf24; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
+                                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌟</div>
+                                            <div style="color: #fbbf24; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Business Enthusiasts</div>
+                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">The Practical Innovators</div>
+                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                                • Ensure user adoption<br>
+                                                • Focus on practical impact<br>
+                                                • Bridge technology and workflow<br>
+                                                • Champion change management
+                                            </div>
+                                        </td>
+                                        <!-- Technical Enthusiasts (Top Right) -->
+                                        <td style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.1)); border: 2px solid #22c55e; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
+                                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
+                                            <div style="color: #22c55e; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Technical Enthusiasts</div>
+                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">The Innovation Drivers</div>
+                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                                • Drive rapid prototyping<br>
+                                                • Explore cutting-edge possibilities<br>
+                                                • Create technical foundations<br>
+                                                • Push capability boundaries
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <!-- Business Realists (Bottom Left) -->
+                                        <td style="background: linear-gradient(135deg, rgba(168, 139, 250, 0.3), rgba(168, 139, 250, 0.1)); border: 2px solid #a78bfa; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
+                                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚖️</div>
+                                            <div style="color: #a78bfa; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Business Realists</div>
+                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">The Operational Anchors</div>
+                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                                • Ground in operational reality<br>
+                                                • Identify implementation barriers<br>
+                                                • Ensure resource feasibility<br>
+                                                • Maintain service continuity
+                                            </div>
+                                        </td>
+                                        <!-- Technical Realists (Bottom Right) -->
+                                        <td style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.1)); border: 2px solid #ef4444; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
+                                            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
+                                            <div style="color: #ef4444; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Technical Realists</div>
+                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">The Quality Guardians</div>
+                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                                • Provide quality control<br>
+                                                • Ensure security compliance<br>
+                                                • Assess technical risks<br>
+                                                • Validate system integration
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                                
+                                <div style="writing-mode: vertical-lr; text-orientation: mixed; color: #60a5fa; font-weight: bold; margin-left: 1rem;">
+                                    BUILD/CONFIGURE DAILY
+                                </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin-top: 1rem;">
+                                <div style="color: #fbbf24; font-weight: bold;">← RECOMMENDED FOR ROLE</div>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <h4>Collaboration Synergy Principle</h4>
+                            <p>Excellence emerges when these four perspectives work in harmony rather than opposition. Technical Enthusiasts provide innovation velocity while Technical Realists ensure sustainable quality. Business Enthusiasts drive practical adoption while Business Realists maintain operational stability. The most robust solutions incorporate insights from all four collaboration styles.</p>
+                        </div>
+
+                        <h4>Phase 3: Partnership Formation (5 minutes)</h4>
+                        <p>Form cross-functional pairs that combine different collaboration styles. These partnerships will work together throughout the remaining workshop activities.</p>
+
+                        <p><strong>Partnership Mission:</strong> Each pair identifies one workflow that currently requires coordination between their departments but could benefit from enhanced collaboration.</p>
+
+                        <div class="notes-section">
+                            <h4>Collaboration Insights</h4>
+                            <textarea class="notes-textarea" placeholder="Document the collaboration styles present, partnerships formed, and opportunities for enhanced cooperation..."></textarea>
+                        </div>
+                    </div>
+                `,
+					"excellence-commitment": `
+                    <div class="content-section">
+                        <h1>Excellence Commitment</h1>
+                        <h2>From Possibility to Action</h2>
+                        
+                        <div class="inspiration-box">
+                            <h4>Commitment Power</h4>
+                            <p>"Public commitments transform individual intentions into collective accountability. When we declare our goals in the presence of colleagues, we create supportive pressure that drives follow-through."</p>
+                        </div>
+                        
+                        <h3>The Collective Commitment Process (25 minutes)</h3>
+
+                        <h4>Phase 1: Excellence Principles Agreement (10 minutes)</h4>
+                        <p>Collaborative creation of the group's shared excellence standards. This isn't about perfection, but about the quality of effort and mutual support we commit to maintaining.</p>
+                        
+                        <div class="manifesto-scroll">
+                            <h4 style="color: #000;">Our Excellence Principles</h4>
+                            <p style="color: #000;"><strong>We commit to:</strong></p>
+                            <ul style="color: #000; margin-left: 2rem;">
+                                <li>Approaching challenges with curiosity rather than frustration</li>
+                                <li>Sharing discoveries and learnings openly with colleagues</li>
+                                <li>Supporting each other through learning curves and setbacks</li>
+                                <li>Building solutions that benefit the broader organization</li>
+                                <li>Maintaining high standards while embracing iterative improvement</li>
+                            </ul>
+                        </div>
+
+                        <h4>Phase 2: Problem Selection for Excellence Wall (10 minutes)</h4>
+                        <p>Cross-functional partnerships announce the specific challenge they've chosen to address using the capabilities developed in this workshop.</p>
+                        
+                        <p><strong>Selection criteria for excellence challenges:</strong></p>
+                        <ul>
+                            <li>Affects multiple people or processes</li>
+                            <li>Can be meaningfully improved with enhanced AI capabilities</li>
+                            <li>Represents a learning opportunity for the partnership</li>
+                            <li>Success can be measured and celebrated</li>
+                        </ul>
+
+                        <h4>Phase 3: Excellence Wall Creation (5 minutes)</h4>
+                        <p>Each partnership writes their chosen challenge on the Excellence Wall, creating a visible commitment to collective problem-solving.</p>
+                        
+                        <p><strong>Excellence Wall serves as:</strong></p>
+                        <ul>
+                            <li>Public accountability for chosen commitments</li>
+                            <li>Visual reminder of collective capability</li>
+                            <li>Foundation for ongoing progress tracking</li>
+                            <li>Inspiration for additional improvement opportunities</li>
+                        </ul>
+
+                        <div class="notes-section">
+                            <h4>Commitment Documentation</h4>
+                            <textarea class="notes-textarea" placeholder="Record the excellence challenges chosen, partnership dynamics observed, and commitment energy levels..."></textarea>
+                        </div>
+                    </div>
+                `,
+					"solution-building": `
+                    <div class="content-section">
+                        <h1>Excellence Solution Building</h1>
+                        <h2>From Context to Capability</h2>
+                        
+                        <div class="inspiration-box">
+                            <h4>Solution Building Philosophy</h4>
+                            <p>"The best solutions emerge when diverse expertise combines with systematic methodology. Context engineering becomes the bridge between domain knowledge and technological capability."</p>
+                        </div>
+                        
+                        <h3>🎯 De 3-voor-Lunch Belofte</h3>
+                        
+                        <div class="excellence-tracker">
+                            <h4 style="text-align: center; color: #fbbf24;">Live Solution Tracker</h4>
+                            <div class="tracker-item">
+                                <span>Solutions Built</span>
+                                <span class="tracker-metric" id="solutionCount">0 / 3</span>
+                            </div>
+                            <div class="tracker-item">
+                                <span>Time Remaining</span>
+                                <span class="tracker-metric" id="timeRemaining">40:00</span>
+                            </div>
+                            <div class="tracker-item">
+                                <span>Teams Active</span>
+                                <span class="tracker-metric" id="teamsActive">3 / 3</span>
+                            </div>
+                        </div>
+                        
+                        <h3>Mission Possible: AAG Excellence Challenges</h3>
+                        
+                        <p style="background: rgba(59, 130, 246, 0.2); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
+                            <strong>🎯 Kies een challenge die direct aansluit bij jullie organisatie!</strong><br>
+                            Deze missies zijn gebaseerd op echte AAG-successen bij Carinova, Amarant, Inovum en anderen.
+                        </p>
+                        
+                        <!-- HR & Planning Challenges -->
+                        <h4 style="color: #60a5fa; margin-top: 2rem;">👥 HR & Planning Excellence</h4>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🔄 De AFAS Vertaler</span>
+                                <span class="mission-icon">💼</span>
+                            </div>
+                            <p><strong>HR Systeem Integration Mission</strong></p>
+                            <p>Bouw een AI-assistent die AFAS foutmeldingen vertaalt naar begrijpelijke Nederlandse instructies voor HR-medewerkers.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - AFAS specifieke codes en workflows<br>
+                                - Mutatie-processen: in/uit/doorstroom<br>
+                                - Veelvoorkomende fouten: BSN, looncomponenten<br>
+                                Target: 30-60% snellere doorlooptijd mutaties
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">📅 De Rooster Optimizer</span>
+                                <span class="mission-icon">⏰</span>
+                            </div>
+                            <p><strong>Capaciteitsplanning Mission</strong></p>
+                            <p>Creëer een AI-tool die roosterconflicten voorspelt en oplossingen suggereert op basis van CAO Zorg regels.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - CAO Zorg: werk/rust tijden, ORT regels<br>
+                                - Part-time percentages: 0.6, 0.8, 0.9 FTE<br>
+                                - Nedap ONS integratie patterns<br>
+                                Target: Verhoog roosterfit, verminder last-minute inhuur
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🎯 De Verzuim Voorspeller</span>
+                                <span class="mission-icon">📊</span>
+                            </div>
+                            <p><strong>Verzuimpreventie Mission</strong></p>
+                            <p>Ontwikkel een early-warning systeem dat verzuimpatronen herkent en preventieve acties voorstelt.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Verzuimcategorieën: kort/middel/lang<br>
+                                - Risico-indicatoren per afdeling<br>
+                                - Arbodienst protocollen<br>
+                                Target: Verzuim met 15% verlagen
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Finance & Control Challenges -->
+                        <h4 style="color: #60a5fa; margin-top: 2rem;">💰 Finance & Zorgadministratie Excellence</h4>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🔍 De DBC/DOT Detective</span>
+                                <span class="mission-icon">🏥</span>
+                            </div>
+                            <p><strong>Zorgregistratie Mission</strong></p>
+                            <p>Bouw een AI die DBC/DOT registratiefouten opspoort en correcte codes suggereert.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - DBC/DOT productstructuur 2024<br>
+                                - NZa tarieven en regelgeving<br>
+                                - Verzekeraar-specifieke eisen (CZ, VGZ, Menzis)<br>
+                                Target: 80% minder correcties achteraf
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">📋 De WLZ/ZVW Navigator</span>
+                                <span class="mission-icon">💳</span>
+                            </div>
+                            <p><strong>Financieringsstromen Mission</strong></p>
+                            <p>Creëer een assistent die bepaalt welke financieringsstroom (WLZ, ZVW, WMO, PGB) van toepassing is.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Indicatiecriteria per stroom<br>
+                                - Overgangsregelingen 2024/2025<br>
+                                - AGB-codes en contracten<br>
+                                Target: Voorkom declaratie-afwijzingen
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">📊 De Jaarrekening Helper</span>
+                                <span class="mission-icon">📈</span>
+                            </div>
+                            <p><strong>Verantwoording Mission</strong></p>
+                            <p>Ontwikkel een AI die DigiMV/JVD vragen beantwoordt en inconsistenties detecteert.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - WNT normering 2024<br>
+                                - DigiMV vragenlijst structuur<br>
+                                - Accountantsprotocol zorg<br>
+                                Target: 50% minder accountantsbevindingen
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Data & Analytics Challenges -->
+                        <h4 style="color: #60a5fa; margin-top: 2rem;">📊 Data & Analytics Excellence (AAG Analytics)</h4>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🎯 De KPI Verteller</span>
+                                <span class="mission-icon">📱</span>
+                            </div>
+                            <p><strong>Management Rapportage Mission</strong></p>
+                            <p>Bouw een AI die PowerBI dashboards vertaalt naar WhatsApp-vriendelijke updates voor MT-leden.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Productiviteit, verzuim, inhuur KPI's<br>
+                                - Benchmark percentiles zorg<br>
+                                - Visma.net data structuur<br>
+                                Target: Daily insights in 30 seconden
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🔄 De Data Quality Guard</span>
+                                <span class="mission-icon">✅</span>
+                            </div>
+                            <p><strong>Datakwaliteit Mission</strong></p>
+                            <p>Creëer een AI die datakwaliteitsissues tussen AFAS, Nedap en financiële systemen detecteert.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Koppelvlakken AFAS-Nedap-Finance<br>
+                                - Reconciliatie regels<br>
+                                - Master data management<br>
+                                Target: 90% first-time-right data
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Vastgoed & Facilitair Challenges -->
+                        <h4 style="color: #60a5fa; margin-top: 2rem;">🏢 Vastgoed & Facilitair Excellence</h4>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🌱 De Verduurzaming Adviseur</span>
+                                <span class="mission-icon">⚡</span>
+                            </div>
+                            <p><strong>ESG & Energie Mission</strong></p>
+                            <p>Ontwikkel een AI die quick-wins voor energiebesparing identificeert op basis van gebouwdata.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - MJOP data en energielabels<br>
+                                - ESG doelstellingen 2030<br>
+                                - Subsidie mogelijkheden<br>
+                                Target: 15% energie reductie jaar 1
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">📍 De Bezetting Optimizer</span>
+                                <span class="mission-icon">🗺️</span>
+                            </div>
+                            <p><strong>Ruimtegebruik Mission</strong></p>
+                            <p>Bouw een AI die optimale bezetting adviseert op basis van zorgvraag-prognoses.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Demografische ontwikkelingen regio<br>
+                                - Zorgvraag projecties<br>
+                                - Flexibele huisvestingsconcepten<br>
+                                Target: 20% betere ruimtebenutting
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">🔧 De Storings Voorspeller</span>
+                                <span class="mission-icon">🛠️</span>
+                            </div>
+                            <p><strong>Predictive Maintenance Mission</strong></p>
+                            <p>Creëer een early warning systeem voor technische installaties op basis van storingshistorie.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Installatie levenscyclus data<br>
+                                - Kritieke systemen zorgomgeving<br>
+                                - SLA's met leveranciers<br>
+                                Target: 40% minder ongeplande uitval
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- Specifieke Processen -->
+                        <h4 style="color: #60a5fa; margin-top: 2rem;">⚡ Quick Win Process Challenges</h4>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">💳 De Kas & Pas Helper</span>
+                                <span class="mission-icon">🛒</span>
+                            </div>
+                            <p><strong>Kleine Uitgaven Mission (Bergweide case)</strong></p>
+                            <p>Digitaliseer het kleine uitgavenproces met slimme categorisatie en autorisatie.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Uitgavencategorieën en limieten<br>
+                                - Autorisatie matrix<br>
+                                - Compliance vereisten<br>
+                                Target: 70% snellere verwerking
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="mission-card">
+                            <div class="mission-card-header">
+                                <span class="mission-title">📧 De Email Triage Bot</span>
+                                <span class="mission-icon">🤖</span>
+                            </div>
+                            <p><strong>Servicedesk Automation Mission</strong></p>
+                            <p>Bouw een AI die servicedesk mails categoriseert en standaard antwoorden genereert.</p>
+                            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
+                                <p style="font-family: 'Courier New'; font-size: 0.9rem;">
+                                Context additions:<br>
+                                - Top 20 FAQ's per afdeling<br>
+                                - Escalatie criteria<br>
+                                - Response templates<br>
+                                Target: 60% first-time-fix
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <h3>Collaborative Solution Development (40 minutes)</h3>
+
+                        <h4>Phase 1: Context Refinement (10 minutes)</h4>
+                        <p>Partnerships enhance their organizational context templates with specific knowledge relevant to their chosen challenge.</p>
+                        
+                        <p><strong>Context enhancement areas:</strong></p>
+                        <ul>
+                            <li>Domain-specific terminology and definitions</li>
+                            <li>Quality standards and success criteria</li>
+                            <li>Common scenarios and edge cases</li>
+                            <li>Integration points with existing systems</li>
+                            <li>Stakeholder needs and communication preferences</li>
+                        </ul>
+
+                        <h4>Phase 2: Solution Development Sprint (20 minutes)</h4>
+                        <p>Apply enhanced context engineering to build working solutions that address real organizational challenges.</p>
+                        
+                        <p><strong>Sprint methodology:</strong></p>
+                        <ul>
+                            <li><strong>Minutes 1-5:</strong> Define specific problem scenario to solve</li>
+                            <li><strong>Minutes 6-15:</strong> Iterative solution building with context-enhanced AI</li>
+                            <li><strong>Minutes 16-20:</strong> Solution testing and refinement</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <h4>Excellence Coaching Points</h4>
+                            <p><strong>When partnerships encounter challenges:</strong></p>
+                            <p>"What's the simplest version that would add value?" Focus on incremental progress rather than perfect solutions.</p>
+                            <p>"How can we test this assumption quickly?" Encourage rapid experimentation over extended planning.</p>
+                            <p>"What would success look like for the people who will use this?" Maintain user-centered thinking.</p>
+                        </div>
+                        
+                        <h4>Phase 3: Cross-Team Knowledge Exchange (5 minutes)</h4>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(168, 139, 250, 0.2), rgba(168, 139, 250, 0.1)); border-radius: 1rem; padding: 1.5rem; margin: 1.5rem 0;">
+                            <h4 style="color: #a78bfa;">🔄 Expertise Exchange Protocol</h4>
+                            <p><strong>Rapid Knowledge Transfer (Timer: 5 minutes)</strong></p>
+                            <ul>
+                                <li><strong>Round 1:</strong> HR team shares employee data patterns with Finance</li>
+                                <li><strong>Round 2:</strong> Finance shares cost calculations with Analytics</li>
+                                <li><strong>Round 3:</strong> Analytics shares visualization tricks with HR</li>
+                            </ul>
+                            <p style="margin-top: 1rem; font-style: italic;">
+                                "This cross-pollination of expertise is what creates breakthrough solutions!"
+                            </p>
+                        </div>
+
+                        <h4>Phase 4: Solution Documentation (5 minutes)</h4>
+                        <p>Capture successful approaches in formats that enable knowledge sharing and solution replication.</p>
+                        
+                        <p><strong>Documentation elements:</strong></p>
+                        <ul>
+                            <li>Refined context template</li>
+                            <li>Effective prompt patterns discovered</li>
+                            <li>Example inputs and outputs</li>
+                            <li>Success metrics and evaluation criteria</li>
+                            <li>Opportunities for solution expansion</li>
+                        </ul>
+
+                        <div class="notes-section">
+                            <h4>Solution Development Insights</h4>
+                            <textarea class="notes-textarea" placeholder="Document successful solution patterns, collaboration dynamics, breakthrough moments, and scaling opportunities..."></textarea>
+                        </div>
+                    </div>
+                `,
+					"success-showcase": `
+                    <div class="content-section">
+                        <h1>Success Showcase</h1>
+                        <h2>Celebrating Collective Achievement</h2>
+                        
+                        <div class="inspiration-box">
+                            <h4>Showcase Purpose</h4>
+                            <p>"Public demonstration of achievements serves multiple purposes: validates effort, spreads successful approaches, builds confidence, and creates positive momentum for continued excellence."</p>
+                        </div>
+                        
+                        <h3>🏆 Excellence Games: Victory Lap Competition</h3>
+                        
+                        <div class="victory-lap">
+                            <h3>The Victory Lap Format</h3>
+                            <p style="font-size: 1.2rem;">Each team gets their moment in the spotlight!</p>
+                            
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;">
+                                <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem;">
+                                    <h5 style="color: #fbbf24;">⭐ Creativity Points</h5>
+                                    <p style="font-size: 0.9rem;">Most innovative approach</p>
+                                </div>
+                                <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem;">
+                                    <h5 style="color: #22c55e;">🚀 Impact Points</h5>
+                                    <p style="font-size: 0.9rem;">Biggest time/cost savings</p>
+                                </div>
+                                <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem;">
+                                    <h5 style="color: #60a5fa;">🎯 Scalability Points</h5>
+                                    <p style="font-size: 0.9rem;">Easy to replicate across org</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h3>Collaborative Success Presentation (25 minutes)</h3>
+
+                        <h4>Presentation Format (3 minutes per partnership)</h4>
+                        <p>Each partnership demonstrates their solution using a structured format that maximizes learning and celebration.</p>
+                        
+                        <p><strong>Success showcase structure:</strong></p>
+                        <ul>
+                            <li><strong>60 seconds:</strong> The challenge we chose to address and why it matters</li>
+                            <li><strong>90 seconds:</strong> Live demonstration of our working solution</li>
+                            <li><strong>30 seconds:</strong> The impact this solution can have and what we learned</li>
+                        </ul>
+                        
+                        <h4>🎮 "Try to Break It" Challenge Round</h4>
+                        
+                        <div class="highlight-box">
+                            <h4>Constructive Testing Protocol</h4>
+                            <p>After each demo, other teams get 2 minutes to test the solution with edge cases:</p>
+                            <ul>
+                                <li>"What happens if I ask it in English instead of Dutch?"</li>
+                                <li>"Can it handle this unusual scenario?"</li>
+                                <li>"How does it respond to incomplete information?"</li>
+                            </ul>
+                            <p style="margin-top: 1rem;"><strong>Goal:</strong> Not to break, but to strengthen! Each successful test = resilience points.</p>
+                        </div>
+
+                        <h4>Audience Engagement Protocol</h4>
+                        <p>After each demonstration, the audience contributes to solution refinement and scaling through structured feedback.</p>
+                        
+                        <p><strong>Engagement questions:</strong></p>
+                        <ul>
+                            <li>"Where else in our organization could this approach be valuable?"</li>
+                            <li>"What enhancement would make this solution even more powerful?"</li>
+                            <li>"How might we adapt this methodology for different challenges?"</li>
+                        </ul>
+
+                        <div class="capability-celebration">
+                            <h3>Excellence Amplification</h3>
+                            <p>After each demonstration, facilitator amplifies the achievement and connects it to broader organizational capability development.</p>
+                        </div>
+
+                        <h4>Knowledge Transfer Acceleration</h4>
+                        <p>Immediate sharing ensures successful approaches spread throughout the organization.</p>
+                        
+                        <p><strong>Real-time knowledge capture:</strong></p>
+                        <ul>
+                            <li>Solutions uploaded to shared organizational repository</li>
+                            <li>Context templates made available for adaptation</li>
+                            <li>Success stories documented for future inspiration</li>
+                            <li>Contact information shared for continued collaboration</li>
+                            <li>QR codes generated for instant solution access</li>
+                        </ul>
+
+                        <h4>Scaling Vision Development</h4>
+                        <p>Group reflection on how demonstrated successes can multiply throughout the organization.</p>
+                        
+                        <p><strong>Scaling discussion framework:</strong></p>
+                        <ul>
+                            <li>Which solutions could be deployed immediately in other departments?</li>
+                            <li>What organizational systems would support broader adoption?</li>
+                            <li>How can we maintain solution quality while enabling rapid spread?</li>
+                            <li>What additional capabilities would amplify these successes?</li>
+                        </ul>
+                        
+                        <div class="excellence-tracker">
+                            <h4 style="text-align: center;">🎊 Final Score & Excellence Trophy</h4>
+                            <div class="tracker-item">
+                                <span>Team Maandag Morgen Held</span>
+                                <span class="tracker-metric">⭐⭐⭐⭐</span>
+                            </div>
+                            <div class="tracker-item">
+                                <span>Team Declaratie Tovenaar</span>
+                                <span class="tracker-metric">⭐⭐⭐⭐⭐</span>
+                            </div>
+                            <div class="tracker-item">
+                                <span>Team Inzicht Verteller</span>
+                                <span class="tracker-metric">⭐⭐⭐⭐</span>
+                            </div>
+                        </div>
+
+                        <div class="notes-section">
+                            <h4>Success Showcase Results</h4>
+                            <textarea class="notes-textarea" placeholder="Document demonstrated solutions, audience engagement, scaling opportunities identified, and momentum created..."></textarea>
+                        </div>
+                    </div>
+                `,
+					"excellence-challenge": `
+                    <div class="content-section">
+                        <h1>30-Day Excellence Challenge</h1>
+                        <h2>Sustaining Growth Beyond the Workshop</h2>
+                        
+                        <div class="inspiration-box">
+                            <h4>Sustained Excellence Philosophy</h4>
+                            <p>"Workshop inspiration fades without systematic practice. The 30-day challenge transforms today's enthusiasm into sustainable habits through structured accountability and mutual support."</p>
+                        </div>
+                        
+                        <h3>Individual Excellence Commitment Development (15 minutes)</h3>
+
+                        <h4>Personal Excellence Mission Design</h4>
+                        <p>Each participant creates a specific, measurable commitment that builds on workshop learning while addressing real work challenges.</p>
+                        
+                        <div class="highlight-box">
+                            <h4>Excellence Mission Template</h4>
+                            <p><strong>By [specific date within 30 days], I will enhance [specific work process] by implementing [learned methodology] to achieve [measurable improvement] that benefits [specific stakeholders].</strong></p>
+                            
+                            <p><strong>I will measure success by:</strong> [specific metrics or outcomes]</p>
+                            <p><strong>I will share my learning with:</strong> [specific colleague from different department]</p>
+                        </div>
+
+                        <p><strong>Excellence mission criteria:</strong></p>
+                        <ul>
+                            <li><strong>Specific:</strong> Clear description of what will be accomplished</li>
+                            <li><strong>Valuable:</strong> Meaningful impact on work quality or efficiency</li>
+                            <li><strong>Achievable:</strong> Realistic given current resources and constraints</li>
+                            <li><strong>Connected:</strong> Builds on workshop methods and partnerships</li>
+                            <li><strong>Shareable:</strong> Includes teaching component to multiply impact</li>
+                        </ul>
+
+                        <h3>Mutual Support System Creation (10 minutes)</h3>
+                        
+                        <p><strong>Excellence partnerships:</strong> Workshop partnerships commit to supporting each other's 30-day missions through regular check-ins and encouragement.</p>
+                        
+                        <p><strong>Support structure elements:</strong></p>
+                        <ul>
+                            <li>Weekly progress sharing via preferred communication channel</li>
+                            <li>Problem-solving collaboration when challenges arise</li>
+                            <li>Celebration of milestones and breakthrough moments</li>
+                            <li>Knowledge sharing about effective approaches and lessons learned</li>
+                        </ul>
+                        
+                        <h3>📅 Post-Workshop Momentum Plan</h3>
+                        
+                        <div class="momentum-calendar">
+                            <h4 style="text-align: center; color: #fbbf24;">30-Day Excellence Journey</h4>
+                            
+                            <div style="margin: 2rem 0;">
+                                <h5 style="color: #60a5fa;">Week 1: First Victory</h5>
+                                <div class="calendar-week">
+                                    <div class="calendar-day">
+                                        <strong>Day 1</strong><br>
+                                        Deploy first solution
+                                    </div>
+                                    <div class="calendar-day highlight">
+                                        <strong>Day 3</strong><br>
+                                        Wednesday Check-in
+                                    </div>
+                                    <div class="calendar-day">
+                                        <strong>Day 5</strong><br>
+                                        Share learnings
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 2rem 0;">
+                                <h5 style="color: #60a5fa;">Week 2: Momentum Building</h5>
+                                <div class="calendar-week">
+                                    <div class="calendar-day">
+                                        <strong>Day 8</strong><br>
+                                        Second solution live
+                                    </div>
+                                    <div class="calendar-day highlight">
+                                        <strong>Day 10</strong><br>
+                                        Wednesday Check-in
+                                    </div>
+                                    <div class="calendar-day">
+                                        <strong>Day 12</strong><br>
+                                        Cross-team demo
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 2rem 0;">
+                                <h5 style="color: #60a5fa;">Week 3: Scaling Success</h5>
+                                <div class="calendar-week">
+                                    <div class="calendar-day">
+                                        <strong>Day 15</strong><br>
+                                        Department rollout
+                                    </div>
+                                    <div class="calendar-day highlight">
+                                        <strong>Day 17</strong><br>
+                                        Wednesday Check-in
+                                    </div>
+                                    <div class="calendar-day">
+                                        <strong>Day 19</strong><br>
+                                        Success metrics
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div style="margin: 2rem 0;">
+                                <h5 style="color: #60a5fa;">Week 4: Excellence Celebration</h5>
+                                <div class="calendar-week">
+                                    <div class="calendar-day">
+                                        <strong>Day 22</strong><br>
+                                        Final solutions
+                                    </div>
+                                    <div class="calendar-day highlight">
+                                        <strong>Day 24</strong><br>
+                                        Wednesday Check-in
+                                    </div>
+                                    <div class="calendar-day highlight" style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(245, 158, 11, 0.3)); border-color: #fbbf24;">
+                                        <strong>Day 30</strong><br>
+                                        🎉 Excellence Lunch!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3>Organizational Excellence Infrastructure (10 minutes)</h3>
+                        
+                        <p><strong>Collective progress tracking:</strong> Establish systems that maintain momentum and facilitate knowledge sharing across the organization.</p>
+                        
+                        <div class="commitment-tracker">
+                            <h4>Excellence Commitment Tracker</h4>
+                            <div class="commitment-grid">
+                                <div class="commitment-card">
+                                    <h5 style="color: #fbbf24;">Week 1</h5>
+                                    <p>10 new solutions</p>
+                                    <p style="color: #22c55e;">€10K saved</p>
+                                </div>
+                                <div class="commitment-card">
+                                    <h5 style="color: #fbbf24;">Week 2</h5>
+                                    <p>20 solutions total</p>
+                                    <p style="color: #22c55e;">€25K saved</p>
+                                </div>
+                                <div class="commitment-card">
+                                    <h5 style="color: #fbbf24;">Week 3</h5>
+                                    <p>Department-wide</p>
+                                    <p style="color: #22c55e;">€40K saved</p>
+                                </div>
+                                <div class="commitment-card">
+                                    <h5 style="color: #fbbf24;">Week 4</h5>
+                                    <p>30+ solutions!</p>
+                                    <p style="color: #22c55e;">€50K+ saved</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <p><strong>Infrastructure components:</strong></p>
+                        <ul>
+                            <li><strong>Progress Communication:</strong> Weekly "Excellence Spotlight" in company newsletter</li>
+                            <li><strong>Knowledge Repository:</strong> Shared Teams/SharePoint with all solutions and templates</li>
+                            <li><strong>Mentorship Network:</strong> Experienced practitioners supporting newcomers</li>
+                            <li><strong>Celebration Events:</strong> Monthly Excellence Lunch for all who delivered</li>
+                            <li><strong>Leadership Updates:</strong> Bi-weekly progress reports to management</li>
+                        </ul>
+
+                        <div class="notes-section">
+                            <h4>Excellence Challenge Planning</h4>
+                            <textarea class="notes-textarea" placeholder="Document individual commitments made, support partnerships formed, and organizational infrastructure planned..."></textarea>
+                        </div>
+                    </div>
+                `,
+					"context-mastery": `
+                    <div class="content-section">
+                        <h1>Context Mastery Method</h1>
+                        <div class="inspiration-box">
+                            <h4>The Excellence Multiplier</h4>
+                            <p>"Context engineering is how we teach AI to think like domain experts. When we master this method, we unlock the ability to build sophisticated solutions that understand our specific challenges and opportunities."</p>
+                        </div>
+                        
+                        <h2>The Empowerment Secret Revealed</h2>
+                        <p>The difference between generic AI responses and expert-level solutions lies in context engineering. Today we master this method together.</p>
+                        
+                        <div style="background: rgba(0, 0, 0, 0.4); padding: 1.5rem; border-radius: 0.5rem; margin: 1.5rem 0; font-family: 'Courier New', monospace; font-size: 0.9rem; color: #22c55e;">
+                            <h4 style="color: #fbbf24; font-family: inherit;">EXCELLENCE_CONTEXT.md</h4>
+                            <br>
+                            # You are an [ORGANIZATION] Excellence AI Assistant<br><br>
+                            
+                            ## Empowerment Context:<br>
+                            - Organization: [NAME] - [SIZE] professionals excelling in [INDUSTRY]<br>
+                            - Mission: [SPECIFIC PURPOSE AND VALUES]<br>
+                            - Expertise areas: [DEPT1], [DEPT2], [DEPT3], [DEPT4]<br>
+                            - Success standards: [QUALITY FRAMEWORKS]<br>
+                            - Communication: [PRIMARY LANGUAGE] for clients, [TECHNICAL] for systems<br><br>
+                            
+                            ## Excellence Principles:<br>
+                            1. Build on existing strengths and capabilities<br>
+                            2. Focus on practical, implementable solutions<br>
+                            3. Support collaborative decision-making<br>
+                            4. Maintain high standards for quality and ethics<br>
+                            5. Create solutions that grow organizational capability
+                        </div>
+                        
+                        <h3>The Transformation Moment</h3>
+                        <p><em>Same prompt, two different approaches: Generic AI gives generic answers. Context-mastered AI provides expert-level, organization-specific solutions.</em></p>
+                    </div>
+                `,
+					"commitment-ceremony": `
+                    <div class="content-section">
+                        <h1>Excellence Commitment Ceremony</h1>
+                        <div class="inspiration-box">
+                            <h4>From Individual Learning to Collective Excellence</h4>
+                            <p>"This ceremony transforms workshop participants into committed practitioners of excellence. Together we pledge to build on what we've learned and support each other's continued growth."</p>
+                        </div>
+                        
+                        <h3>📝 The Manifesto Moment (20 minutes)</h3>
+                        
+                        <div style="background: rgba(59, 130, 246, 0.2); border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="text-align: center; color: #fbbf24;">Collaborative Manifesto Creation</h4>
+                            
+                            <p><strong>Live on screen, we write together:</strong></p>
+                            
+                            <ol style="margin-left: 2rem;">
+                                <li><strong>What we discovered today:</strong> Each person adds one capability they didn't know they had</li>
+                                <li><strong>What we're building together:</strong> Our collective vision for the organization</li>
+                                <li><strong>How we support each other:</strong> Specific commitments to collaboration</li>
+                                <li><strong>When we celebrate:</strong> Milestones and check-in moments</li>
+                            </ol>
+                            
+                            <p style="margin-top: 1.5rem; text-align: center; font-style: italic;">
+                                "This isn't just words on paper - it's our blueprint for excellence"
+                            </p>
+                        </div>
+                        
+                        <div class="manifesto-scroll">
+                            <h3 style="text-align: center; color: #000;">EXCELLENCE COMMITMENT</h3>
+                            <p style="color: #000; font-size: 1.1rem; text-align: center; margin-bottom: 1.5rem;">
+                                <em>Pledged together on [DATE], by the Excellence Community of [ORGANIZATION]</em>
+                            </p>
+                            
+                            <p style="color: #000; font-weight: bold;">We, the professionals of [ORGANIZATION], commit to building extraordinary capability through collective excellence.</p>
+                            
+                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE DISCOVERED TODAY:</p>
+                            <ul style="color: #000; margin-left: 2rem; margin-bottom: 1.5rem;">
+                                <li>We can build in 45 minutes what costs €50K in consulting</li>
+                                <li>Our combined expertise creates solutions no individual could build alone</li>
+                                <li>Context engineering multiplies our domain knowledge into AI capability</li>
+                                <li>Three working solutions before lunch is just the beginning</li>
+                            </ul>
+                            
+                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE BELIEVE IN THESE PRINCIPLES:</p>
+                            <ul style="color: #000; margin-left: 2rem; margin-bottom: 1.5rem;">
+                                <li>Every challenge is an opportunity to grow our capabilities</li>
+                                <li>Collaboration multiplies individual strengths into collective excellence</li>
+                                <li>Technology serves our expertise, enhancing rather than replacing human judgment</li>
+                                <li>Continuous learning and sharing knowledge builds organizational wisdom</li>
+                                <li>Excellence is a practice we cultivate together, not a destination we reach alone</li>
+                            </ul>
+                            
+                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE COMMIT TO THESE PRACTICES:</p>
+                            <ul style="color: #000; margin-left: 2rem; margin-bottom: 1.5rem;">
+                                <li><strong>BUILD SOLUTIONS THAT MATTER:</strong> Focus on real problems with practical impact</li>
+                                <li><strong>SHARE KNOWLEDGE GENEROUSLY:</strong> What we learn benefits everyone</li>
+                                <li><strong>SUPPORT EACH OTHER'S GROWTH:</strong> Excellence thrives in collaborative environments</li>
+                                <li><strong>MAINTAIN HIGH STANDARDS:</strong> Quality and ethics guide all our work</li>
+                                <li><strong>CELEBRATE PROGRESS:</strong> Acknowledge achievements and learn from setbacks</li>
+                            </ul>
+                            
+                            <p style="color: #000; text-align: center; font-weight: bold;">
+                                Together we build the future of [ORGANIZATION] through excellence, collaboration, and continuous growth.
+                            </p>
+                            <p style="color: #000; text-align: center; font-style: italic; margin-top: 1.5rem;">
+                                "Excellence is not a skill, it's an attitude we practice together."
+                            </p>
+                        </div>
+                        
+                        <h3>🖊️ The Signing Ceremony (10 minutes)</h3>
+                        
+                        <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2)); border-radius: 1rem; padding: 2rem; margin: 2rem 0; text-align: center;">
+                            <h4 style="color: #fbbf24;">Ceremonial Signing Protocol</h4>
+                            
+                            <ol style="text-align: left; margin: 1rem 2rem;">
+                                <li><strong>Print manifesto on high-quality A1 poster</strong></li>
+                                <li><strong>Each person signs with permanent marker</strong></li>
+                                <li><strong>Add personal excellence commitment next to signature</strong></li>
+                                <li><strong>Group photo with signed manifesto</strong></li>
+                                <li><strong>Post immediately in company-wide channel</strong></li>
+                                <li><strong>Frame and hang in office as daily reminder</strong></li>
+                            </ol>
+                            
+                            <p style="font-size: 1.3rem; margin-top: 1.5rem; color: #fbbf24;">
+                                📸 "This photo marks Day 1 of our Excellence Era"
+                            </p>
+                        </div>
+                        
+                        <h3>🎯 The Final Commitment (10 minutes)</h3>
+                        <p>Each participant stands and shares one specific way they will practice excellence in their role. This transforms individual learning into collective accountability.</p>
+                        
+                        <div class="commitment-tracker">
+                            <h4 style="text-align: center;">Public Excellence Commitments</h4>
+                            <p style="text-align: center; margin-bottom: 1.5rem;">
+                                "By next Wednesday, I will..."
+                            </p>
+                            <div class="commitment-grid">
+                                <div class="commitment-card">
+                                    <strong>Finance:</strong><br>
+                                    "Automate invoice processing"
+                                </div>
+                                <div class="commitment-card">
+                                    <strong>HR:</strong><br>
+                                    "Build onboarding assistant"
+                                </div>
+                                <div class="commitment-card">
+                                    <strong>Analytics:</strong><br>
+                                    "Create insight generator"
+                                </div>
+                                <div class="commitment-card">
+                                    <strong>Operations:</strong><br>
+                                    "Deploy scheduling optimizer"
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="capability-celebration">
+                            <h3>The Excellence Future</h3>
+                            <p style="font-size: 1.2rem;">
+                                "You arrived as workshop participants.<br>
+                                You leave as Excellence Practitioners.<br>
+                                Together, we transform our organization."
+                            </p>
+                        </div>
+                    </div>
+                `,
+				};
+
+				return content[module] || content["room-setup"];
+			}
+
+			// Initialize the excellence application
+			document.addEventListener("DOMContentLoaded", function () {
+				console.log("Excellence Sprint Playbook loaded successfully!");
+				loadModuleContent("room-setup");
+				
+				// Initialize timer for default module
+				const initialModuleTime = moduleTimings[currentModule];
+				if (initialModuleTime && initialModuleTime > 0) {
+					timer.targetSeconds = initialModuleTime * 60;
+					timer.minutes = initialModuleTime;
+					timer.seconds = 0;
+					timer.totalSeconds = 0;
+					console.log(`Initial timer set for ${initialModuleTime} minutes for module: ${currentModule}`);
+				}
+				
+				// Initialize timer display
+				updateTimerDisplay();
+				
+				// Add cleanup on page unload (prevent memory leaks)
+				window.addEventListener('beforeunload', cleanup);
+			});
+		</script>
+	</body>
+</html>
