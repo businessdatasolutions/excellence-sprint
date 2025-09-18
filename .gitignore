@@ -1,0 +1,36 @@
+# Ignore everything by default
+/*
+
+# Allow only essential files for GitHub Pages
+!/docs/
+!/docs/**
+!/.gitignore
+!/README.md
+
+# Explicitly ignore sensitive or development files
+*.log
+*.tmp
+.DS_Store
+node_modules/
+.env
+.vscode/
+*.bak
+*.swp
+
+# Ignore all other HTML files in root
+/*.html
+
+# Ignore all development and background materials
+/background-material/
+/issues/
+/tests/
+/examples/
+/templates/
+/.playwright-mcp/
+
+# Ignore documentation files except README
+/*.md
+!README.md
+
+# Ignore any JSON configuration files
+/*.json
