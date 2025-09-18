@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Excellence Sprint - Interactive Room Layout</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --wall-bg: #f4f1ea;
+            --grid-line: #dcd7cd;
+            --header-bg: #e9e5dc;
+            --note-red: #ffc9c9;
+            --note-yellow: #fff3bf;
+            --note-green: #d3f9d8;
+            --font-body: 'Inter', sans-serif;
+            --font-hand: 'Gochi Hand', cursive;
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: var(--font-body);
+            background-color: #1f2937;
+        }
+        #three-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            transition: opacity 0.5s ease-in-out;
+        }
+        .ui-panel {
+            position: absolute;
+            background: rgba(17, 24, 39, 0.85);
+            color: #f9fafb;
+            padding: 1rem;
+            border-radius: 0.75rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+        #controls {
+            top: 1rem;
+            left: 1rem;
+            max-width: 320px;
+        }
+        #controls h3 { margin: 0 0 0.5rem 0; font-size: 1.125rem; }
+        #controls p { margin: 0.5rem 0 1rem 0; font-size: 0.875rem; color: #d1d5db; }
+        #controls .button-group { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        button {
+            background-color: #374151; border: 1px solid rgba(255, 255, 255, 0.1); color: #f9fafb;
+            padding: 0.5rem 1rem; border-radius: 0.5rem; cursor: pointer; font-size: 0.875rem;
+            font-weight: 500; transition: background-color 0.2s;
+        }
+        button:hover { background-color: #4b5563; }
+        button.active { background-color: #4f46e5; }
+        
+        /* Wall Detail View */
+        #wall-detail-view {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(31, 41, 55, 0.9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            box-sizing: border-box;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s, visibility 0.5s;
+            overflow-y: auto;
+            z-index: 20;
+        }
+        #wall-detail-view.visible { opacity: 1; visibility: visible; }
+        .wall-container {
+            width: 100%; max-width: 1600px; background: var(--wall-bg); border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3); border: 8px solid #4a4a4a;
+            padding: 1.5rem; box-sizing: border-box; position: relative;
+        }
+        .wall-container h1 { text-align: center; font-size: clamp(1.5rem, 4vw, 2.5rem); margin: 0 0 1.5rem 0; color: #4a4a4a; }
+        .wall-grid {
+            display: grid; grid-template-columns: 100px repeat(4, 1fr);
+            grid-template-rows: 60px repeat(3, 250px); gap: 2px;
+            background-color: var(--grid-line); border: 2px solid var(--grid-line);
+        }
+        .grid-header {
+            background-color: var(--header-bg); display: flex; justify-content: center;
+            align-items: center; font-weight: 600; font-size: clamp(0.8rem, 2vw, 1rem); padding: 0.5rem; text-align: center;
+        }
+        .grid-cell { background-color: var(--wall-bg); position: relative; min-height: 150px; }
+        .note {
+            position: absolute; width: 150px; height: 150px; padding: 0.75rem; box-sizing: border-box;
+            font-family: var(--font-hand); font-size: 1rem; box-shadow: 3px 3px 8px rgba(0,0,0,0.15);
+            transition: transform 0.2s, box-shadow 0.2s; cursor: pointer; overflow-wrap: break-word; line-height: 1.3;
+        }
+        .note:hover { transform: scale(1.1) rotate(0deg) !important; box-shadow: 5px 5px 15px rgba(0,0,0,0.25); z-index: 10; }
+        .note.red { background-color: var(--note-red); }
+        .note.yellow { background-color: var(--note-yellow); width: 80px; height: 80px; font-size: 0.8rem; }
+        .note.green { background-color: var(--note-green); }
+        #close-wall-view { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; width: 40px; height: 40px; line-height: 40px; text-align: center; padding: 0;}
+
+        /* Commitment Detail View */
+        #commitment-detail-view {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(31, 41, 55, 0.9); display: flex; justify-content: center;
+            align-items: center; padding: 2rem; box-sizing: border-box;
+            opacity: 0; visibility: hidden; transition: opacity 0.5s, visibility 0.5s;
+            overflow-y: auto; z-index: 20;
+        }
+        #commitment-detail-view.visible { opacity: 1; visibility: visible; }
+        .commitment-container {
+            width: 100%; max-width: 1200px; background: #5a4a3e; /* Wood table color */
+            border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 8px solid #3d3026; padding: 2rem; box-sizing: border-box;
+            position: relative; display: flex; flex-wrap: wrap; gap: 2rem;
+            justify-content: center;
+        }
+        .commitment-card {
+            background: #fff; color: #333; width: 300px;
+            padding: 1.5rem; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            font-family: var(--font-hand); line-height: 1.5;
+        }
+        .commitment-card h4 { font-family: var(--font-body); font-size: 1.1rem; margin: 0 0 1rem 0; }
+        .commitment-card p { margin: 0 0 0.5rem 0; font-size: 1rem; }
+        .commitment-card .field { font-family: var(--font-body); font-weight: 600; font-size: 0.8rem; color: #666; }
+        .commitment-card .witnesses { margin-top: 1rem; font-size: 0.9rem; }
+        #close-commitment-view { position: absolute; top: 1rem; right: 1rem; font-size: 1.5rem; width: 40px; height: 40px; line-height: 40px; text-align: center; padding: 0; color: white; background: rgba(0,0,0,0.3); border-radius: 50%;}
+    </style>
+</head>
+<body>
+
+    <div id="three-container">
+        <div id="controls" class="ui-panel">
+            <h3>Excellence Sprint Room Layout</h3>
+            <p id="controls-desc">The room is clean, ready for ideas. Toggle to see the result.</p>
+            <div class="button-group">
+                <button id="start-btn" class="active" onclick="setWorkshopState('start')">Start</button>
+                <button id="end-btn" onclick="setWorkshopState('end')">End</button>
+                <button onclick="toggleLabels()">Toggle Labels</button>
+            </div>
+            <p id="click-hint" style="display: none; margin-top: 1rem;">Click the Excellence Wall or Commitment Corner for details.</p>
+        </div>
+    </div>
+    
+    <div id="wall-detail-view">
+        <div class="wall-container">
+            <button id="close-wall-view" onclick="hideDetailViews()">×</button>
+            <h1>Excellence Wall</h1>
+            <div class="wall-grid">
+                <!-- Headers -->
+                <div class="grid-header"></div><div class="grid-header"><h4>Finance</h4></div><div class="grid-header"><h4>Operations</h4></div><div class="grid-header"><h4>HR</h4></div><div class="grid-header"><h4>Sales</h4></div>
+                <!-- Row 1 -->
+                <div class="grid-header"><h4>This Week</h4></div>
+                <div class="grid-cell"><div class="note red" style="top: 10%; left: 15%; transform: rotate(-2deg);">Manually matching invoices to POs. Steals 5-6 hours/week!</div><div class="note yellow" style="top: 50%; left: 5%; transform: rotate(3deg);">Ugh, this!</div><div class="note yellow" style="top: 55%; left: 45%; transform: rotate(-1deg);">Same problem.</div><div class="note yellow" style="top: 20%; left: 60%; transform: rotate(5deg);">Let's solve!</div><div class="note green" style="top: 40%; left: 55%; transform: rotate(-3deg);">AI document parsing? Could read PDFs automatically.</div></div>
+                <div class="grid-cell"><div class="note red" style="top: 25%; left: 50%; transform: rotate(1deg);">Responding to routine 'Where is my order?' customer emails. About 30 a day.</div><div class="note yellow" style="top: 60%; left: 40%; transform: rotate(-4deg);">Sales gets these too.</div></div>
+                <div class="grid-cell"><div class="note red" style="top: 15%; left: 20%; transform: rotate(2.5deg);">Answering the same 10 onboarding questions via email for every new hire.</div><div class="note green" style="top: 55%; left: 10%; transform: rotate(-1deg);">A simple FAQ bot could handle 90% of this.</div><div class="note yellow" style="top: 60%; left: 55%; transform: rotate(4deg);">High value!</div><div class="note yellow" style="top: 25%; left: 65%; transform: rotate(-3deg);">Yes!</div></div>
+                <div class="grid-cell"><div class="note red" style="top: 40%; left: 10%; transform: rotate(-3deg);">Updating Salesforce with notes from call logs. So tedious.</div><div class="note red" style="top: 10%; left: 55%; transform: rotate(2deg);">Writing personalized follow-up emails after every single demo.</div><div class="note yellow" style="top: 50%; left: 65%; transform: rotate(1deg);">Template generator?</div></div>
+                <!-- Row 2 -->
+                <div class="grid-header"><h4>This Month</h4></div>
+                <div class="grid-cell"><div class="note red" style="top: 30%; left: 40%; transform: rotate(1.5deg);">Chasing department heads for expense report approvals.</div><div class="note yellow" style="top: 65%; left: 30%; transform: rotate(-2deg);">Maybe an auto-reminder?</div></div>
+                <div class="grid-cell"><div class="note red" style="top: 15%; left: 15%; transform: rotate(-1deg);">Tracking inventory levels across 3 different spreadsheets. Prone to errors.</div><div class="note yellow" style="top: 55%; left: 10%; transform: rotate(2deg);">Huge issue.</div><div class="note red" style="top: 40%; left: 60%; transform: rotate(3deg);">Manually creating daily production schedules.</div></div>
+                <div class="grid-cell"><div class="note red" style="top: 20%; left: 50%; transform: rotate(-2.5deg);">Generating weekly overtime reports for payroll.</div></div>
+                <div class="grid-cell"><div class="note red" style="top: 10%; left: 25%; transform: rotate(0.5deg);">Finding relevant case studies for different client industries before meetings.</div><div class="note green" style="top: 50%; left: 35%; transform: rotate(3deg);">Could an AI search our internal docs and suggest the top 3 case studies based on client industry?</div></div>
+                <!-- Row 3 -->
+                <div class="grid-header"><h4>This Quarter</h4></div>
+                <div class="grid-cell"><div class="note red" style="top: 20%; left: 10%; transform: rotate(2deg);">Copying transaction data from Bank Portal to QuickBooks.</div></div>
+                <div class="grid-cell"></div>
+                <div class="grid-cell"><div class="note red" style="top: 35%; left: 30%; transform: rotate(-1.5deg);">Screening hundreds of resumes for basic 'must-have' qualifications.</div><div class="note yellow" style="top: 70%; left: 25%; transform: rotate(2deg);">Big time sink.</div><div class="note yellow" style="top: 75%; left: 60%; transform: rotate(-3deg);">Interested!</div></div>
+                <div class="grid-cell"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="commitment-detail-view">
+        <div class="commitment-container">
+            <button id="close-commitment-view" onclick="hideDetailViews()">×</button>
+            <div class="commitment-card">
+                <h4>Pioneer Commitment</h4>
+                <p class="field">Committed by:</p>
+                <p>Alex Taylor</p>
+                <p class="field">I will build:</p>
+                <p>An FAQ bot for the top 10 new hire questions.</p>
+                <p class="field">By:</p>
+                <p>September 30th</p>
+                <p class="field">Measured by:</p>
+                <p>Reducing HR emails on this topic by 50%.</p>
+                <div class="witnesses">
+                    <p class="field">Witnesses:</p>
+                    <p>Sarah J., Mike L.</p>
+                </div>
+            </div>
+            <div class="commitment-card">
+                <h4>Bridge Builder Commitment</h4>
+                <p class="field">Committed by:</p>
+                <p>Maria Garcia</p>
+                <p class="field">I will teach:</p>
+                <p>My team how to use AI for email summarization.</p>
+                <p class="field">By:</p>
+                <p>This Friday</p>
+                <p class="field">Measured by:</p>
+                <p>Running a 30-min lunch & learn session.</p>
+                <div class="witnesses">
+                    <p class="field">Witnesses:</p>
+                    <p>David C., Priya K.</p>
+                </div>
+            </div>
+            <div class="commitment-card">
+                <h4>Experimenter Commitment</h4>
+                <p class="field">Committed by:</p>
+                <p>Chen Lin</p>
+                <p class="field">I will test:</p>
+                <p>Using AI to draft personalized sales follow-ups for 3 clients.</p>
+                <p class="field">By:</p>
+                <p>End of Week</p>
+                <p class="field">Measured by:</p>
+                <p>Client response rate vs. my normal emails.</p>
+                <div class="witnesses">
+                    <p class="field">Witnesses:</p>
+                    <p>Laura W.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+    <script>
+        let scene, camera, renderer, controls, raycaster, mouse;
+        let liberationWall, commitmentCorner, endStateGroup, startStateGroup, labelsGroup;
+        let workshopState = 'start';
+
+        function init() {
+            // Basic setup
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x1f2937);
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.shadowMap.enabled = true;
+            document.getElementById('three-container').appendChild(renderer.domElement);
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(12, 12, 18);
+            controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.target.set(0, 1, 0);
+
+            // Lighting
+            const ambient = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambient);
+            const light = new THREE.DirectionalLight(0xffffff, 0.7);
+            light.position.set(-15, 20, 10);
+            light.castShadow = true;
+            light.shadow.mapSize.width = 2048;
+            light.shadow.mapSize.height = 2048;
+            scene.add(light);
+            
+            // Raycasting for clicks
+            raycaster = new THREE.Raycaster();
+            mouse = new THREE.Vector2();
+
+            // Create Geometry
+            createRoom();
+            createFurniture();
+            createWorkshopStates();
+            createLabels();
+
+            // Set initial state
+            setWorkshopState('start', false);
+
+            // Event Listeners
+            window.addEventListener('resize', onWindowResize);
+            renderer.domElement.addEventListener('click', onSceneClick);
+
+            animate();
+        }
+
+        function createRoom() {
+            const floorMat = new THREE.MeshStandardMaterial({ color: 0x374151 });
+            const floor = new THREE.Mesh(new THREE.PlaneGeometry(30, 22), floorMat);
+            floor.rotation.x = -Math.PI / 2;
+            floor.receiveShadow = true;
+            scene.add(floor);
+        }
+        
+        function createFurniture() {
+            const tablePositions = [ { x: -9, z: -5 }, { x: -9, z: 5 }, { x: 9, z: -5 }, { x: 9, z: 5 }, { x: 0, z: 8 }];
+            tablePositions.forEach(pos => createTableCluster(pos.x, pos.z));
+        }
+
+        function createTableCluster(x, z) {
+            const group = new THREE.Group();
+            const tableMat = new THREE.MeshStandardMaterial({ color: 0x60a5fa });
+            const table = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1.5, 0.1, 32), tableMat);
+            table.position.y = 1;
+            table.castShadow = true;
+            group.add(table);
+            const tableLeg = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 1, 16), tableMat);
+            tableLeg.position.y = 0.5;
+            group.add(tableLeg);
+            for (let i = 0; i < 4; i++) {
+                const angle = (i / 4) * Math.PI * 2;
+                const chair = createChair();
+                chair.position.x = Math.sin(angle) * 2;
+                chair.position.z = Math.cos(angle) * 2;
+                chair.lookAt(table.position);
+                group.add(chair);
+            }
+            group.position.set(x, 0, z);
+            scene.add(group);
+        }
+
+        function createChair() {
+            const chairMat = new THREE.MeshStandardMaterial({ color: 0x9ca3af });
+            const chair = new THREE.Group();
+            const seat = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.1, 0.8), chairMat);
+            seat.position.y = 0.6;
+            chair.add(seat);
+            const back = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.8, 0.1), chairMat);
+            back.position.y = 1.05;
+            back.position.z = -0.35;
+            chair.add(back);
+            return chair;
+        }
+
+        function createLabels() {
+            labelsGroup = new THREE.Group();
+            
+            createTextSprite("Excellence Wall", new THREE.Vector3(0, 6.5, -10.5));
+            createTextSprite("Commitment Corner", new THREE.Vector3(12, 3, 8));
+            createTextSprite("Table Cluster", new THREE.Vector3(-9, 3, -5));
+            createTextSprite("Collaboration Central", new THREE.Vector3(0, 2, 0));
+
+            scene.add(labelsGroup);
+        }
+
+        function createTextSprite(text, position) {
+            const canvas = document.createElement("canvas");
+            const context = canvas.getContext("2d");
+            canvas.width = 512;
+            canvas.height = 128;
+            
+            context.font = `600 2.5rem ${getComputedStyle(document.body).fontFamily}`;
+            context.fillStyle = "white";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
+            context.fillText(text, canvas.width / 2, canvas.height / 2);
+
+            const texture = new THREE.CanvasTexture(canvas);
+            const spriteMaterial = new THREE.SpriteMaterial({ map: texture, transparent: true, opacity: 0.8 });
+            const sprite = new THREE.Sprite(spriteMaterial);
+            sprite.position.copy(position);
+            sprite.scale.set(10, 2.5, 1);
+            
+            labelsGroup.add(sprite);
+        }
+
+        function createWorkshopStates() {
+            startStateGroup = new THREE.Group();
+            endStateGroup = new THREE.Group();
+
+            // Shared Excellence Wall object for raycasting
+            excellenceWall = new THREE.Mesh(new THREE.BoxGeometry(15, 6, 0.2));
+            excellenceWall.position.set(0, 3, -10.9);
+            excellenceWall.visible = false; // It's just a target, materials are in groups
+            scene.add(excellenceWall);
+
+            // Shared Commitment Corner object for raycasting
+            commitmentCorner = new THREE.Mesh(new THREE.CylinderGeometry(2, 2, 0.2, 32));
+            commitmentCorner.position.set(12, 0.1, 8);
+            commitmentCorner.visible = false;
+            scene.add(commitmentCorner);
+            
+            // --- START STATE ---
+            const startWall = excellenceWall.clone();
+            startWall.material = new THREE.MeshStandardMaterial({ color: 0xf87171 });
+            startWall.visible = true;
+            startStateGroup.add(startWall);
+
+            const startCornerMesh = commitmentCorner.clone();
+            startCornerMesh.material = new THREE.MeshStandardMaterial({ color: 0x4ade80 });
+            startCornerMesh.visible = true;
+            startStateGroup.add(startCornerMesh);
+            scene.add(startStateGroup);
+
+            // --- END STATE ---
+            const endWall = excellenceWall.clone();
+            endWall.material = new THREE.MeshStandardMaterial({ color: 0x4b5563 });
+            endWall.visible = true;
+            endStateGroup.add(endWall);
+
+            const endCornerMesh = commitmentCorner.clone();
+            endCornerMesh.material = new THREE.MeshStandardMaterial({ color: 0x166534 });
+            endCornerMesh.visible = true;
+            endStateGroup.add(endCornerMesh);
+            
+            // Sticky notes
+            const noteGeo = new THREE.BoxGeometry(0.5, 0.5, 0.05);
+            for (let i = 0; i < 80; i++) {
+                const note = new THREE.Mesh(noteGeo, new THREE.MeshStandardMaterial({ color: Math.random() * 0xffffff }));
+                note.position.set((Math.random() - 0.5) * 14, (Math.random() * 5) + 0.5, -10.75);
+                note.rotation.z = (Math.random() - 0.5) * 0.2;
+                endStateGroup.add(note);
+            }
+            // Commitment cards
+            const cardGeo = new THREE.BoxGeometry(0.6, 0.02, 0.4);
+            for (let i=0; i < 15; i++) {
+                const card = new THREE.Mesh(cardGeo, new THREE.MeshStandardMaterial({color: 0xf9fafb}));
+                card.position.set(12 + (Math.random() - 0.5) * 2.5, 0.25, 8 + (Math.random() - 0.5) * 2.5);
+                card.rotation.y = Math.random() * Math.PI * 2;
+                endStateGroup.add(card);
+            }
+            scene.add(endStateGroup);
+        }
+
+        window.setWorkshopState = function(state, animate = true) {
+            if (workshopState === state) return;
+            workshopState = state;
+
+            const isStart = state === 'start';
+            const duration = animate ? 0.5 : 0;
+
+            gsap.to(startStateGroup.children.map(c => c.material), { opacity: isStart ? 1 : 0, duration });
+            gsap.to(endStateGroup.children.map(c => c.material), { opacity: isStart ? 0 : 1, duration });
+            startStateGroup.traverse(c => c.isMesh && (c.material.transparent = true));
+            endStateGroup.traverse(c => c.isMesh && (c.material.transparent = true));
+
+            document.getElementById('start-btn').classList.toggle('active', isStart);
+            document.getElementById('end-btn').classList.toggle('active', !isStart);
+            document.getElementById('controls-desc').innerText = isStart 
+                ? 'The room is clean, ready for ideas. Toggle to see the result.' 
+                : 'The workshop is over, full of artifacts. Click the wall or corner for details.';
+            document.getElementById('click-hint').style.display = isStart ? 'none' : 'block';
+        }
+
+        window.toggleLabels = function() {
+            labelsGroup.visible = !labelsGroup.visible;
+        }
+
+        function onSceneClick(event) {
+            if (workshopState !== 'end') return;
+
+            mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+
+            const wallIntersects = raycaster.intersectObject(excellenceWall);
+            if (wallIntersects.length > 0) {
+                showWallDetail();
+                return;
+            }
+
+            const cornerIntersects = raycaster.intersectObject(commitmentCorner);
+            if (cornerIntersects.length > 0) {
+                showCommitmentDetail();
+            }
+        }
+        
+        function showWallDetail() {
+            document.getElementById('wall-detail-view').classList.add('visible');
+            gsap.to('#three-container', { opacity: 0.1, duration: 0.5 });
+        }
+
+        function showCommitmentDetail() {
+            document.getElementById('commitment-detail-view').classList.add('visible');
+            gsap.to('#three-container', { opacity: 0.1, duration: 0.5 });
+        }
+
+        window.hideDetailViews = function() {
+            document.getElementById('wall-detail-view').classList.remove('visible');
+            document.getElementById('commitment-detail-view').classList.remove('visible');
+            gsap.to('#three-container', { opacity: 1, duration: 0.5 });
+        }
+        
+        function onWindowResize() {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        }
+
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        init();
+    </script>
+</body>
+</html>

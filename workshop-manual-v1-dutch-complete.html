@@ -3,7 +3,9 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Excellence Sprint Empowerment Facilitator Handboek - Nederlandse Editie</title>
+		<title>
+			Excellence Sprint Empowerment Facilitator Handboek - Nederlandse Editie
+		</title>
 		<style>
 			* {
 				margin: 0;
@@ -349,7 +351,7 @@
 					rgba(34, 197, 94, 0.3),
 					rgba(22, 163, 74, 0.3)
 				);
-				padding: 2rem;
+				padding: 5.5rem 2rem 2rem 2rem;
 				border-radius: 1rem;
 				border: 2px solid #22c55e;
 				text-align: center;
@@ -361,12 +363,12 @@
 				content: "🏆";
 				font-size: 3rem;
 				position: absolute;
-				top: -20px;
+				top: 0.8rem;
 				left: 50%;
 				transform: translateX(-50%);
-				background: #111827;
+				background: transparent;
 				padding: 0.5rem;
-				border-radius: 50%;
+				z-index: 1;
 			}
 
 			.notes-section {
@@ -532,13 +534,18 @@
 
 			.certificate-card {
 				background: linear-gradient(135deg, #fff, #f0f0f0);
-				color: #000;
+				color: #000 !important;
 				padding: 2rem;
 				border-radius: 1rem;
 				margin: 2rem 0;
 				border: 5px solid #fbbf24;
 				box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
 				text-align: center;
+			}
+
+			.certificate-card p {
+				color: #000 !important;
+				font-weight: 500;
 			}
 
 			.certificate-title {
@@ -604,30 +611,273 @@
 					min-height: 48px;
 					font-size: 1rem;
 				}
-				
+
 				.module-item {
 					padding: 1rem;
 					min-height: 44px;
 					font-size: 1rem;
 				}
-				
+
 				.timer-display {
 					font-size: 1.5rem;
 					padding: 1rem;
 					min-width: 120px;
 				}
-				
+
 				.phase-header {
 					padding: 1.25rem 1rem;
 					min-height: 44px;
 				}
-				
+
 				.checklist-item {
 					padding: 0.75rem;
 					min-height: 44px;
 				}
 			}
+			.energy-meter {
+				background: rgba(0, 0, 0, 0.2);
+				padding: 1rem;
+				border-radius: 0.5rem;
+				margin-bottom: 1rem;
+			}
+
+			.energy-bar {
+				width: 100%;
+				height: 8px;
+				background: rgba(255, 255, 255, 0.1);
+				border-radius: 4px;
+				overflow: hidden;
+			}
+
+			.energy-fill {
+				height: 100%;
+				background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+				transition: width 0.3s ease;
+			}
+
+			/* Certificate Modal Styles */
+			.modal {
+				display: none;
+				position: fixed;
+				z-index: 1000;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				background-color: rgba(0, 0, 0, 0.7);
+				backdrop-filter: blur(5px);
+			}
+
+			.modal-content {
+				background: linear-gradient(
+					135deg,
+					rgba(17, 24, 39, 0.95),
+					rgba(31, 41, 55, 0.95)
+				);
+				margin: 10% auto;
+				padding: 2rem;
+				border-radius: 1rem;
+				width: 90%;
+				max-width: 500px;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+			}
+
+			.modal-header {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				margin-bottom: 1.5rem;
+				padding-bottom: 1rem;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+			}
+
+			.modal-header h2 {
+				color: #fbbf24;
+				margin: 0;
+				font-size: 1.5rem;
+			}
+
+			.close {
+				color: #9ca3af;
+				font-size: 2rem;
+				font-weight: bold;
+				cursor: pointer;
+				transition: color 0.2s;
+			}
+
+			.close:hover {
+				color: #fff;
+			}
+
+			.modal-body {
+				color: #e5e7eb;
+				max-height: 70vh;
+				overflow-y: auto;
+			}
+
+			.modal-body label {
+				display: block;
+				margin-bottom: 0.5rem;
+				font-weight: 500;
+				color: #f3f4f6;
+			}
+
+			.modal-body input[type="text"] {
+				width: 100%;
+				padding: 0.75rem;
+				margin-bottom: 1rem;
+				border: 1px solid rgba(255, 255, 255, 0.2);
+				border-radius: 0.5rem;
+				background: rgba(255, 255, 255, 0.05);
+				color: #fff;
+				font-size: 1rem;
+			}
+
+			.modal-body input[type="text"]:focus {
+				outline: none;
+				border-color: #fbbf24;
+				box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+			}
+
+			.modal-body button {
+				background: linear-gradient(135deg, #fbbf24, #f59e0b);
+				color: #1f2937;
+				border: none;
+				padding: 0.75rem 2rem;
+				border-radius: 0.5rem;
+				font-weight: 600;
+				cursor: pointer;
+				font-size: 1rem;
+				width: 100%;
+				transition: transform 0.2s, box-shadow 0.2s;
+			}
+
+			.modal-body button:hover {
+				transform: translateY(-1px);
+				box-shadow: 0 5px 15px rgba(251, 191, 36, 0.3);
+			}
+
+			.modal-body button:disabled {
+				opacity: 0.6;
+				cursor: not-allowed;
+				transform: none;
+			}
+
+			/* Certificate Button Hover Effect */
+			.btn.excellence:hover {
+				transform: translateY(-2px);
+				box-shadow: 0 8px 25px rgba(251, 191, 36, 0.4);
+			}
+
+			/* Template Library Styles */
+			#templateLibraryModal .modal-content {
+				max-height: 90vh;
+				display: flex;
+				flex-direction: column;
+			}
+
+			#templateLibraryModal .modal-body {
+				flex: 1;
+				overflow-y: auto;
+				max-height: calc(90vh - 120px); /* Account for header */
+			}
+
+			.filter-btn {
+				padding: 0.5rem 1rem;
+				border: 1px solid #374151;
+				background: #1f2937;
+				color: #9ca3af;
+				border-radius: 0.5rem;
+				cursor: pointer;
+				transition: all 0.2s;
+			}
+
+			.filter-btn:hover {
+				background: #374151;
+			}
+
+			.filter-btn.active {
+				background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+				color: white;
+				border-color: #3b82f6;
+			}
+
+			.template-card {
+				background: rgba(0, 0, 0, 0.4);
+				border: 1px solid #374151;
+				border-radius: 0.5rem;
+				padding: 1.5rem;
+				cursor: pointer;
+				transition: all 0.3s;
+				position: relative;
+			}
+
+			.template-card:hover {
+				transform: translateY(-4px);
+				border-color: #60a5fa;
+				box-shadow: 0 10px 25px rgba(96, 165, 250, 0.3);
+			}
+
+			.template-card.selected {
+				border-color: #22c55e;
+				background: rgba(34, 197, 94, 0.1);
+			}
+
+			.difficulty-badge {
+				position: absolute;
+				top: 1rem;
+				right: 1rem;
+				padding: 0.25rem 0.75rem;
+				border-radius: 1rem;
+				font-size: 0.75rem;
+				font-weight: bold;
+			}
+
+			.difficulty-beginner {
+				background: #22c55e;
+				color: white;
+			}
+
+			.difficulty-intermediate {
+				background: #fbbf24;
+				color: #000;
+			}
+
+			.difficulty-advanced {
+				background: #ef4444;
+				color: white;
+			}
+
+			.variable-input-group {
+				margin-bottom: 1rem;
+			}
+
+			.variable-input-group label {
+				display: block;
+				margin-bottom: 0.5rem;
+				color: #fbbf24;
+				font-weight: bold;
+			}
+
+			.variable-input-group input,
+			.variable-input-group textarea {
+				width: 100%;
+				padding: 0.75rem;
+				border: 1px solid #374151;
+				border-radius: 0.5rem;
+				background: #1f2937;
+				color: white;
+			}
+
+			.variable-input-group small {
+				display: block;
+				margin-top: 0.25rem;
+				color: #9ca3af;
+				font-size: 0.875rem;
+			}
 		</style>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 	</head>
 	<body>
 		<div class="app-container">
@@ -751,7 +1001,7 @@
 					<button class="btn primary" onclick="startTimer(event)">
 						Timer Starten
 					</button>
-					<div style="margin-left: auto; display: flex; gap: 0.5rem;">
+					<div style="margin-left: auto; display: flex; gap: 0.5rem">
 						<button class="btn" onclick="openRoomLayout()">
 							Ruimte Indeling
 						</button>
@@ -769,8 +1019,8 @@
 							<div class="inspiration-box">
 								<h4>Excellence Principe</h4>
 								<p>
-									"De fysieke omgeving vormt de mentale omgeving. Wanneer
-									we ruimtes ontwerpen die samenwerking en viering inspireren,
+									"De fysieke omgeving vormt de mentale omgeving. Wanneer we
+									ruimtes ontwerpen die samenwerking en viering inspireren,
 									creëren we de voorwaarden voor buitengewone prestaties."
 								</p>
 							</div>
@@ -803,8 +1053,7 @@
 								<div class="checklist-item">
 									<input type="checkbox" id="collaboration-space-clear" />
 									<label for="collaboration-space-clear"
-										>Samenwerkingsruimte vrij voor beweging en
-										interactie</label
+										>Samenwerkingsruimte vrij voor beweging en interactie</label
 									>
 								</div>
 							</div>
@@ -837,22 +1086,22 @@
 
 		<script>
 			// Timer object architecture (based on working implementation)
-			let timer = { 
-				minutes: 0, 
-				seconds: 0, 
+			let timer = {
+				minutes: 0,
+				seconds: 0,
 				totalSeconds: 0,
 				targetSeconds: 0,
-				isRunning: false, 
+				isRunning: false,
 				interval: null,
-				countDown: true  // Excellence Sprint uses countdown like working version
+				countDown: true, // Excellence Sprint uses countdown like working version
 			};
-			
+
 			// Track current module for timer integration
-			let currentModule = 'room-setup';
+			let currentModule = "room-setup";
 
 			// Module timing definitions (like working implementation)
 			const moduleTimings = {
-				"room-setup": 10,           // 10 minutes
+				"room-setup": 10, // 10 minutes
 				"excellence-space-design": 15,
 				"empowerment-toolkit": 10,
 				"excellence-mindset": 5,
@@ -863,7 +1112,7 @@
 				"solution-building": 40,
 				"success-showcase": 25,
 				"excellence-challenge": 35,
-				"commitment-ceremony": 40
+				"commitment-ceremony": 40,
 			};
 
 			// Core functions for excellence navigation
@@ -890,7 +1139,7 @@
 					}
 					timer.isRunning = false;
 				}
-				
+
 				// Set timer for module (like working implementation)
 				const moduleTime = moduleTimings[module];
 				if (moduleTime && moduleTime > 0) {
@@ -898,16 +1147,18 @@
 					timer.minutes = moduleTime;
 					timer.seconds = 0;
 					timer.totalSeconds = 0;
-					
+
 					// Reset button state
 					const button = document.querySelector('[onclick*="startTimer"]');
 					if (button) {
 						button.textContent = "Timer Starten";
-						button.classList.remove('active');
+						button.classList.remove("active");
 					}
-					
+
 					updateTimerDisplay();
-					console.log(`Timer gereset en ingesteld op ${moduleTime} minuten voor module: ${module}`);
+					console.log(
+						`Timer gereset en ingesteld op ${moduleTime} minuten voor module: ${module}`
+					);
 				}
 			}
 
@@ -932,23 +1183,24 @@
 					clearInterval(timer.interval);
 					timer.interval = null;
 				}
-				
+
 				// DOM validation (frontend-engineer recommendation)
 				if (!initializeTimerDOM()) {
 					return;
 				}
-				
+
 				if (!timer.isRunning) {
 					// Start timer
-					timer.startTime = Date.now() - (timer.totalSeconds * 1000);
+					timer.startTime = Date.now() - timer.totalSeconds * 1000;
 					timer.isRunning = true;
 					timer.interval = setInterval(updateTimer, 100); // More frequent for accuracy
-					
+
 					// Update button state
-					const button = event?.target || document.querySelector('[onclick*="startTimer"]');
+					const button =
+						event?.target || document.querySelector('[onclick*="startTimer"]');
 					if (button) {
 						button.textContent = "Pauzeer";
-						button.classList.add('active');
+						button.classList.add("active");
 					}
 				} else {
 					// Stop timer (toggle functionality)
@@ -957,7 +1209,7 @@
 			}
 
 			function openRoomLayout() {
-				window.open('excellence-room-layout.html', '_blank');
+				window.open("excellence-room-layout.html", "_blank");
 			}
 
 			function showExcellenceAlert() {
@@ -999,65 +1251,68 @@
 
 			// Timer helper functions (based on working implementation)
 			function initializeTimerDOM() {
-				const timerDisplay = document.getElementById('timerDisplay');
+				const timerDisplay = document.getElementById("timerDisplay");
 				const timerButton = document.querySelector('[onclick*="startTimer"]');
-				
+
 				if (!timerDisplay || !timerButton) {
-					console.error('Timer DOM elementen niet gevonden');
-					showAlert('Timer initialisatie mislukt - elementen ontbreken', 'error');
+					console.error("Timer DOM elementen niet gevonden");
+					showAlert(
+						"Timer initialisatie mislukt - elementen ontbreken",
+						"error"
+					);
 					return false;
 				}
-				
+
 				return true;
 			}
 
 			function updateTimerDisplay() {
-				const display = document.getElementById('timerDisplay');
+				const display = document.getElementById("timerDisplay");
 				if (!display) {
-					console.error('Timer display element niet gevonden');
+					console.error("Timer display element niet gevonden");
 					return;
 				}
-				
-				const mins = String(Math.abs(timer.minutes)).padStart(2, '0');
-				const secs = String(Math.abs(timer.seconds)).padStart(2, '0');
+
+				const mins = String(Math.abs(timer.minutes)).padStart(2, "0");
+				const secs = String(Math.abs(timer.seconds)).padStart(2, "0");
 				display.textContent = `${mins}:${secs}`;
-				
+
 				// Color coding based on time remaining (countdown visual feedback)
 				if (timer.countDown && timer.targetSeconds > 0) {
 					const remaining = timer.targetSeconds - timer.totalSeconds;
 					const percentage = remaining / timer.targetSeconds;
-					
+
 					if (percentage <= 0.1) {
-						display.style.background = 'rgba(239, 68, 68, 0.3)'; // Red - urgent
+						display.style.background = "rgba(239, 68, 68, 0.3)"; // Red - urgent
 					} else if (percentage <= 0.25) {
-						display.style.background = 'rgba(245, 158, 11, 0.3)'; // Gold - attention needed
+						display.style.background = "rgba(245, 158, 11, 0.3)"; // Gold - attention needed
 					} else {
-						display.style.background = 'rgba(59, 130, 246, 0.2)'; // Blue - plenty of time
+						display.style.background = "rgba(59, 130, 246, 0.2)"; // Blue - plenty of time
 					}
 				}
 			}
 
 			function updateTimer() {
 				if (!timer.isRunning) return;
-				
+
 				if (timer.countDown && timer.targetSeconds > 0) {
 					// Count down mode (like working implementation)
 					timer.totalSeconds++;
 					const remaining = timer.targetSeconds - timer.totalSeconds;
 					timer.minutes = Math.floor(remaining / 60);
 					timer.seconds = remaining % 60;
-					
+
 					if (remaining <= 0) {
 						timer.minutes = 0;
 						timer.seconds = 0;
 						pauseTimer();
-						showAlert('Tijd is om! Module tijd voltooid.', 'info');
+						showAlert("Tijd is om! Module tijd voltooid.", "info");
 					} else if (remaining === Math.floor(timer.targetSeconds * 0.25)) {
-						showAlert('75% van de tijd gebruikt - 25% resterend', 'warning');
+						showAlert("75% van de tijd gebruikt - 25% resterend", "warning");
 					} else if (remaining === Math.floor(timer.targetSeconds * 0.5)) {
-						showAlert('50% van de tijd resterend', 'info');
+						showAlert("50% van de tijd resterend", "info");
 					} else if (remaining === 60) {
-						showAlert('1 minuut resterend!', 'warning');
+						showAlert("1 minuut resterend!", "warning");
 					}
 				} else {
 					// Count up mode (fallback for modules without timer)
@@ -1074,11 +1329,11 @@
 					clearInterval(timer.interval);
 					timer.interval = null;
 				}
-				
+
 				const button = document.querySelector('[onclick*="startTimer"]');
 				if (button) {
 					button.textContent = "Hervat";
-					button.classList.remove('active');
+					button.classList.remove("active");
 				}
 			}
 
@@ -1091,18 +1346,20 @@
 					}
 					timer.isRunning = false;
 				}
-				
+
 				// Reset all values
 				timer.totalSeconds = 0;
-				timer.minutes = timer.targetSeconds ? Math.floor(timer.targetSeconds / 60) : 0;
+				timer.minutes = timer.targetSeconds
+					? Math.floor(timer.targetSeconds / 60)
+					: 0;
 				timer.seconds = timer.targetSeconds ? timer.targetSeconds % 60 : 0;
 				updateTimerDisplay();
-				
+
 				// Reset button text
 				const button = document.querySelector('[onclick*="startTimer"]');
 				if (button) {
 					button.textContent = "Timer Starten";
-					button.classList.remove('active');
+					button.classList.remove("active");
 				}
 			}
 
@@ -1112,16 +1369,16 @@
 					timer.interval = null;
 				}
 				timer.isRunning = false;
-				console.log('Timer opruiming voltooid');
+				console.log("Timer opruiming voltooid");
 			}
 
 			function loadModuleContent(module) {
 				const contentPanel = document.getElementById("contentPanel");
 				const moduleContent = getModuleContent(module);
 				contentPanel.innerHTML = moduleContent;
-				
+
 				// Initialize solution counter display when entering solution-building module
-				if (module === 'solution-building') {
+				if (module === "solution-building") {
 					setTimeout(updateSolutionDisplay, 100); // Brief delay for DOM update
 				}
 			}
@@ -1140,8 +1397,67 @@
                         <p>Creëer een toegewijde ruimte waar voortgang zichtbaar wordt en prestaties worden gevierd. Deze muur transformeert individuele inspanningen in collectief succes.</p>
                         <h3>2. Samenwerking Centraal</h3>
                         <p>Ontwerp open ruimte die natuurlijke interactie, kennisdeling en collectief probleemoplossen aanmoedigt.</p>
-                        <h3>3. Commitment Hoek</h3>
-                        <p>Vestig een ceremoniële ruimte waar individuen publieke commitments maken voor excellence en collectieve groei.</p>
+                        <h3>3. Commitment Hoek - Het Levende Archief</h3>
+                        <p>Vestig een ceremoniële ruimte waar individuen publieke commitments maken voor excellence en collectieve groei. Deze hoek wordt een permanent archief van beloftes en prestaties.</p>
+
+                        <div style="background: rgba(251, 191, 36, 0.1); border-radius: 0.5rem; padding: 1.5rem; margin: 1.5rem 0;">
+                            <h4 style="color: #fbbf24;">Commitment Hoek Setup:</h4>
+                            <ul style="list-style: none; padding: 0;">
+                                <li>📋 <strong>Manifest Display:</strong> Centrale A1 poster ruimte (ooghoogte)</li>
+                                <li>🎯 <strong>Commitment Card Wall:</strong> Grid voor persoonlijke commitment cards (A5 formaat)</li>
+                                <li>📊 <strong>30-Dagen Tracker:</strong> Visuele voortgang board met week-markers</li>
+                                <li>🏆 <strong>Success Stories:</strong> Sectie voor voltooide commitments</li>
+                                <li>📱 <strong>QR Code Station:</strong> Link naar digitale versie voor updates</li>
+                            </ul>
+                        </div>
+
+                        <div class="checklist-item">
+                            <input type="checkbox" id="commitment-cards-ready">
+                            <label for="commitment-cards-ready">Commitment cards voorbereid (A5, 20+ stuks)</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="tracking-board-setup">
+                            <label for="tracking-board-setup">30-dagen tracking board opgezet</label>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" id="success-section-marked">
+                            <label for="success-section-marked">Success stories sectie aangewezen</label>
+                        </div>
+
+                        <div style="background: rgba(0, 0, 0, 0.1); border-radius: 1rem; padding: 1.5rem; margin: 2rem 0;">
+                            <h4 style="color: #fbbf24; text-align: center; margin-bottom: 1rem;">🎨 Commitment Hoek Visualisatie</h4>
+
+                            <pre style="color: #e2e8f0; font-size: 0.9rem; text-align: center;">
+┌────────────────────────────────────────┐
+│         EXCELLENCE MANIFEST             │
+│           [A1 Poster]                   │
+│         🖊️ Met handtekeningen          │
+├────────────────────────────────────────┤
+│     PERSOONLIJKE COMMITMENT CARDS      │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ │
+│  │ Jan  │ │ Lisa │ │ Mark │ │ Sara │ │
+│  └──────┘ └──────┘ └──────┘ └──────┘ │
+│  ┌──────┐ ┌──────┐ ┌──────┐ ┌──────┐ │
+│  │Ahmed │ │Diana │ │Peter │ │Emma  │ │
+│  └──────┘ └──────┘ └──────┘ └──────┘ │
+├────────────────────────────────────────┤
+│        30-DAGEN TRACKER                │
+│  Week 1: ████░░░░░░░░░░ 25%           │
+│  Week 2: ░░░░░░░░░░░░░░  0%           │
+│  Week 3: ░░░░░░░░░░░░░░  0%           │
+│  Week 4: ░░░░░░░░░░░░░░  0%           │
+├────────────────────────────────────────┤
+│         SUCCESS STORIES 🏆              │
+│  • Finance: Factuur automatisering LIVE!│
+│  • HR: Onboarding bot uitgerold       │
+│  • [Ruimte voor nieuwe successen]     │
+└────────────────────────────────────────┘
+                            </pre>
+
+                            <p style="text-align: center; font-style: italic; color: #fbbf24; margin-top: 1rem;">
+                                "Een levend monument van onze transformatie journey"
+                            </p>
+                        </div>
                     </div>
                 `,
 					materials: `
@@ -1200,55 +1516,43 @@
                 `,
 					mindset: `
                     <div class="content-section">
-                        <h1>Excellence Mindset Voorbereiding</h1>
+                        <h1>Voorbereiding Facilitatorhouding</h1>
                         
-                        <div class="inspiration-box">
-                            <h4>Facilitator Excellence Mindset</h4>
-                            <p>"U leert niet alleen tools - u cultiveert geloof in collectieve bekwaamheid. Uw vertrouwen in hun potentieel wordt hun vertrouwen in zichzelf. Excellence is besmettelijk wanneer authentiek gemodelleerd."</p>
-                        </div>
-                        
-                        <h2>De Excellence Leider Transformatie</h2>
-                        <p>Voordat u anderen kunt inspireren om excellentie te bereiken, moet u absoluut geloof uitstralen in menselijk potentieel en collectieve bekwaamheid. Deze workshop gaat niet over informatieoverdracht - het gaat over het ontwaken van sluimerende krachten en het bouwen van bruggen tussen individuele talenten.</p>
+                        <h2>Uw Rol als Verandercoach</h2>
+                        <p>U leert geen software - u ontketent de kracht die er al is. Uw enthousiasme bepaalt hoever het team komt.</p>
 
-                        <h3>Kern Excellence Overtuigingen</h3>
+                        <h3>Mentale Voorbereiding Voor de Workshop</h3>
                         <ul>
-                            <li><strong>Bekwaamheid Vermenigvuldiger:</strong> Elke persoon brengt unieke sterktes die, wanneer gecombineerd, buitengewone resultaten creëren</li>
-                            <li><strong>Groei Katalysator:</strong> Uitdagingen zijn mogelijkheden voor het samen ontwikkelen van nieuwe bekwaamheden</li>
-                            <li><strong>Samenwerking Kampioen:</strong> De beste oplossingen ontstaan uit diverse perspectieven die in harmonie werken</li>
-                            <li><strong>Voortgang Vierder:</strong> Kleine overwinningen bouwen momentum naar significante transformatie</li>
+                            <li><strong>Vertrouwen opbouwen:</strong> U weet meer dan genoeg. Sta achter uw kennis.</li>
+                            <li><strong>Kritiek verwelkomen:</strong> Twijfelaars zijn uw beste helpers - zij zorgen voor realisme.</li>
+                            <li><strong>Problemen omarmen:</strong> Technische hobbels zijn kansen om te leren, geen muren.</li>
+                            <li><strong>Energie doseren:</strong> Uw gedrevenheid werkt aanstekelijk - gebruik die kracht bewust.</li>
                         </ul>
 
                         <div class="highlight-box">
-                            <h4>Pre-Workshop Excellence Kalibratie</h4>
-                            <p>Controleer uw geloof in hun potentieel. U moet oprecht mogelijkheid zien waar anderen misschien obstakels zien. Uw authentieke enthousiasme voor wat zij samen kunnen bereiken wordt de basis voor hun eigen vertrouwen en toewijding aan excellentie.</p>
+                            <h4>De Excellentie Mindset</h4>
+                            <p>Essentie: U doorbreekt de gewoonte om altijd hulp te vragen bij technologie. Elke stap vooruit vergroot het vertrouwen in verandering.</p>
                         </div>
 
-                        <h3>De Vier Pijlers van Excellence Leiderschap</h3>
-                        
-                        <h4>1. Onwankelbaar Geloof in Menselijk Potentieel</h4>
-                        <p>U benadert elke deelnemer als iemand die tot buitengewone bijdrage in staat is. Dit is geen naïef optimisme - het is strategische investering in wat mensen kunnen worden wanneer ze de juiste omgeving en aanmoediging krijgen.</p>
-
-                        <h4>2. Aanstekelijk Enthousiasme voor Collectieve Prestatie</h4>
-                        <p>Uw opwinding over wat groepen samen kunnen bereiken wordt de energie die momentum door uitdagingen heen onderhoudt. U modelleert de samenwerkingsgeest die u wilt zien bloeien.</p>
-
-                        <h4>3. Geduldig Volharden door Leercurves</h4>
-                        <p>Excellence kost tijd om te ontwikkelen. U behoudt ondersteunende energie door verwarring, frustratie en doorbraakmomenten heen, en helpt mensen tijdelijke worstelingen als natuurlijke delen van groei te zien.</p>
-
-                        <h4>4. Viering-Gerichte Erkenning</h4>
-                        <p>U zoekt actief naar voortgang om te erkennen en prestaties om te vieren. Uw erkenning van hun inspanningen versterkt de positieve patronen die leiden tot aanhoudende excellentie.</p>
-
-                        <h3>Excellence Mindset Mantra's voor Uitdagende Momenten</h3>
+                        <h3>Essentiële Denkprincipes</h3>
                         <ul>
-                            <li><em>"Elke persoon hier heeft iets waardevols bij te dragen aan ons collectieve succes"</em></li>
-                            <li><em>"Verwarring is het begin van begrip - we zijn precies waar we moeten zijn"</em></li>
-                            <li><em>"De beste oplossingen zullen ontstaan uit onze gecombineerde wijsheid en ervaring"</em></li>
-                            <li><em>"Voortgang, niet perfectie, is onze maatstaf voor succes vandaag"</em></li>
-                            <li><em>"Wat we samen bouwen zal sterker zijn dan wat elk van ons alleen zou kunnen creëren"</em></li>
+                            <li><strong>Laten zien, niet vertellen:</strong> Één werkend voorbeeld zegt meer dan uren uitleg</li>
+                            <li><strong>Doen boven plannen:</strong> Starten met iets simpels werkt beter dan eindeloos voorbereiden</li>
+                            <li><strong>Teamkracht benutten:</strong> De groep weet samen meer dan u alleen - help die kennis naar boven te halen</li>
+                            <li><strong>Tijd als bondgenoot:</strong> Duidelijke deadlines helpen bij scherp denken en snelle keuzes</li>
                         </ul>
 
+                        <div class="energy-meter">
+                            <h4>Uw Energie Check</h4>
+                            <div class="energy-bar">
+                                <div class="energy-fill" style="width: 90%;"></div>
+                            </div>
+                            <p style="margin-top: 0.5rem; font-size: 0.875rem;">Vergeet niet: Uw energie trekt de hele groep mee</p>
+                        </div>
+
                         <div class="notes-section">
-                            <h4>Persoonlijke Excellence Voorbereiding</h4>
-                            <textarea class="notes-textarea" placeholder="Welke specifieke bekwaamheden wilt u helpen ontgrendelen in deze groep? Hoe zult u collaboratieve excellentie modelleren gedurende de workshop?"></textarea>
+                            <h4>Persoonlijke Voorbereidingsnotities</h4>
+                            <textarea class="notes-textarea" placeholder="Waar wilt u met deze workshop naartoe? Wat moet er écht anders zijn aan het eind?"></textarea>
                         </div>
                     </div>
                 `,
@@ -1337,6 +1641,12 @@
                             </p>
                         </div>
                         
+                        <div style="text-align: center; margin: 2rem 0;">
+                            <button class="btn excellence" onclick="openCertificateModal()" style="background: linear-gradient(135deg, #fbbf24, #f59e0b); color: #1f2937; padding: 1rem 2rem; font-size: 1.1rem; font-weight: 600; border-radius: 0.5rem; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;">
+                                📜 Genereer Mijn Certificaat
+                            </button>
+                        </div>
+                        
                         <div class="notes-section">
                             <h4>Opening Impact Notities</h4>
                             <textarea class="notes-textarea" placeholder="Documenteer de energieverschuiving wanneer deelnemers de transformatie zien, noteer vragen en opwindingsniveaus..."></textarea>
@@ -1376,11 +1686,11 @@
                         
                         <div style="background: rgba(0, 0, 0, 0.4); border-radius: 0.75rem; padding: 2rem; margin: 2rem 0;">
                             <div style="text-align: center; margin-bottom: 1rem;">
-                                <div style="color: #fbbf24; font-weight: bold; margin-bottom: 0.5rem;">WIL MOGELIJKHEDEN UITBREIDEN →</div>
+                                <div style="color: #fbbf24; font-weight: bold; margin-bottom: 0.5rem;">WIL MOGELIJKHEDEN UITBREIDEN</div>
                             </div>
                             
                             <div style="display: flex; justify-content: center; align-items: center; margin-bottom: 1rem;">
-                                <div style="writing-mode: vertical-lr; text-orientation: mixed; color: #60a5fa; font-weight: bold; margin-right: 1rem; transform: rotate(180deg);">
+                                <div style="writing-mode: vertical-lr; text-orientation: mixed; color: #ffffff; font-weight: bold; margin-right: 1rem; transform: rotate(180deg); text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
                                     VERKIEST GEBRUIKSKLARE TECHNOLOGIE
                                 </div>
                                 
@@ -1389,9 +1699,9 @@
                                         <!-- Business Enthusiasts (Top Left) -->
                                         <td style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.3), rgba(251, 191, 36, 0.1)); border: 2px solid #fbbf24; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
                                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">🌟</div>
-                                            <div style="color: #fbbf24; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Bedrijfsinnovators</div>
-                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">De Praktische Vernieuwers</div>
-                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                            <div style="color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">Bedrijfsinnovators</div>
+                                            <div style="color: #ffffff; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">De Praktische Vernieuwers</div>
+                                            <div style="color: #f8fafc; font-size: 0.75rem; line-height: 1.3; text-shadow: 1px 1px 2px rgba(0,0,0,0.6);">
                                                 • Zorgen voor gebruikersacceptatie<br>
                                                 • Focussen op praktische impact<br>
                                                 • Verbinden technologie met werkprocessen<br>
@@ -1401,9 +1711,9 @@
                                         <!-- Technical Enthusiasts (Top Right) -->
                                         <td style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.3), rgba(34, 197, 94, 0.1)); border: 2px solid #22c55e; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
                                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">🚀</div>
-                                            <div style="color: #22c55e; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Technologie-pioniers</div>
-                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">De Innovatiekatalysatoren</div>
-                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                            <div style="color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Technologie-pioniers</div>
+                                            <div style="color: #ffffff; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">De Innovatiekatalysatoren</div>
+                                            <div style="color: #f8fafc; font-size: 0.75rem; line-height: 1.3; text-shadow: 1px 1px 2px rgba(0,0,0,0.6);">
                                                 • Drijven snelle prototyping<br>
                                                 • Verkennen geavanceerde mogelijkheden<br>
                                                 • Creëren technische fundamenten<br>
@@ -1415,9 +1725,9 @@
                                         <!-- Business Realists (Bottom Left) -->
                                         <td style="background: linear-gradient(135deg, rgba(168, 139, 250, 0.3), rgba(168, 139, 250, 0.1)); border: 2px solid #a78bfa; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
                                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚖️</div>
-                                            <div style="color: #a78bfa; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Operationele Stabilisators</div>
-                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">De Operationele Ankers</div>
-                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                            <div style="color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Operationele Stabilisators</div>
+                                            <div style="color: #ffffff; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">De Operationele Ankers</div>
+                                            <div style="color: #f8fafc; font-size: 0.75rem; line-height: 1.3; text-shadow: 1px 1px 2px rgba(0,0,0,0.6);">
                                                 • Verankeren in operationele realiteit<br>
                                                 • Identificeren implementatie-obstakels<br>
                                                 • Waarborgen resource-haalbaarheid<br>
@@ -1427,9 +1737,9 @@
                                         <!-- Technical Realists (Bottom Right) -->
                                         <td style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(239, 68, 68, 0.1)); border: 2px solid #ef4444; border-radius: 0.5rem; padding: 1.5rem; width: 50%; height: 200px; text-align: center; vertical-align: middle;">
                                             <div style="font-size: 2rem; margin-bottom: 0.5rem;">🛡️</div>
-                                            <div style="color: #ef4444; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem;">Kwaliteitsbewakers</div>
-                                            <div style="color: #e5e7eb; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem;">De Kwaliteitsborgers</div>
-                                            <div style="color: #d1d5db; font-size: 0.75rem; line-height: 1.3;">
+                                            <div style="color: #ffffff; font-weight: bold; font-size: 1.1rem; margin-bottom: 0.25rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">Kwaliteitsbewakers</div>
+                                            <div style="color: #ffffff; font-style: italic; font-size: 0.85rem; margin-bottom: 0.5rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.7);">De Kwaliteitsborgers</div>
+                                            <div style="color: #f8fafc; font-size: 0.75rem; line-height: 1.3; text-shadow: 1px 1px 2px rgba(0,0,0,0.6);">
                                                 • Leveren kwaliteitscontrole<br>
                                                 • Waarborgen beveiligingsnaleving<br>
                                                 • Beoordelen technische risico's<br>
@@ -1439,13 +1749,13 @@
                                     </tr>
                                 </table>
                                 
-                                <div style="writing-mode: vertical-lr; text-orientation: mixed; color: #60a5fa; font-weight: bold; margin-left: 1rem;">
+                                <div style="writing-mode: vertical-lr; text-orientation: mixed; color: #ffffff; font-weight: bold; margin-left: 1rem; text-shadow: 1px 1px 3px rgba(0,0,0,0.5);">
                                     BOUWT EN CONFIGUREERT DAGELIJKS
                                 </div>
                             </div>
                             
                             <div style="text-align: center; margin-top: 1rem;">
-                                <div style="color: #fbbf24; font-weight: bold;">← PAST BIJ HUIDIGE ROL</div>
+                                <div style="color: #fbbf24; font-weight: bold;">PAST BIJ HUIDIGE ROL</div>
                             </div>
                         </div>
                         
@@ -1531,7 +1841,7 @@
                         </div>
                         
                         <h3>🎯 De 3-voor-Lunch Belofte</h3>
-                        
+
                         <div class="excellence-tracker">
                             <h4 style="text-align: center; color: #fbbf24;">Live Oplossing Tracker</h4>
                             <div class="tracker-item">
@@ -1547,12 +1857,45 @@
                                 <span class="tracker-metric" id="teamsActive">3 / 3</span>
                             </div>
                         </div>
+
+                        <!-- Template Library Integration -->
+                        <div class="template-library-section" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(168, 85, 247, 0.1)); border-radius: 1rem; padding: 1.5rem; margin: 2rem 0;">
+                            <h3 style="color: #60a5fa; text-align: center;">🎯 Template Library - Versnelde Start</h3>
+                            <p style="text-align: center; margin-bottom: 1.5rem;">
+                                <em>Gebruik bewezen templates als springplank voor jullie oplossingen!</em>
+                            </p>
+
+                            <a href="template-library.html" target="_blank" style="display: block; margin: 0 auto; background: linear-gradient(135deg, #3b82f6, #8b5cf6); color: white; border: none; padding: 1rem 2rem; border-radius: 0.5rem; font-size: 1.1rem; cursor: pointer; transition: transform 0.2s; text-decoration: none; text-align: center; width: fit-content;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">📚 Open Template Library</a>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 0.5rem; text-align: center;">
+                                    <span style="font-size: 1.5rem;">🏥</span>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Healthcare<br><small>3 templates</small></p>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 0.5rem; text-align: center;">
+                                    <span style="font-size: 1.5rem;">💰</span>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Finance<br><small>2 templates</small></p>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 0.5rem; text-align: center;">
+                                    <span style="font-size: 1.5rem;">👥</span>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">HR<br><small>2 templates</small></p>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 0.5rem; text-align: center;">
+                                    <span style="font-size: 1.5rem;">⚙️</span>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">Operations<br><small>2 templates</small></p>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 0.5rem; border-radius: 0.5rem; text-align: center;">
+                                    <span style="font-size: 1.5rem;">📊</span>
+                                    <p style="margin: 0.5rem 0 0 0; font-size: 0.9rem;">General<br><small>1 template</small></p>
+                                </div>
+                            </div>
+                        </div>
                         
-                        <h3>Mission Possible: AAG Excellence Challenges</h3>
+                        <h3>Mission Possible: Excellence Challenges</h3>
                         
                         <p style="background: rgba(59, 130, 246, 0.2); padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem;">
                             <strong>🎯 Kies een challenge die direct aansluit bij jullie organisatie!</strong><br>
-                            Deze missies zijn gebaseerd op echte AAG-successen bij Carinova, Amarant, Inovum en anderen.
+                            Deze missies zijn gebaseerd op echte successen bij Nederlandse zorgorganisaties.
                         </p>
                         
                         <!-- HR & Planning Challenges -->
@@ -1560,15 +1903,15 @@
                         
                         <div class="mission-card">
                             <div class="mission-card-header">
-                                <span class="mission-title">🔄 De AFAS Vertaler</span>
+                                <span class="mission-title">🔄 De HR-Systeem Vertaler</span>
                                 <span class="mission-icon">💼</span>
                             </div>
                             <p><strong>HR Systeem Integration Mission</strong></p>
-                            <p>Bouw een AI-assistent die AFAS foutmeldingen vertaalt naar begrijpelijke Nederlandse instructies voor HR-medewerkers.</p>
+                            <p>Bouw een AI-assistent die HR-systeem foutmeldingen vertaalt naar begrijpelijke Nederlandse instructies voor HR-medewerkers.</p>
                             <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
                                 <p style="font-family: 'Courier New'; font-size: 0.9rem;">
                                 Context additions:<br>
-                                - AFAS specifieke codes en workflows<br>
+                                - HR-systeem specifieke codes en workflows<br>
                                 - Mutatie-processen: in/uit/doorstroom<br>
                                 - Veelvoorkomende fouten: BSN, looncomponenten<br>
                                 Target: 30-60% snellere doorlooptijd mutaties
@@ -1591,7 +1934,7 @@
                                 Context additions:<br>
                                 - CAO Zorg: werk/rust tijden, ORT regels<br>
                                 - Part-time percentages: 0.6, 0.8, 0.9 FTE<br>
-                                - Nedap ONS integratie patterns<br>
+                                - Zorgregistratie-systeem integratie patterns<br>
                                 Target: Verhoog roosterfit, verminder last-minute inhuur
                                 </p>
                             </div>
@@ -1676,7 +2019,7 @@
                         </div>
                         
                         <!-- Data & Analytics Challenges -->
-                        <h4 style="color: #60a5fa; margin-top: 2rem;">📊 Data & Analytics Excellence (AAG Analytics)</h4>
+                        <h4 style="color: #60a5fa; margin-top: 2rem;">📊 Data & Analytics Excellence</h4>
                         
                         <div class="mission-card">
                             <div class="mission-card-header">
@@ -1702,11 +2045,11 @@
                                 <span class="mission-icon">✅</span>
                             </div>
                             <p><strong>Datakwaliteit Mission</strong></p>
-                            <p>Creëer een AI die datakwaliteitsissues tussen AFAS, Nedap en financiële systemen detecteert.</p>
+                            <p>Creëer een AI die datakwaliteitsissues tussen HR-, zorg- en financiële systemen detecteert.</p>
                             <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin-top: 1rem;">
                                 <p style="font-family: 'Courier New'; font-size: 0.9rem;">
                                 Context additions:<br>
-                                - Koppelvlakken AFAS-Nedap-Finance<br>
+                                - Koppelvlakken HR-Zorg-Finance<br>
                                 - Reconciliatie regels<br>
                                 - Master data management<br>
                                 Target: 90% first-time-right data
@@ -1812,8 +2155,18 @@
                         
                         <h3>Collaboratieve Oplossing Ontwikkeling (40 minuten)</h3>
 
-                        <h4>Fase 1: Context Verfijning (10 minuten)</h4>
-                        <p>Partnerships verbeteren hun organisatorische context templates met specifieke kennis relevant voor hun gekozen uitdaging.</p>
+                        <h4>Fase 1: Context Verfijning met Templates (10 minuten)</h4>
+                        <p>Partnerships kunnen kiezen: start met een bewezen template uit onze library OF bouw vanaf scratch. Templates bieden een gevalideerde structuur die je kunt aanpassen aan jullie specifieke situatie.</p>
+
+                        <div class="highlight-box" style="background: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24;">
+                            <h5 style="color: #fbbf24;">💡 Template Tip</h5>
+                            <p>Templates zijn geen eindoplossingen maar startpunten! Pas ze aan met:</p>
+                            <ul>
+                                <li>Jullie specifieke organisatienaam en structuur</li>
+                                <li>Eigen systemen en processen</li>
+                                <li>Unieke uitdagingen en requirements</li>
+                            </ul>
+                        </div>
                         
                         <p><strong>Context verbetering gebieden:</strong></p>
                         <ul>
@@ -2192,6 +2545,212 @@
                         
                         <h3>Het Transformatie Moment</h3>
                         <p><em>Zelfde prompt, twee verschillende benaderingen: Generieke AI geeft generieke antwoorden. Context-beheerste AI levert expert-niveau, organisatie-specifieke oplossingen.</em></p>
+
+                        <h2 style="color: #fbbf24; margin-top: 3rem;">🏗️ De 3-Lagen Architectuur van AI Mastery</h2>
+
+                        <div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1)); border: 2px solid #3b82f6; border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h3 style="text-align: center; color: #60a5fa;">Het Geheim dat 99% Mist</h3>
+
+                            <div style="display: flex; gap: 2rem; margin: 2rem 0; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 250px;">
+                                    <h4 style="color: #ef4444;">❌ Wat Iedereen Doet (De Rabbit Hole)</h4>
+                                    <div style="background: rgba(239, 68, 68, 0.1); padding: 1rem; border-radius: 0.5rem;">
+                                        <p style="font-family: monospace; font-size: 0.9rem;">
+                                        User: "Maak een roosterplanning"<br>
+                                        AI: "Voor hoeveel mensen?"<br>
+                                        User: "50"<br>
+                                        AI: "Welke diensten?"<br>
+                                        User: "Dag, avond, nacht"<br>
+                                        AI: "Welke regels?"<br>
+                                        User: "Eh... de gebruikelijke?"<br>
+                                        <span style="color: #ef4444;">[20 iteraties later...]</span><br>
+                                        User: "Dit klopt nog steeds niet!"
+                                        </p>
+                                    </div>
+                                </div>
+
+                                <div style="flex: 1; min-width: 250px;">
+                                    <h4 style="color: #22c55e;">✅ De Context Engineering Methode</h4>
+                                    <div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 0.5rem;">
+                                        <p style="font-family: monospace; font-size: 0.9rem;">
+                                        System: [Complete context voorgeladen]<br>
+                                        User: "Maak een roosterplanning"<br>
+                                        AI: "Voor uw zorgorganisatie met:<br>
+                                        - CAO VVT regelingen<br>
+                                        - IGJ minimale bezetting<br>
+                                        - Feestdagentoeslag december<br>
+                                        - 15% verzuim buffer<br>
+                                        <span style="color: #22c55e;">[Perfect in 1 keer!]</span>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(251, 191, 36, 0.1); border: 2px solid #fbbf24; border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h3 style="text-align: center; color: #fbbf24; margin-bottom: 2rem;">De 3 Fundamentele Lagen</h3>
+
+                            <div style="display: flex; flex-direction: column; gap: 1rem;">
+                                <div style="background: rgba(139, 92, 246, 0.2); padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #8b5cf6;">
+                                    <h4 style="color: #8b5cf6; margin: 0;">Layer 1: META/SYSTEM PROMPT (Wie & Hoe)</h4>
+                                    <p style="margin: 0.5rem 0; font-size: 0.95rem;">De identiteit en denkwijze van de AI</p>
+                                    <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.25rem; margin-top: 0.5rem; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                                        Je bent een Healthcare Solutions Architect.<br>
+                                        Je denkt in systemen, processen en compliance.<br>
+                                        Je baseert alles op 500+ implementaties.<br>
+                                        Je communiceert professioneel maar toegankelijk.
+                                    </div>
+                                </div>
+
+                                <div style="background: rgba(59, 130, 246, 0.2); padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
+                                    <h4 style="color: #3b82f6; margin: 0;">Layer 2: DOMAIN CONTEXT (Wat & Waar)</h4>
+                                    <p style="margin: 0.5rem 0; font-size: 0.95rem;">Het specifieke speelveld en constraints</p>
+                                    <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.25rem; margin-top: 0.5rem; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                                        Context: Nederlandse VVT, 300 bedden<br>
+                                        Systemen: AFAS, Plancare, PowerBI<br>
+                                        Constraints: CAO VVT, IGJ normen, 24/7<br>
+                                        Team: 50 verpleegkundigen, 15% verzuim
+                                    </div>
+                                </div>
+
+                                <div style="background: rgba(34, 197, 94, 0.2); padding: 1.5rem; border-radius: 0.5rem; border-left: 4px solid #22c55e;">
+                                    <h4 style="color: #22c55e; margin: 0;">Layer 3: REQUIREMENTS (De Vraag)</h4>
+                                    <p style="margin: 0.5rem 0; font-size: 0.95rem;">Wat er specifiek moet gebeuren</p>
+                                    <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.25rem; margin-top: 0.5rem; font-family: 'Courier New', monospace; font-size: 0.85rem;">
+                                        "Maak december rooster met feestdagen"
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h2 style="color: #60a5fa; margin-top: 3rem;">💡 Voor Consultancy Organisaties: De Force Multiplier</h2>
+
+                        <div style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1)); border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h3 style="color: #10b981;">Dit is GEEN Vervanging - Het is een Vermenigvuldiger</h3>
+
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin: 2rem 0;">
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 0.5rem; text-align: center;">
+                                    <div style="font-size: 2rem; color: #fbbf24;">70%</div>
+                                    <div style="color: #e5e7eb;">Minder tijd aan prompt iteraties</div>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 0.5rem; text-align: center;">
+                                    <div style="font-size: 2rem; color: #fbbf24;">90%</div>
+                                    <div style="color: #e5e7eb;">Consistentie in deliverables</div>
+                                </div>
+                                <div style="background: rgba(255, 255, 255, 0.1); padding: 1rem; border-radius: 0.5rem; text-align: center;">
+                                    <div style="font-size: 2rem; color: #fbbf24;">10x</div>
+                                    <div style="color: #e5e7eb;">Schaalbaarheid zonder FTE groei</div>
+                                </div>
+                            </div>
+
+                            <h4 style="color: #60a5fa;">Concrete Toepassing voor een Consultancy:</h4>
+
+                            <div style="background: rgba(0, 0, 0, 0.4); padding: 1.5rem; border-radius: 0.5rem; margin: 1rem 0;">
+                                <p><strong style="color: #fbbf24;">Scenario: HR Optimalisatie Project</strong></p>
+
+                                <div style="margin: 1rem 0; padding-left: 1rem; border-left: 3px solid #3b82f6;">
+                                    <p><strong>Zonder Context Engineering:</strong><br>
+                                    Senior consultant besteedt 2 dagen aan analyse → Junior probeert te helpen maar mist context → Veel heen en weer → Inconsistente output</p>
+                                </div>
+
+                                <div style="margin: 1rem 0; padding-left: 1rem; border-left: 3px solid #22c55e;">
+                                    <p><strong>Met Context Engineering:</strong><br>
+                                    Template laden → Junior gebruikt senior-niveau context → Direct juiste output → Senior reviewt alleen → 5x sneller</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <h3 style="color: #a78bfa; margin-top: 3rem;">🚀 De Business Case</h3>
+
+                        <div style="background: rgba(167, 139, 250, 0.1); border: 2px solid #a78bfa; border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h4>Voor een 120-persoons Consultancy betekent dit:</h4>
+
+                            <ul style="list-style: none; padding: 0;">
+                                <li style="padding: 0.5rem 0;"><span style="color: #22c55e;">✓</span> <strong>Nieuwe diensten:</strong> "AI-Powered Advisory" als premium service</li>
+                                <li style="padding: 0.5rem 0;"><span style="color: #22c55e;">✓</span> <strong>Knowledge capture:</strong> 500+ projecten kennis direct toegankelijk</li>
+                                <li style="padding: 0.5rem 0;"><span style="color: #22c55e;">✓</span> <strong>Quality assurance:</strong> Elke output volgt beste practices</li>
+                                <li style="padding: 0.5rem 0;"><span style="color: #22c55e;">✓</span> <strong>Competitive edge:</strong> Eerste AI-native consultancy in de markt</li>
+                            </ul>
+
+                            <div style="background: rgba(251, 191, 36, 0.2); padding: 1rem; border-radius: 0.5rem; margin-top: 1.5rem; text-align: center;">
+                                <p style="font-size: 1.1rem; font-weight: bold; color: #fbbf24;">
+                                    "Van ChatGPT naar Digitale Collega in 3 Stappen"
+                                </p>
+                            </div>
+                        </div>
+
+                        <h3>De Onthulling</h3>
+                        <p><strong>"Dit is wat we vandaag samen gaan bouwen - jullie eigen digitale expertise DNA."</strong></p>
+
+                        <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1)); border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="color: #10b981; text-align: center; margin-bottom: 1.5rem;">💡 Praktijkvoorbeelden voor Consultancy Organisaties</h4>
+
+                            <div style="display: grid; gap: 1.5rem;">
+                                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 0.5rem; padding: 1.5rem; border-left: 4px solid #10b981;">
+                                    <h5 style="color: #fbbf24; margin-bottom: 1rem;">Scenario 1: Change Management Trajecten</h5>
+                                    <p><strong>Traditioneel:</strong> 6 consultants, 4 maanden, €450K</p>
+                                    <p><strong>Met 3-Lagen:</strong> 2 consultants + AI-systeem, 6 weken, €75K</p>
+                                    <p style="margin-top: 0.5rem;"><em>Layer 1:</em> "Je bent een change management expert met 20 jaar ervaring"</p>
+                                    <p><em>Layer 2:</em> "Focus op Nederlandse zorgorganisaties in fusietrajecten"</p>
+                                    <p><em>Layer 3:</em> "Analyseer weerstanden en creëer interventieplan"</p>
+                                </div>
+
+                                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 0.5rem; padding: 1.5rem; border-left: 4px solid #10b981;">
+                                    <h5 style="color: #fbbf24; margin-bottom: 1rem;">Scenario 2: Process Mining Analyses</h5>
+                                    <p><strong>Traditioneel:</strong> 3 analisten, 2 maanden, €120K</p>
+                                    <p><strong>Met 3-Lagen:</strong> 1 analist + AI-assistent, 1 week, €15K</p>
+                                    <p style="margin-top: 0.5rem;"><em>Layer 1:</em> "Je bent een process mining specialist met expertise in zorgprocessen"</p>
+                                    <p><em>Layer 2:</em> "Analyseer DBC-trajecten met focus op doorlooptijden"</p>
+                                    <p><em>Layer 3:</em> "Identificeer bottlenecks in dit dataset"</p>
+                                </div>
+
+                                <div style="background: rgba(255, 255, 255, 0.05); border-radius: 0.5rem; padding: 1.5rem; border-left: 4px solid #10b981;">
+                                    <h5 style="color: #fbbf24; margin-bottom: 1rem;">Scenario 3: Strategische Adviestrajecten</h5>
+                                    <p><strong>Traditioneel:</strong> Partner + 4 consultants, 3 maanden, €380K</p>
+                                    <p><strong>Met 3-Lagen:</strong> Partner + 1 consultant + AI, 4 weken, €95K</p>
+                                    <p style="margin-top: 0.5rem;"><em>Layer 1:</em> "Je bent een strategisch adviseur gespecialiseerd in digitale transformatie"</p>
+                                    <p><em>Layer 2:</em> "Focus op mid-market bedrijven in transitie naar platform-economie"</p>
+                                    <p><em>Layer 3:</em> "Ontwikkel roadmap voor digitale transformatie"</p>
+                                </div>
+                            </div>
+
+                            <div style="background: rgba(251, 191, 36, 0.2); border-radius: 0.5rem; padding: 1rem; margin-top: 1.5rem; text-align: center;">
+                                <p style="font-size: 1.1rem; color: #fbbf24; margin: 0;">
+                                    <strong>De Multiplier Effect:</strong> Consultants worden 10x productiever, klanten krijgen 5x meer waarde, projecten leveren 3x sneller resultaat
+                                </p>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(59, 130, 246, 0.1); border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="color: #3b82f6; text-align: center; margin-bottom: 1.5rem;">🎯 Live Demonstratie: Van Vraag naar Oplossing</h4>
+
+                            <div style="background: rgba(0, 0, 0, 0.2); border-radius: 0.5rem; padding: 1.5rem; margin-bottom: 1rem;">
+                                <h5 style="color: #fbbf24;">Klantvraag:</h5>
+                                <p style="font-style: italic;">"We hebben problemen met onze facturatie, kunnen jullie helpen?"</p>
+                            </div>
+
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                                <div style="background: rgba(239, 68, 68, 0.1); border-radius: 0.5rem; padding: 1rem;">
+                                    <h5 style="color: #ef4444;">❌ Zonder 3-Lagen</h5>
+                                    <ul style="font-size: 0.9rem;">
+                                        <li>10+ meetings om scope te bepalen</li>
+                                        <li>3 weken requirements gathering</li>
+                                        <li>Eindresultaat: generiek advies</li>
+                                        <li>Klant: "Dit wisten we al..."</li>
+                                    </ul>
+                                </div>
+
+                                <div style="background: rgba(34, 197, 94, 0.1); border-radius: 0.5rem; padding: 1rem;">
+                                    <h5 style="color: #22c55e;">✅ Met 3-Lagen</h5>
+                                    <ul style="font-size: 0.9rem;">
+                                        <li>1 workshop van 3 uur</li>
+                                        <li>Direct werkende prototypes</li>
+                                        <li>Specifiek voor hun context</li>
+                                        <li>Klant: "Dit lost het echt op!"</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 `,
 					"commitment-ceremony": `
@@ -2224,98 +2783,191 @@
                         <div class="manifesto-scroll">
                             <h3 style="text-align: center; color: #000;">EXCELLENCE COMMITMENT</h3>
                             <p style="color: #000; font-size: 1.1rem; text-align: center; margin-bottom: 1.5rem;">
-                                <em>Pledged together on [DATE], by the Excellence Community of [ORGANIZATION]</em>
+                                <em>Gezamenlijk beloofd op [DATUM], door de Excellence Community van [ORGANISATIE]</em>
                             </p>
-                            
-                            <p style="color: #000; font-weight: bold;">We, the professionals of [ORGANIZATION], commit to building extraordinary capability through collective excellence.</p>
-                            
-                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE DISCOVERED TODAY:</p>
+
+                            <p style="color: #000; font-weight: bold;">Wij, de professionals van [ORGANISATIE], committeren ons aan het bouwen van buitengewone bekwaamheid door collectieve excellence.</p>
+
+                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WAT WE VANDAAG ONTDEKTEN:</p>
                             <ul style="color: #000; margin-left: 2rem; margin-bottom: 1.5rem;">
-                                <li>We can build in 45 minutes what costs €50K in consulting</li>
-                                <li>Our combined expertise creates solutions no individual could build alone</li>
-                                <li>Context engineering multiplies our domain knowledge into AI capability</li>
-                                <li>Three working solutions before lunch is just the beginning</li>
+                                <li>We kunnen in 45 minuten bouwen wat €50K aan consultancy kost</li>
+                                <li>Onze gecombineerde expertise creëert oplossingen die niemand alleen kan bouwen</li>
+                                <li>Context engineering vermenigvuldigt onze domeinkennis in AI-bekwaamheid</li>
+                                <li>Drie werkende oplossingen voor de lunch is pas het begin</li>
                             </ul>
-                            
-                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE BELIEVE IN THESE PRINCIPLES:</p>
+
+                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE GELOVEN IN DEZE PRINCIPES:</p>
                             <ul style="color: #000; margin-left: 2rem; margin-bottom: 1.5rem;">
-                                <li>Every challenge is an opportunity to grow our capabilities</li>
-                                <li>Collaboration multiplies individual strengths into collective excellence</li>
-                                <li>Technology serves our expertise, enhancing rather than replacing human judgment</li>
-                                <li>Continuous learning and sharing knowledge builds organizational wisdom</li>
-                                <li>Excellence is a practice we cultivate together, not a destination we reach alone</li>
+                                <li>Elke uitdaging is een kans om onze capaciteiten te laten groeien</li>
+                                <li>Samenwerking vermenigvuldigt individuele sterktes tot collectieve excellence</li>
+                                <li>Technologie dient onze expertise, verbetert in plaats van vervangt menselijk oordeel</li>
+                                <li>Continu leren en kennis delen bouwt organisatorische wijsheid</li>
+                                <li>Excellence is een praktijk die we samen cultiveren, geen bestemming die we alleen bereiken</li>
                             </ul>
-                            
-                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE COMMIT TO THESE PRACTICES:</p>
+
+                            <p style="color: #000; font-weight: bold; margin: 1.5rem 0;">WE COMMITTEREN ONS AAN DEZE PRAKTIJKEN:</p>
                             <ul style="color: #000; margin-left: 2rem; margin-bottom: 1.5rem;">
-                                <li><strong>BUILD SOLUTIONS THAT MATTER:</strong> Focus on real problems with practical impact</li>
-                                <li><strong>SHARE KNOWLEDGE GENEROUSLY:</strong> What we learn benefits everyone</li>
-                                <li><strong>SUPPORT EACH OTHER'S GROWTH:</strong> Excellence thrives in collaborative environments</li>
-                                <li><strong>MAINTAIN HIGH STANDARDS:</strong> Quality and ethics guide all our work</li>
-                                <li><strong>CELEBRATE PROGRESS:</strong> Acknowledge achievements and learn from setbacks</li>
+                                <li><strong>OPLOSSINGEN BOUWEN DIE ERTOE DOEN:</strong> Focus op echte problemen met praktische impact</li>
+                                <li><strong>KENNIS GENEREUS DELEN:</strong> Wat we leren komt iedereen ten goede</li>
+                                <li><strong>ELKAARS GROEI ONDERSTEUNEN:</strong> Excellence gedijt in samenwerkingsomgevingen</li>
+                                <li><strong>HOGE STANDAARDEN HANDHAVEN:</strong> Kwaliteit en ethiek leiden al ons werk</li>
+                                <li><strong>VOORTGANG VIEREN:</strong> Prestaties erkennen en leren van tegenslagen</li>
                             </ul>
-                            
+
                             <p style="color: #000; text-align: center; font-weight: bold;">
-                                Together we build the future of [ORGANIZATION] through excellence, collaboration, and continuous growth.
+                                Samen bouwen we de toekomst van [ORGANISATIE] door excellence, samenwerking en continue groei.
                             </p>
                             <p style="color: #000; text-align: center; font-style: italic; margin-top: 1.5rem;">
-                                "Excellence is not a skill, it's an attitude we practice together."
+                                "Excellence is geen vaardigheid, het is een houding die we samen praktiseren."
                             </p>
                         </div>
                         
-                        <h3>🖊️ The Signing Ceremony (10 minutes)</h3>
-                        
+                        <h3>🖊️ De Ondertekening Ceremonie (15 minuten)</h3>
+
                         <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.2), rgba(245, 158, 11, 0.2)); border-radius: 1rem; padding: 2rem; margin: 2rem 0; text-align: center;">
-                            <h4 style="color: #fbbf24;">Ceremonial Signing Protocol</h4>
-                            
+                            <h4 style="color: #fbbf24;">Ceremonieel Ondertekening Protocol</h4>
+
                             <ol style="text-align: left; margin: 1rem 2rem;">
-                                <li><strong>Print manifesto on high-quality A1 poster</strong></li>
-                                <li><strong>Each person signs with permanent marker</strong></li>
-                                <li><strong>Add personal excellence commitment next to signature</strong></li>
-                                <li><strong>Group photo with signed manifesto</strong></li>
-                                <li><strong>Post immediately in company-wide channel</strong></li>
-                                <li><strong>Frame and hang in office as daily reminder</strong></li>
+                                <li><strong>Print manifest op hoogwaardig A1 poster</strong></li>
+                                <li><strong>Elke persoon ondertekent met permanente marker</strong></li>
+                                <li><strong>Vul persoonlijke Commitment Card in (zie template hieronder)</strong></li>
+                                <li><strong>Hang Commitment Card op in de Commitment Hoek</strong></li>
+                                <li><strong>Groepsfoto met ondertekend manifest</strong></li>
+                                <li><strong>Post direct in bedrijfsbrede kanaal</strong></li>
+                                <li><strong>Lijst manifest in en hang op in Commitment Hoek als middelpunt</strong></li>
                             </ol>
-                            
+
                             <p style="font-size: 1.3rem; margin-top: 1.5rem; color: #fbbf24;">
-                                📸 "This photo marks Day 1 of our Excellence Era"
+                                📸 "Deze foto markeert Dag 1 van ons Excellence Tijdperk"
+                            </p>
+                        </div>
+
+                        <div style="background: rgba(59, 130, 246, 0.1); border: 2px dashed #3b82f6; border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h4 style="color: #fff; text-align: center;">📝 Commitment Card Template</h4>
+
+                            <div style="background: #fffef7; border: 3px solid #fbbf24; border-radius: 0.5rem; padding: 1.5rem; margin: 1rem auto; max-width: 400px; color: #111827; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+                                <h5 style="text-align: center; color: #d97706; margin-bottom: 1rem; font-size: 1.25rem;">EXCELLENCE COMMITMENT</h5>
+
+                                <p style="margin-bottom: 1rem; color: #1f2937; font-weight: 600;">
+                                    <strong style="color: #374151;">Naam:</strong> _______________________<br>
+                                    <strong style="color: #374151;">Afdeling:</strong> ___________________<br>
+                                    <strong style="color: #374151;">Datum:</strong> ______________________
+                                </p>
+
+                                <div style="border-top: 2px solid #fbbf24; padding-top: 1rem; margin-bottom: 1rem;">
+                                    <p style="color: #1f2937; font-weight: 700; margin-bottom: 0.5rem;">Mijn Excellence Belofte:</p>
+                                    <p style="font-style: italic; color: #374151; margin: 0 0 0.5rem 0;">"Binnen 7 dagen zal ik..."</p>
+                                    <div style="border: 2px solid #e5e7eb; background: #f9fafb; height: 60px; margin: 0.5rem 0; border-radius: 4px;"></div>
+                                </div>
+
+                                <div style="border-top: 2px solid #fbbf24; padding-top: 1rem; margin-bottom: 1rem;">
+                                    <p style="color: #1f2937; font-weight: 700; margin-bottom: 0.5rem;">Hoe ik succes meet:</p>
+                                    <div style="border: 2px solid #e5e7eb; background: #f9fafb; height: 40px; margin: 0.5rem 0; border-radius: 4px;"></div>
+                                </div>
+
+                                <div style="border-top: 2px solid #fbbf24; padding-top: 1rem;">
+                                    <p style="color: #1f2937; font-weight: 700; margin-bottom: 0.5rem;">Wie ik help met mijn kennis:</p>
+                                    <div style="border: 2px solid #e5e7eb; background: #f9fafb; height: 40px; margin: 0.5rem 0; border-radius: 4px;"></div>
+                                </div>
+
+                                <p style="text-align: center; margin-top: 1.5rem; color: #1f2937; font-weight: 700;">
+                                    <strong>Handtekening:</strong> _______________________
+                                </p>
+                            </div>
+
+                            <p style="text-align: center; margin-top: 1rem; font-style: italic; color: #fbbf24;">
+                                Deze kaart wordt opgehangen in de Commitment Hoek als dagelijkse herinnering
                             </p>
                         </div>
                         
-                        <h3>🎯 The Final Commitment (10 minutes)</h3>
-                        <p>Each participant stands and shares one specific way they will practice excellence in their role. This transforms individual learning into collective accountability.</p>
-                        
+                        <h3>🎯 De Finale Commitment & 30-Dagen Tracker Setup (15 minuten)</h3>
+                        <p>Elke deelnemer staat op en deelt één specifieke manier waarop zij excellence zullen praktiseren in hun rol. Dit transformeert individueel leren in collectieve verantwoordelijkheid.</p>
+
                         <div class="commitment-tracker">
-                            <h4 style="text-align: center;">Public Excellence Commitments</h4>
+                            <h4 style="text-align: center;">Publieke Excellence Commitments</h4>
                             <p style="text-align: center; margin-bottom: 1.5rem;">
-                                "By next Wednesday, I will..."
+                                "Voor volgende woensdag zal ik..."
                             </p>
                             <div class="commitment-grid">
                                 <div class="commitment-card">
                                     <strong>Finance:</strong><br>
-                                    "Automate invoice processing"
+                                    "Factuurverwerking automatiseren"
                                 </div>
                                 <div class="commitment-card">
                                     <strong>HR:</strong><br>
-                                    "Build onboarding assistant"
+                                    "Onboarding assistent bouwen"
                                 </div>
                                 <div class="commitment-card">
                                     <strong>Analytics:</strong><br>
-                                    "Create insight generator"
+                                    "Inzicht generator creëren"
                                 </div>
                                 <div class="commitment-card">
                                     <strong>Operations:</strong><br>
-                                    "Deploy scheduling optimizer"
+                                    "Planning optimizer implementeren"
                                 </div>
                             </div>
                         </div>
-                        
+
+                        <div style="background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(16, 185, 129, 0.1)); border-radius: 1rem; padding: 2rem; margin: 2rem 0;">
+                            <h3 style="color: #10b981; text-align: center;">📊 30-Dagen Voortgang Tracker</h3>
+
+                            <p style="text-align: center; margin-bottom: 1.5rem;">
+                                <em>Deze tracker wordt opgezet in de Commitment Hoek voor dagelijkse check-ins</em>
+                            </p>
+
+                            <div style="background: white; border: 2px solid #10b981; border-radius: 0.5rem; padding: 1.5rem; color: #111827;">
+                                <h4 style="text-align: center; color: #10b981; margin-bottom: 1rem;">EXCELLENCE JOURNEY TRACKER</h4>
+
+                                <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1rem; align-items: center;">
+                                    <strong>Week 1:</strong>
+                                    <div style="background: #e5e7eb; height: 20px; border-radius: 10px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #ef4444, #f59e0b); height: 100%; width: 25%; transition: width 0.3s;"></div>
+                                    </div>
+                                    <span>Start Strong</span>
+
+                                    <strong>Week 2:</strong>
+                                    <div style="background: #e5e7eb; height: 20px; border-radius: 10px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #f59e0b, #fbbf24); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                                    </div>
+                                    <span>Build Momentum</span>
+
+                                    <strong>Week 3:</strong>
+                                    <div style="background: #e5e7eb; height: 20px; border-radius: 10px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #fbbf24, #84cc16); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                                    </div>
+                                    <span>Accelerate</span>
+
+                                    <strong>Week 4:</strong>
+                                    <div style="background: #e5e7eb; height: 20px; border-radius: 10px; overflow: hidden;">
+                                        <div style="background: linear-gradient(90deg, #84cc16, #22c55e); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                                    </div>
+                                    <span>Excellence!</span>
+                                </div>
+
+                                <div style="margin-top: 1.5rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
+                                    <h5 style="color: #10b981;">Check-in Momenten:</h5>
+                                    <ul style="margin: 0.5rem 0 0 1.5rem;">
+                                        <li><strong>Dag 7:</strong> Eerste commitment update (teammeeting)</li>
+                                        <li><strong>Dag 14:</strong> Voortgang delen (lunch & learn)</li>
+                                        <li><strong>Dag 21:</strong> Uitdagingen bespreken (peer support)</li>
+                                        <li><strong>Dag 30:</strong> Excellence Viering (success stories)</li>
+                                    </ul>
+                                </div>
+
+                                <div style="background: #fef3c7; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem;">
+                                    <p style="text-align: center; color: #92400e; margin: 0;">
+                                        <strong>💡 Tip:</strong> Elke deelnemer die check-in voltooit, mag hun voortgang updaten op het tracking board!
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="capability-celebration">
-                            <h3>The Excellence Future</h3>
+                            <h3>De Excellence Toekomst</h3>
                             <p style="font-size: 1.2rem;">
-                                "You arrived as workshop participants.<br>
-                                You leave as Excellence Practitioners.<br>
-                                Together, we transform our organization."
+                                "Je arriveerde als workshop deelnemer.<br>
+                                Je vertrekt als Excellence Beoefenaar.<br>
+                                Samen transformeren we onze organisatie."
                             </p>
                         </div>
                     </div>
@@ -2333,25 +2985,33 @@
 				if (solutionCount < maxSolutions) {
 					solutionCount++;
 					updateSolutionDisplay();
-					
+
 					if (solutionCount === maxSolutions) {
-						showAlert('🎉 Alle 3 oplossingen voltooid! Lunch is verdiend!', 'excellence');
+						showAlert(
+							"🎉 Alle 3 oplossingen voltooid! Lunch is verdiend!",
+							"excellence"
+						);
 					} else {
-						showAlert(`Oplossing ${solutionCount} toegevoegd! Nog ${maxSolutions - solutionCount} te gaan.`, 'info');
+						showAlert(
+							`Oplossing ${solutionCount} toegevoegd! Nog ${
+								maxSolutions - solutionCount
+							} te gaan.`,
+							"info"
+						);
 					}
 				}
 			}
 
 			function updateSolutionDisplay() {
-				const display = document.getElementById('solutionCount');
+				const display = document.getElementById("solutionCount");
 				if (display) {
 					display.textContent = `${solutionCount} / ${maxSolutions}`;
-					
+
 					// Visual feedback for progress
 					if (solutionCount === maxSolutions) {
-						display.style.color = '#22c55e'; // Green for completion
+						display.style.color = "#22c55e"; // Green for completion
 					} else {
-						display.style.color = '#fbbf24'; // Gold for progress
+						display.style.color = "#fbbf24"; // Gold for progress
 					}
 				}
 			}
@@ -2361,11 +3021,475 @@
 				updateSolutionDisplay();
 			}
 
+			// Template Library Data and Functions
+			const templateLibraryData = [
+				// Healthcare Templates
+				{
+					id: "healthcare-declaratie-001",
+					category: "healthcare",
+					title: "Declaratie Fout Analyse",
+					description:
+						"Analyseert declaratiefouten in de Nederlandse zorg en geeft concrete oplossingen",
+					difficulty: "beginner",
+					variables: [
+						{
+							key: "ORGANIZATION_NAME",
+							label: "Organisatienaam",
+							example: "Zorggroep Nederland",
+						},
+						{
+							key: "ERROR_CODES",
+							label: "Foutcodes",
+							example: "IZA-4B7, WLZ-23A",
+						},
+						{
+							key: "INSURANCE_COMPANY",
+							label: "Verzekeraar",
+							example: "Zilveren Kruis",
+						},
+					],
+					template:
+						"Je bent een ervaren declaratie specialist voor {{ORGANIZATION_NAME}}. Analyseer declaratiefouten {{ERROR_CODES}} voor verzekeraar {{INSURANCE_COMPANY}}.",
+				},
+				{
+					id: "healthcare-planning-001",
+					category: "healthcare",
+					title: "Patiënt Planning Optimalisatie",
+					description:
+						"Optimaliseert patiëntplanning met focus op doorstroming en capaciteit",
+					difficulty: "intermediate",
+					variables: [
+						{
+							key: "DEPARTMENT",
+							label: "Afdeling",
+							example: "Polikliniek Cardiologie",
+						},
+						{
+							key: "PATIENT_VOLUME",
+							label: "Patiënten per week",
+							example: "450",
+						},
+						{
+							key: "STAFF_COUNT",
+							label: "Personeel",
+							example: "12 specialisten",
+						},
+					],
+					template:
+						"Je bent een capaciteitsmanager voor {{DEPARTMENT}} met {{PATIENT_VOLUME}} patiënten per week en {{STAFF_COUNT}} personeel.",
+				},
+				{
+					id: "healthcare-medicatie-001",
+					category: "healthcare",
+					title: "Medicatie Interactie Check",
+					description:
+						"Analyseert medicatie interacties volgens Nederlandse richtlijnen",
+					difficulty: "advanced",
+					variables: [
+						{
+							key: "MEDICATION_LIST",
+							label: "Huidige medicatie",
+							example: "Metformine 1000mg 2x",
+						},
+						{
+							key: "PATIENT_INFO",
+							label: "Patiënt info",
+							example: "72 jaar, man, diabetes",
+						},
+					],
+					template:
+						"Je bent een ziekenhuisapotheker. Analyseer medicatie {{MEDICATION_LIST}} voor patiënt: {{PATIENT_INFO}}.",
+				},
+				// Finance Templates
+				{
+					id: "finance-reconciliation-001",
+					category: "finance",
+					title: "Transactie Reconciliatie",
+					description:
+						"Automatiseert reconciliatieproces volgens Nederlandse boekhoudnormen",
+					difficulty: "intermediate",
+					variables: [
+						{ key: "PERIOD", label: "Periode", example: "Q1 2025" },
+						{
+							key: "ACCOUNT_TYPES",
+							label: "Rekeningen",
+							example: "Bank, Debiteuren",
+						},
+						{ key: "TOTAL_DIFFERENCE", label: "Verschil", example: "€15.750" },
+					],
+					template:
+						"Je bent een financial controller. Reconcilieer {{ACCOUNT_TYPES}} voor {{PERIOD}} met verschil {{TOTAL_DIFFERENCE}}.",
+				},
+				{
+					id: "finance-compliance-001",
+					category: "finance",
+					title: "Compliance Rapportage",
+					description: "Genereert compliance rapporten voor DNB/AFM",
+					difficulty: "advanced",
+					variables: [
+						{
+							key: "ORGANIZATION_TYPE",
+							label: "Type instelling",
+							example: "Bank",
+						},
+						{
+							key: "REGULATORY_FOCUS",
+							label: "Focus gebied",
+							example: "Wwft/AML",
+						},
+					],
+					template:
+						"Je bent een compliance officer voor {{ORGANIZATION_TYPE}}. Genereer rapport voor {{REGULATORY_FOCUS}}.",
+				},
+				// HR Templates
+				{
+					id: "hr-onboarding-001",
+					category: "hr",
+					title: "Onboarding Checklist",
+					description:
+						"Genereert gepersonaliseerde onboarding volgens Nederlandse arbeidswet",
+					difficulty: "beginner",
+					variables: [
+						{
+							key: "EMPLOYEE_NAME",
+							label: "Medewerker naam",
+							example: "Jan de Vries",
+						},
+						{
+							key: "FUNCTION_TITLE",
+							label: "Functie",
+							example: "Senior Developer",
+						},
+						{ key: "DEPARTMENT", label: "Afdeling", example: "IT" },
+					],
+					template:
+						"Creëer onboarding checklist voor {{EMPLOYEE_NAME}} als {{FUNCTION_TITLE}} bij {{DEPARTMENT}}.",
+				},
+				{
+					id: "hr-performance-001",
+					category: "hr",
+					title: "Prestatie Evaluatie",
+					description: "Ondersteunt managers bij constructieve evaluaties",
+					difficulty: "intermediate",
+					variables: [
+						{
+							key: "EMPLOYEE_NAME",
+							label: "Medewerker",
+							example: "Lisa van den Berg",
+						},
+						{ key: "REVIEW_PERIOD", label: "Periode", example: "2024" },
+						{
+							key: "PERFORMANCE_HIGHLIGHTS",
+							label: "Prestaties",
+							example: "Project X succesvol",
+						},
+					],
+					template:
+						"Evalueer {{EMPLOYEE_NAME}} voor periode {{REVIEW_PERIOD}}. Highlights: {{PERFORMANCE_HIGHLIGHTS}}.",
+				},
+				// Operations Templates
+				{
+					id: "operations-process-001",
+					category: "operations",
+					title: "Proces Optimalisatie",
+					description: "Analyseert processen met Lean Six Sigma methodologie",
+					difficulty: "intermediate",
+					variables: [
+						{
+							key: "PROCESS_NAME",
+							label: "Proces naam",
+							example: "Order-to-Cash",
+						},
+						{ key: "CYCLE_TIME", label: "Doorlooptijd", example: "5 dagen" },
+						{
+							key: "PAIN_POINTS",
+							label: "Knelpunten",
+							example: "Vertragingen, fouten",
+						},
+					],
+					template:
+						"Analyseer {{PROCESS_NAME}} proces met {{CYCLE_TIME}} doorlooptijd. Knelpunten: {{PAIN_POINTS}}.",
+				},
+				{
+					id: "operations-scheduling-001",
+					category: "operations",
+					title: "Rooster Planning",
+					description: "Optimaliseert roosters volgens CAO en ATW",
+					difficulty: "advanced",
+					variables: [
+						{ key: "DEPARTMENT", label: "Afdeling", example: "ICU" },
+						{
+							key: "TEAM_SIZE",
+							label: "Team grootte",
+							example: "42 verpleegkundigen",
+						},
+						{ key: "COVERAGE_NEEDS", label: "Bezetting", example: "24/7" },
+					],
+					template:
+						"Creëer rooster voor {{DEPARTMENT}} met {{TEAM_SIZE}} voor {{COVERAGE_NEEDS}} bezetting.",
+				},
+				// General Template
+				{
+					id: "general-summarizer-001",
+					category: "general",
+					title: "Document Samenvatting",
+					description:
+						"Genereert gestructureerde samenvattingen voor executives",
+					difficulty: "beginner",
+					variables: [
+						{
+							key: "DOCUMENT_TYPE",
+							label: "Document type",
+							example: "Onderzoeksrapport",
+						},
+						{
+							key: "TARGET_LENGTH",
+							label: "Gewenste lengte",
+							example: "1 pagina",
+						},
+						{ key: "TARGET_AUDIENCE", label: "Doelgroep", example: "Directie" },
+					],
+					template:
+						"Vat {{DOCUMENT_TYPE}} samen voor {{TARGET_AUDIENCE}} in {{TARGET_LENGTH}}.",
+				},
+			];
+
+			let selectedTemplate = null;
+			let currentCategory = "all";
+
+			// Template library now opens in separate page - this function is deprecated
+			function openTemplateLibrary() {
+				return; // Disabled - using separate page
+				const modal = document.getElementById("templateLibraryModal");
+				modal.style.display = "flex";
+				loadTemplates();
+			}
+
+			function closeTemplateLibrary() {
+				const modal = document.getElementById("templateLibraryModal");
+				modal.style.display = "none";
+				selectedTemplate = null;
+				const preview = document.getElementById("templatePreview");
+				if (preview) preview.style.display = "none";
+			}
+
+			function loadTemplates() {
+				const grid = document.getElementById("templateGrid");
+				const filteredTemplates =
+					currentCategory === "all"
+						? templateLibraryData
+						: templateLibraryData.filter((t) => t.category === currentCategory);
+
+				grid.innerHTML = filteredTemplates
+					.map(
+						(template) => `
+					<div class="template-card" onclick="selectTemplate('${
+						template.id
+					}')" data-id="${template.id}">
+						<span class="difficulty-badge difficulty-${template.difficulty}">
+							${
+								template.difficulty === "beginner"
+									? "Beginner"
+									: template.difficulty === "intermediate"
+									? "Gemiddeld"
+									: "Gevorderd"
+							}
+						</span>
+						<h4 style="color: #fbbf24; margin-bottom: 0.5rem;">${template.title}</h4>
+						<p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">${
+							template.description
+						}</p>
+						<div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+							${template.variables
+								.map(
+									(v) =>
+										`<span style="background: rgba(59, 130, 246, 0.2); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; color: #60a5fa;">${v.label}</span>`
+								)
+								.join("")}
+						</div>
+					</div>
+				`
+					)
+					.join("");
+			}
+
+			function filterByCategory(category, event) {
+				currentCategory = category;
+
+				// Update button states
+				document.querySelectorAll(".filter-btn").forEach((btn) => {
+					btn.classList.remove("active");
+				});
+				event.target.classList.add("active");
+
+				loadTemplates();
+			}
+
+			function searchTemplates() {
+				const searchTerm = document
+					.getElementById("templateSearch")
+					.value.toLowerCase();
+				const grid = document.getElementById("templateGrid");
+
+				const filtered = templateLibraryData.filter(
+					(template) =>
+						template.title.toLowerCase().includes(searchTerm) ||
+						template.description.toLowerCase().includes(searchTerm)
+				);
+
+				grid.innerHTML = filtered
+					.map(
+						(template) => `
+					<div class="template-card" onclick="selectTemplate('${
+						template.id
+					}')" data-id="${template.id}">
+						<span class="difficulty-badge difficulty-${template.difficulty}">
+							${
+								template.difficulty === "beginner"
+									? "Beginner"
+									: template.difficulty === "intermediate"
+									? "Gemiddeld"
+									: "Gevorderd"
+							}
+						</span>
+						<h4 style="color: #fbbf24; margin-bottom: 0.5rem;">${template.title}</h4>
+						<p style="color: #9ca3af; font-size: 0.9rem; margin-bottom: 1rem;">${
+							template.description
+						}</p>
+						<div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+							${template.variables
+								.map(
+									(v) =>
+										`<span style="background: rgba(59, 130, 246, 0.2); padding: 0.25rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; color: #60a5fa;">${v.label}</span>`
+								)
+								.join("")}
+						</div>
+					</div>
+				`
+					)
+					.join("");
+			}
+
+			function selectTemplate(templateId) {
+				selectedTemplate = templateLibraryData.find((t) => t.id === templateId);
+
+				// Update visual selection
+				document.querySelectorAll(".template-card").forEach((card) => {
+					card.classList.remove("selected");
+				});
+				const selectedCard = document.querySelector(
+					`[data-id="${templateId}"]`
+				);
+				if (selectedCard) selectedCard.classList.add("selected");
+
+				// Show preview
+				const preview = document.getElementById("templatePreview");
+				const previewContent = document.getElementById("previewContent");
+
+				if (preview && previewContent && selectedTemplate) {
+					previewContent.innerHTML = `
+						<h4 style="color: #60a5fa;">${selectedTemplate.title}</h4>
+						<p style="color: #9ca3af; margin: 1rem 0;">${selectedTemplate.description}</p>
+						<div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 0.5rem; margin: 1rem 0;">
+							<h5 style="color: #fbbf24; margin-bottom: 0.5rem;">Variabelen:</h5>
+							${selectedTemplate.variables
+								.map(
+									(v) =>
+										`<div style="margin-bottom: 0.5rem;">
+									<strong style="color: #60a5fa;">${v.label}:</strong>
+									<span style="color: #9ca3af;"> Bijvoorbeeld: ${v.example}</span>
+								</div>`
+								)
+								.join("")}
+						</div>
+						<div style="background: rgba(34, 197, 94, 0.1); padding: 1rem; border-radius: 0.5rem;">
+							<p style="color: #22c55e;">✅ Deze template geeft je een bewezen structuur die je kunt aanpassen aan jullie specifieke situatie.</p>
+						</div>
+					`;
+
+					preview.style.display = "block";
+				}
+			}
+
+			function useTemplate() {
+				if (!selectedTemplate) return;
+
+				// Close template library modal
+				closeTemplateLibrary();
+
+				// Open variable input modal
+				const variableModal = document.getElementById("variableModal");
+				if (variableModal) {
+					variableModal.style.display = "flex";
+
+					// Generate variable input fields
+					const variableInputs = document.getElementById("variableInputs");
+					if (variableInputs) {
+						variableInputs.innerHTML = selectedTemplate.variables
+							.map(
+								(v) => `
+							<div class="variable-input-group">
+								<label for="var_${v.key}">${v.label}</label>
+								<input type="text" id="var_${v.key}" placeholder="${v.example}" data-key="${v.key}">
+								<small>Bijvoorbeeld: ${v.example}</small>
+							</div>
+						`
+							)
+							.join("");
+					}
+				}
+			}
+
+			function closeVariableModal() {
+				const modal = document.getElementById("variableModal");
+				if (modal) modal.style.display = "none";
+			}
+
+			function applyVariables() {
+				if (!selectedTemplate) return;
+
+				let finalTemplate = selectedTemplate.template;
+
+				// Replace variables with user input
+				selectedTemplate.variables.forEach((v) => {
+					const input = document.getElementById(`var_${v.key}`);
+					if (input) {
+						const value = input.value || v.example;
+						finalTemplate = finalTemplate.replace(
+							new RegExp(`{{${v.key}}}`, "g"),
+							value
+						);
+					}
+				});
+
+				// Show success message
+				showAlert(
+					`✅ Template '${selectedTemplate.title}' is klaar voor gebruik!`,
+					"success"
+				);
+
+				// Copy to clipboard
+				navigator.clipboard
+					.writeText(finalTemplate)
+					.then(() => {
+						showAlert("📋 Template gekopieerd naar klembord!", "info");
+					})
+					.catch((err) => {
+						console.error("Failed to copy to clipboard:", err);
+					});
+
+				// Close modal
+				closeVariableModal();
+
+				// Increment solution counter
+				addSolution();
+			}
+
 			// Initialize the excellence application
 			document.addEventListener("DOMContentLoaded", function () {
 				console.log("Excellence Sprint Handboek succesvol geladen!");
 				loadModuleContent("room-setup");
-				
+
 				// Initialize timer for default module
 				const initialModuleTime = moduleTimings[currentModule];
 				if (initialModuleTime && initialModuleTime > 0) {
@@ -2373,15 +3497,418 @@
 					timer.minutes = initialModuleTime;
 					timer.seconds = 0;
 					timer.totalSeconds = 0;
-					console.log(`Initiële timer ingesteld op ${initialModuleTime} minuten voor module: ${currentModule}`);
+					console.log(
+						`Initiële timer ingesteld op ${initialModuleTime} minuten voor module: ${currentModule}`
+					);
 				}
-				
+
 				// Initialize timer display
 				updateTimerDisplay();
-				
+
 				// Add cleanup on page unload (prevent memory leaks)
-				window.addEventListener('beforeunload', cleanup);
+				window.addEventListener("beforeunload", cleanup);
 			});
+
+			// Certificate Generation Functions
+			function openCertificateModal() {
+				document.getElementById("certificateModal").style.display = "block";
+				document.body.style.overflow = "hidden";
+			}
+
+			function closeCertificateModal() {
+				document.getElementById("certificateModal").style.display = "none";
+				document.body.style.overflow = "auto";
+
+				// Reset form
+				document.getElementById("certificateForm").reset();
+			}
+
+			function generateCertificatePDF(event) {
+				event.preventDefault();
+
+				const firstName = document.getElementById("firstName").value.trim();
+				const lastName = document.getElementById("lastName").value.trim();
+
+				if (!firstName || !lastName) {
+					alert("Vul alstublieft beide naam velden in.");
+					return;
+				}
+
+				const fullName = `${firstName} ${lastName}`;
+				const generateBtn = document.getElementById("generateBtn");
+
+				// Show loading state
+				generateBtn.disabled = true;
+				generateBtn.textContent = "Certificaat wordt gegenereerd...";
+
+				try {
+					// Create PDF using jsPDF
+					const { jsPDF } = window.jspdf;
+					const doc = new jsPDF("landscape", "mm", "a4");
+
+					// Set document properties
+					doc.setProperties({
+						title: "Excellence Sprint Certificaat",
+						subject: "Workshop Completion Certificate",
+						author: "TH Business Data Solutions",
+						creator: "Excellence Sprint Platform by TH Business Data Solutions",
+					});
+
+					// White background
+					doc.setFillColor(255, 255, 255);
+					doc.rect(0, 0, 297, 210, "F");
+
+					// Gold gradient border effect - outer border
+					doc.setFillColor(251, 191, 36);
+					doc.rect(10, 10, 277, 190, "F");
+
+					// Inner white certificate area
+					doc.setFillColor(255, 255, 255);
+					doc.rect(15, 15, 267, 180, "F");
+
+					// Decorative double border
+					doc.setLineWidth(2);
+					doc.setDrawColor(251, 191, 36);
+					doc.rect(15, 15, 267, 180);
+					doc.setLineWidth(0.5);
+					doc.rect(20, 20, 257, 170);
+
+					// Top decorative line
+					doc.setLineWidth(1);
+					doc.line(40, 50, 257, 50);
+
+					// Title - BEKWAAMHEID CERTIFICAAT (without emoji)
+					doc.setFontSize(32);
+					doc.setTextColor(30, 64, 175);
+					doc.setFont("helvetica", "bold");
+					doc.text("BEKWAAMHEID CERTIFICAAT", 148.5, 40, { align: "center" });
+
+					// Subtitle
+					doc.setFontSize(18);
+					doc.setTextColor(75, 85, 99);
+					doc.setFont("helvetica", "normal");
+					doc.text("Excellence Sprint Workshop", 148.5, 60, {
+						align: "center",
+					});
+
+					// Decorative line below subtitle
+					doc.setDrawColor(251, 191, 36);
+					doc.setLineWidth(0.5);
+					doc.line(100, 65, 197, 65);
+
+					// Certificate text
+					doc.setFontSize(14);
+					doc.setTextColor(31, 41, 55);
+					doc.setFont("helvetica", "normal");
+					doc.text("Dit certificeert dat", 148.5, 85, { align: "center" });
+
+					// Participant name with underline
+					doc.setFontSize(26);
+					doc.setTextColor(0, 0, 0);
+					doc.setFont("helvetica", "bold");
+					doc.text(fullName, 148.5, 105, { align: "center" });
+
+					// Decorative underline for name
+					const nameWidth = doc.getTextWidth(fullName);
+					const nameX = 148.5 - nameWidth / 2;
+					doc.setDrawColor(251, 191, 36);
+					doc.setLineWidth(1);
+					doc.line(nameX - 10, 110, nameX + nameWidth + 10, 110);
+
+					// Achievement text
+					doc.setFontSize(13);
+					doc.setTextColor(55, 65, 81);
+					doc.setFont("helvetica", "normal");
+
+					const achievementText = [
+						"met succes de Excellence Sprint Workshop heeft voltooid en hiermee",
+						"de vaardigheden heeft verworven om AI-versterkte oplossingen te ontwikkelen",
+						"die organisatorische bekwaamheid en innovatie bevorderen",
+					];
+
+					achievementText.forEach((line, index) => {
+						doc.text(line, 148.5, 125 + index * 8, { align: "center" });
+					});
+
+					// Quote section with better formatting
+					doc.setFontSize(14);
+					doc.setTextColor(59, 130, 246);
+					doc.setFont("helvetica", "italic");
+					doc.text("Van consument naar creator in 3,5 uur", 148.5, 155, {
+						align: "center",
+					});
+
+					// Date and location
+					doc.setFontSize(11);
+					doc.setTextColor(107, 114, 128);
+					doc.setFont("helvetica", "normal");
+					const completionDate = new Date().toLocaleDateString("nl-NL", {
+						year: "numeric",
+						month: "long",
+						day: "numeric",
+					});
+					doc.text(`Uitgereikt op ${completionDate}`, 148.5, 170, {
+						align: "center",
+					});
+
+					// Footer with company branding
+					doc.setDrawColor(200, 200, 200);
+					doc.setLineWidth(0.5);
+					doc.line(40, 175, 257, 175);
+
+					doc.setFontSize(10);
+					doc.setTextColor(100, 100, 100);
+					doc.setFont("helvetica", "normal");
+					doc.text("Excellence Sprint Programme", 80, 183, { align: "center" });
+					doc.text("Powered by TH Business Data Solutions", 217, 183, {
+						align: "center",
+					});
+
+					// Small company tagline at bottom
+					doc.setFontSize(9);
+					doc.setTextColor(150, 150, 150);
+					doc.setFont("helvetica", "italic");
+					doc.text(
+						"Empowering organizations through data-driven excellence",
+						148.5,
+						189,
+						{ align: "center" }
+					);
+
+					// Generate filename without special characters
+					const safeDate = completionDate
+						.replace(/\s+/g, "-")
+						.replace(/[^\w\-]/g, "");
+					const filename = `Excellence-Sprint-Certificaat-${firstName}-${lastName}-${safeDate}.pdf`;
+
+					// Save the PDF
+					doc.save(filename);
+
+					// Success feedback
+					setTimeout(() => {
+						alert(`Certificaat succesvol gegenereerd voor ${fullName}!`);
+						closeCertificateModal();
+					}, 500);
+				} catch (error) {
+					console.error("PDF Generation Error:", error);
+					alert(
+						"Er is een fout opgetreden bij het genereren van het certificaat. Probeer het opnieuw."
+					);
+				} finally {
+					// Reset button state
+					generateBtn.disabled = false;
+					generateBtn.textContent = "Certificaat Genereren";
+				}
+			}
+
+			// Close modal when clicking outside
+			window.onclick = function (event) {
+				const modal = document.getElementById("certificateModal");
+				if (event.target === modal) {
+					closeCertificateModal();
+				}
+			};
 		</script>
+
+		<!-- Certificate Generation Modal -->
+		<div id="certificateModal" class="modal">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h2>🏅 Genereer Uw Excellence Certificaat</h2>
+					<span class="close" onclick="closeCertificateModal()">&times;</span>
+				</div>
+				<div class="modal-body">
+					<form id="certificateForm" onsubmit="generateCertificatePDF(event)">
+						<label for="firstName">Voornaam:</label>
+						<input
+							type="text"
+							id="firstName"
+							required
+							placeholder="Bijv. Jan"
+						/>
+
+						<label for="lastName">Achternaam:</label>
+						<input
+							type="text"
+							id="lastName"
+							required
+							placeholder="Bijv. de Vries"
+						/>
+
+						<button type="submit" id="generateBtn">
+							Certificaat Genereren
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- Template Library Modal (Disabled - using separate page instead) -->
+		<div
+			id="templateLibraryModal"
+			class="modal"
+			style="display: none !important"
+		>
+			<div class="modal-content" style="max-width: 1200px; width: 90%">
+				<div class="modal-header">
+					<h2>📚 Template Library - Kies een Startpunt</h2>
+					<span class="close" onclick="closeTemplateLibrary()">&times;</span>
+				</div>
+				<div class="modal-body">
+					<!-- Search and Filter Bar -->
+					<div
+						class="template-controls"
+						style="
+							display: flex;
+							gap: 1rem;
+							margin-bottom: 1.5rem;
+							flex-wrap: wrap;
+						"
+					>
+						<input
+							type="text"
+							id="templateSearch"
+							placeholder="Zoek templates..."
+							style="
+								flex: 1;
+								min-width: 200px;
+								padding: 0.75rem;
+								border: 1px solid #374151;
+								border-radius: 0.5rem;
+								background: #1f2937;
+								color: white;
+							"
+							onkeyup="searchTemplates()"
+						/>
+						<div
+							class="category-filters"
+							style="display: flex; gap: 0.5rem; flex-wrap: wrap"
+						>
+							<button
+								class="filter-btn active"
+								data-category="all"
+								onclick="filterByCategory('all', event)"
+							>
+								Alle
+							</button>
+							<button
+								class="filter-btn"
+								data-category="healthcare"
+								onclick="filterByCategory('healthcare', event)"
+							>
+								🏥 Zorg
+							</button>
+							<button
+								class="filter-btn"
+								data-category="finance"
+								onclick="filterByCategory('finance', event)"
+							>
+								💰 Finance
+							</button>
+							<button
+								class="filter-btn"
+								data-category="hr"
+								onclick="filterByCategory('hr', event)"
+							>
+								👥 HR
+							</button>
+							<button
+								class="filter-btn"
+								data-category="operations"
+								onclick="filterByCategory('operations', event)"
+							>
+								⚙️ Operations
+							</button>
+							<button
+								class="filter-btn"
+								data-category="general"
+								onclick="filterByCategory('general', event)"
+							>
+								📊 Algemeen
+							</button>
+						</div>
+					</div>
+
+					<!-- Template Grid -->
+					<div
+						id="templateGrid"
+						style="
+							display: grid;
+							grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+							gap: 1.5rem;
+							margin-bottom: 2rem;
+						"
+					>
+						<!-- Templates will be loaded here dynamically -->
+					</div>
+
+					<!-- Template Preview Panel -->
+					<div
+						id="templatePreview"
+						style="
+							display: none;
+							background: rgba(0, 0, 0, 0.4);
+							border-radius: 0.5rem;
+							padding: 1.5rem;
+							margin-top: 1rem;
+						"
+					>
+						<h3 style="color: #fbbf24; margin-bottom: 1rem">
+							Template Preview
+						</h3>
+						<div id="previewContent">
+							<!-- Preview content will be shown here -->
+						</div>
+						<button
+							onclick="useTemplate()"
+							style="
+								margin-top: 1rem;
+								background: linear-gradient(135deg, #22c55e, #16a34a);
+								color: white;
+								border: none;
+								padding: 0.75rem 1.5rem;
+								border-radius: 0.5rem;
+								cursor: pointer;
+							"
+						>
+							Gebruik Deze Template
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Variable Input Modal -->
+		<div id="variableModal" class="modal">
+			<div class="modal-content" style="max-width: 600px">
+				<div class="modal-header">
+					<h2>✏️ Pas Template Aan</h2>
+					<span class="close" onclick="closeVariableModal()">&times;</span>
+				</div>
+				<div class="modal-body">
+					<p style="margin-bottom: 1rem">
+						Vul de variabelen in voor uw specifieke situatie:
+					</p>
+					<div id="variableInputs">
+						<!-- Variable input fields will be generated here -->
+					</div>
+					<button
+						onclick="applyVariables()"
+						style="
+							margin-top: 1.5rem;
+							width: 100%;
+							background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+							color: white;
+							border: none;
+							padding: 1rem;
+							border-radius: 0.5rem;
+							cursor: pointer;
+						"
+					>
+						Pas Template Toe
+					</button>
+				</div>
+			</div>
+		</div>
 	</body>
 </html>
